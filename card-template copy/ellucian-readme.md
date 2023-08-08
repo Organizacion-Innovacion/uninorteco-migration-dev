@@ -19,7 +19,7 @@ cp sample.env .env
 ```
 
 For Windows based systems:
-//
+
 ```
 copy sample.env .env
 ```

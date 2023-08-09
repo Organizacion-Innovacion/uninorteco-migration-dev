@@ -1,1 +1,0 @@
-Place here all generic components used in all parts of the project.

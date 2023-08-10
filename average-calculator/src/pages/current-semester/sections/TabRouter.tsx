@@ -1,6 +1,6 @@
 import React from "react";
-import { FinalGrade } from "./components/FinalGrade";
-import { HowMuch } from "./components/HowMuch";
+import { FinalGrade } from "./FinalGrade";
+import { HowMuch } from "./HowMuch";
 
 export interface TabRouterProps {
   index: number;

@@ -8,7 +8,7 @@ import {
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { usePageControl } from "@ellucian/experience-extension-utils";
-import { TabRouter } from "./TabRouter";
+import { TabRouter } from "./sections/TabRouter";
 
 // set up a context to help to identify the log messages
 

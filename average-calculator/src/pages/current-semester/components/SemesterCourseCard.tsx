@@ -6,6 +6,8 @@ import {
   makeStyles,
 } from "@ellucian/react-design-system/core";
 import { Icon } from "@ellucian/ds-icons/lib";
+// import { usePageControl, usePageInfo } from "@ellucian/experience-extension-utils";
+import { usePageInfo } from "@ellucian/experience-extension-utils";
 import { SemesterCourse } from "../../../core/entities/semester";
 import { Stack } from "../../../components/Stack";
 
@@ -31,6 +33,10 @@ export function SemesterCourseCard({
 }: SemesterCourseCardProps) {
   const classes = useStyles();
 
+  const { basePath } = usePageInfo();
+  // const { navigateToPage } = usePageControl();
+  // onClick={() => navigateToPage({ route: `/courses/${semesterCourse.id}` })}
+
   const handleChange = (data: number | null) => {
     console.log(data);
 
@@ -48,23 +54,22 @@ export function SemesterCourseCard({
         <Typography variant="body2" color="textSecondary" sx={{ mb: 3 }}>
           Creditos: {semesterCourse.credits}
         </Typography>
-        <Stack
-          sx={{
-            alignItems: "center",
-            flexDirection: "row",
-            cursor: "pointer",
-            width: "fit-content",
-          }}
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          sx={{ display: "flex", alignItems: "center", width: "fit-content" }}
+          component="a"
+          href={`${basePath}courses/${semesterCourse.id}`}
+          target="_self"
+          style={{ textDecoration: "none" }}
         >
-          <Typography variant="body2" color="textSecondary" sx={{ mr: 1 }}>
-            Ver parcelación
-          </Typography>
+          Ver parcelación
           <Icon
             name="chevron-right"
             className={classes.iconStyles}
-            style={{ width: 14, height: 14 }}
+            style={{ width: 14, height: 14, marginLeft: "0.25rem" }}
           />
-        </Stack>
+        </Typography>
       </Stack>
       <div style={{ width: 100 }}>
         <TextField

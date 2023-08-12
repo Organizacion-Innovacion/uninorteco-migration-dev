@@ -3,25 +3,51 @@ import { Course } from "../entities/course";
 import { ICalculatorRepository } from "./repo.definition";
 import { APIError, ErrorCode } from "../common/errors";
 
+export interface InMemoryCalculatorRepositoryOptions {
+  responseDelay?: number;
+}
+
+type Options = Required<InMemoryCalculatorRepositoryOptions>;
+
+async function sleep(time: number) {
+  // eslint-disable-next-line no-promise-executor-return
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 export class InMemoryCalculatorRepository implements ICalculatorRepository {
-  private courses: Course[];
+  private readonly options: Options = {
+    responseDelay: 1000,
+  };
 
-  private semester: AcademicSemester;
-
-  constructor(courses: Course[], semester: AcademicSemester) {
-    this.courses = courses;
-    this.semester = semester;
+  constructor(
+    private readonly data: { [key: string]: any },
+    private readonly repoOptions: InMemoryCalculatorRepositoryOptions = {}
+  ) {
+    this.options = { ...this.options, ...repoOptions };
   }
 
-  getCurrentAcademicSemester(): Promise<AcademicSemester> {
-    return Promise.resolve(this.semester);
+  async getCurrentAcademicSemester(): Promise<AcademicSemester> {
+    await sleep(this.options.responseDelay);
+    const { statusCode } = this.data;
+    if (statusCode !== 200) {
+      throw new APIError(this.data.error, ErrorCode.INVALID_OPERATION);
+    }
+
+    const { semester } = this.data;
+    return Promise.resolve(semester);
   }
 
-  getCourse(courseIdentifier: string): Promise<Course> {
-    const course = this.courses.find((c) => c.id === courseIdentifier);
+  async getCourse(courseIdentifier: string): Promise<Course> {
+    await sleep(this.options.responseDelay);
+    const { statusCode } = this.data;
+    if (statusCode !== 200) {
+      throw new APIError(this.data.error, ErrorCode.INVALID_OPERATION);
+    }
 
+    const courses = this.data.courses as Course[];
+    const course = courses.find((c) => c.id === courseIdentifier);
     if (!course) {
-      throw new APIError("Course not found", ErrorCode.NOT_FOUND);
+      throw new APIError("El curso no fue encontrado", ErrorCode.NOT_FOUND);
     }
 
     return Promise.resolve(course);

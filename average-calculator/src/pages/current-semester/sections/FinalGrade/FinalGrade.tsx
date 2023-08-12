@@ -3,10 +3,16 @@ import { SemesterCourseCard } from "../../components/SemesterCourseCard";
 import { Box } from "../../../../components/Box";
 import { FinalResultCard } from "../../components/FinalResultCard";
 import { useFinalGrade } from "./useFinalGrade";
+import { AcademicSemester } from "../../../../core/entities/semester";
 
-export function FinalGrade() {
-  const { academicSemester, semesterAverage, onGradeChange, totalCredits } =
-    useFinalGrade();
+export interface FinalGradeProps {
+  academicSemester: AcademicSemester;
+}
+
+export function FinalGrade({ academicSemester }: FinalGradeProps) {
+  const { courses, semesterAverage, onGradeChange, totalCredits } = useFinalGrade({
+    academicSemester,
+  });
 
   return (
     <>
@@ -20,7 +26,7 @@ export function FinalGrade() {
           gap: 2,
         }}
       >
-        {academicSemester.courses.map((course) => (
+        {courses.map((course) => (
           <SemesterCourseCard
             key={course.id}
             semesterCourse={course}

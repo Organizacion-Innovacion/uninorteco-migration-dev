@@ -9,11 +9,9 @@ type RepositoryOptions = "InMemory";
 
 function getRepository(name: RepositoryOptions): ICalculatorRepository {
   if (name === "InMemory") {
-    const {
-      semester,
-      courses,
-    } = require(`../../../fake-data/${APP_ENV_VARS.fakeDataFileName}.json`);
-    return new InMemoryCalculatorRepository(courses, semester);
+    const data = require(`../../../fake-data/${APP_ENV_VARS.fakeDataFileName}.json`);
+    const delay = data.delay ?? 1000;
+    return new InMemoryCalculatorRepository(data, { responseDelay: delay });
   }
   throw new Error("Repository not found");
 }

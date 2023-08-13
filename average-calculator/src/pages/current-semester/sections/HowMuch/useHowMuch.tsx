@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import { usePageControl } from "@ellucian/experience-extension-utils";
 import { AppLogger } from "../../../../core/config/logger";
-import { AcademicSemester, SemesterCourse } from "../../../../core/entities/semester";
+import { AcademicSemester } from "../../../../core/entities/semester";
 import {
   computeFinalGradeOfSemester,
   computeNeededGradeForSemester,
   replaceGradeOfUnLockedCourses,
 } from "../../../../core/domain-logic/semester-algorithms";
-import { InvalidInputError, DomainError } from "../../../../core/common/errors";
+import { InvalidInputError } from "../../../../core/common/errors";
+import { useSemesterCourses } from "../../hooks/useSemesterCourses";
 
-const myLogger = AppLogger.getAppLogger().createContextLogger("sp-how-much-courses");
+const myLogger = AppLogger.getAppLogger().createContextLogger("how-much-hook");
 
 export interface UseHowMuch {
   academicSemester: AcademicSemester;
@@ -21,15 +21,15 @@ export interface ErrorSnackbarOptions {
 }
 
 export function useHowMuch({ academicSemester }: UseHowMuch) {
-  const [courses, setCourses] = useState<SemesterCourse[]>([]);
   const [semesterAverage, setSemesterAverage] = useState<number>(0);
+  const { courses, onGradeChange, setCourses } = useSemesterCourses({
+    academicSemester,
+  });
   const [errorSnackbarOptions, setErrorSnackbarOptions] =
     useState<ErrorSnackbarOptions>({
       open: false,
       message: "",
     });
-
-  const { setErrorMessage } = usePageControl();
 
   const onCloseSnackbar = () => {
     setErrorSnackbarOptions({
@@ -67,19 +67,8 @@ export function useHowMuch({ academicSemester }: UseHowMuch) {
     setSemesterAverage(grade);
   };
 
-  const onGradeChange = (id: string, grade: number) => {
-    myLogger.debug("grade changed", { id, grade });
-    const newCourses = courses.map((course) => {
-      if (course.id === id) {
-        return { ...course, grade };
-      }
-      return course;
-    });
-    setCourses(newCourses);
-  };
-
   const onLockIconPress = (id: string) => {
-    myLogger.info(`lock icon pressed for course ${id}`);
+    myLogger.info("lock icon pressed", { courseId: id });
     const newCourses = courses.map((course) => {
       if (course.id === id) {
         return { ...course, isLocked: !course.isLocked };
@@ -90,29 +79,14 @@ export function useHowMuch({ academicSemester }: UseHowMuch) {
   };
 
   useEffect(() => {
-    setCourses(academicSemester.courses);
-    try {
-      const avg = computeFinalGradeOfSemester({
-        courses: academicSemester.courses,
-        name: "",
-      });
-      setSemesterAverage(avg);
-    } catch (error) {
-      if (error instanceof DomainError) {
-        myLogger.error("error computing semester average", {
-          errorMessage: error.message,
-          errorCode: error.errorCode,
-        });
-        setErrorMessage({
-          headerMessage: "Lo sentimos",
-          textMessage: error.userMessage,
-          iconName: "error",
-          iconColor: "red",
-        });
-      }
-    }
-    // setErrorMessage is a set state function, eslint doesn't know that
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    myLogger.debug("computing final grade of semester", {
+      coursesGrades: academicSemester.courses.map(
+        (course) => `${course.name}: ${course.grade}`
+      ),
+    });
+    const avg = computeFinalGradeOfSemester(academicSemester);
+    myLogger.debug("final grade of semester", { avg });
+    setSemesterAverage(avg);
   }, [academicSemester]);
 
   return {

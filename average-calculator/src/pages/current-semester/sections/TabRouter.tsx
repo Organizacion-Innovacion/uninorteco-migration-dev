@@ -1,7 +1,7 @@
 import React from "react";
 import { FinalGrade } from "./FinalGrade";
 import { HowMuch } from "./HowMuch";
-import { useAcademicSemester } from "./hooks/useAcademicSemester";
+import { useAcademicSemester } from "../hooks/useAcademicSemester";
 
 export interface TabRouterProps {
   index: number;

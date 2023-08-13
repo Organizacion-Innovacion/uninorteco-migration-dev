@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { usePageControl } from "@ellucian/experience-extension-utils";
-import { AppLogger } from "../../../../core/config/logger";
-import { calculatorRepository } from "../../../../core/repositories/repository-factory";
-import { AcademicSemester } from "../../../../core/entities/semester";
-import { APIError } from "../../../../core/common/errors";
+import { AppLogger } from "../../../core/config/logger";
+import { calculatorRepository } from "../../../core/repositories/repository-factory";
+import { AcademicSemester } from "../../../core/entities/semester";
+import { APIError } from "../../../core/common/errors";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("academic-semester-hook");
 

@@ -6,25 +6,25 @@
             {
                 "id": "matematica-1",
                 "name": "Matemática 1",
-                "grade": 1.6,
+                "grade": 3.2,
                 "credits": 4,
-                "wasEvaluated": false,
+                "wasEvaluated": true,
                 "isLocked": true
             },
             {
                 "id": "fisica-1",
                 "name": "Física 1",
-                "grade": 2.5,
+                "grade": 4.5,
                 "credits": 4,
-                "wasEvaluated": false,
+                "wasEvaluated": true,
                 "isLocked": true
             },
             {
                 "id": "introduccion-a-la-ingenieria",
                 "name": "Introducción a la Ingeniería",
-                "grade": 3.5,
+                "grade": 2.8,
                 "credits": 2,
-                "wasEvaluated": false,
+                "wasEvaluated": true,
                 "isLocked": true
             },
             {
@@ -32,7 +32,7 @@
                 "name": "Introducción a la Programación",
                 "grade": 3.8,
                 "credits": 3,
-                "wasEvaluated": false,
+                "wasEvaluated": true,
                 "isLocked": true
             }
         ]
@@ -53,17 +53,17 @@
                 {
                     "id": "1",
                     "name": "Parcial 2",
-                    "grade": 0,
+                    "grade": 3.2,
                     "weight": 30,
-                    "wasEvaluated": false,
+                    "wasEvaluated": true,
                     "isLocked": true
                 },
                 {
                     "id": "1",
                     "name": "Parcial 3",
-                    "grade": 0,
+                    "grade": 2.5,
                     "weight": 40,
-                    "wasEvaluated": false,
+                    "wasEvaluated": true,
                     "isLocked": true
                 }
             ]

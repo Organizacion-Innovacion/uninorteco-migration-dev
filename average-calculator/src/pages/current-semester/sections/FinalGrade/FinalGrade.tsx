@@ -1,9 +1,9 @@
 import React from "react";
 import { SemesterCourseCard } from "../../components/SemesterCourseCard";
-import { Box } from "../../../../components/Box";
-import { FinalResultCard } from "../../components/FinalResultCard";
+import { FinalGradeResultCard } from "../../components/FinalGradeResultCard";
 import { useFinalGrade } from "./useFinalGrade";
 import { AcademicSemester } from "../../../../core/entities/semester";
+import { CoursesContainer } from "../../components/CoursesContainer";
 
 export interface FinalGradeProps {
   academicSemester: AcademicSemester;
@@ -16,16 +16,7 @@ export function FinalGrade({ academicSemester }: FinalGradeProps) {
 
   return (
     <>
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: {
-            xs: "repeat(auto-fill, minmax(300px, 1fr))",
-            md: "repeat(auto-fill, minmax(400px, 1fr))",
-          },
-          gap: 2,
-        }}
-      >
+      <CoursesContainer>
         {courses.map((course) => (
           <SemesterCourseCard
             key={course.id}
@@ -33,29 +24,14 @@ export function FinalGrade({ academicSemester }: FinalGradeProps) {
             onGradeChange={onGradeChange}
           />
         ))}
-      </Box>
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: {
-            xs: "repeat(auto-fill, minmax(300px, 1fr))",
-            md: "repeat(auto-fill, minmax(400px, 1fr))",
-          },
-          gap: 2,
-          mt: 16,
-        }}
-      >
-        <FinalResultCard
+      </CoursesContainer>
+      <CoursesContainer sxProps={{ mt: 16 }}>
+        <FinalGradeResultCard
           title="Promedio semestral"
           subtitle={`Créditos: ${totalCredits}`}
           result={semesterAverage}
         />
-        {/* <FinalResultCard
-          title="Promediado acumulado"
-          subtitle="Promediado con este semestre"
-          result={4.8}
-        /> */}
-      </Box>
+      </CoursesContainer>
     </>
   );
 }

@@ -5,7 +5,7 @@ import { AcademicSemester, SemesterCourse } from "../../../../core/entities/seme
 import { computeFinalGradeOfSemester } from "../../../../core/domain-logic/semester-algorithms";
 import { DomainError } from "../../../../core/common/errors";
 
-const myLogger = AppLogger.getAppLogger().createContextLogger("final-grade-courses");
+const myLogger = AppLogger.getAppLogger().createContextLogger("sp-final-grade-courses");
 
 export interface UseFinalGrade {
   academicSemester: AcademicSemester;

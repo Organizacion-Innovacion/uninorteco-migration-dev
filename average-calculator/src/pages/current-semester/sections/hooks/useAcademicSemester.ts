@@ -5,7 +5,7 @@ import { calculatorRepository } from "../../../../core/repositories/repository-f
 import { AcademicSemester } from "../../../../core/entities/semester";
 import { APIError } from "../../../../core/common/errors";
 
-const myLogger = AppLogger.getAppLogger().createContextLogger("final-grade-courses");
+const myLogger = AppLogger.getAppLogger().createContextLogger("academic-semester-hook");
 
 export function useAcademicSemester() {
   const [academicSemester, setAcademicSemester] = useState<AcademicSemester>({

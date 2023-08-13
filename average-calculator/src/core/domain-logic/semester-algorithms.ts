@@ -1,5 +1,5 @@
 import { InvalidInputError } from "../common/errors";
-import { AcademicSemester } from "../entities/semester";
+import { AcademicSemester, SemesterCourse } from "../entities/semester";
 import {
   computeNeededGrade,
   computeWeightedAverage,
@@ -62,4 +62,17 @@ export function computeNeededGradeForSemester(
 
   const roundedNeededGrade = Math.ceil(neededGrade * 10) / 10;
   return roundedNeededGrade;
+}
+
+export function replaceGradeOfUnLockedCourses(
+  courses: SemesterCourse[],
+  grade: number
+) {
+  const newCourses = courses.map((course) => {
+    if (!course.isLocked) {
+      return { ...course, grade };
+    }
+    return course;
+  });
+  return newCourses;
 }

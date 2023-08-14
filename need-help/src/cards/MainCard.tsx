@@ -9,6 +9,7 @@ import { AppLogger } from "../core/config/logger";
 import { withIntl } from "../i18n/ReactIntlProviderWrapper";
 import RequireTextField from "../components/RequiredTextField";
 import DropdownComponent from "../components/DropdownComponent";
+import ButtonComponent from "../components/ButtonComponent";
 
 // setup logger for card
 setupLogger();
@@ -62,12 +63,16 @@ const MainCard: React.FC<MainCardProps> = (props) => {
         degrees={state.degrees}
       />
       <Typography>{intl.formatMessage({ id: "card.label1" })}</Typography>
-      <RequireTextField placeholder={intl.formatMessage({ id: "card.inputText" })} />
+      <RequireTextField customId="TextFieldMultiline" placeholder={intl.formatMessage({ id: "card.inputText" })} />
       <Typography>{intl.formatMessage({ id: "card.label2" })}</Typography>
-      <RequireTextField
+      <RequireTextField customId="TextFieldFullWidth"
         placeholder={intl.formatMessage({ id: "card.inputText2" })}
         multiline
       />
+      <RequireTextField customId="TextFieldExt"
+      placeholder={intl.formatMessage({ id: "card.inputText3" })}
+    />
+    <ButtonComponent textButton={intl.formatMessage({id:"card.button"})}/>
     </div>
   );
 };

@@ -3,5 +3,7 @@
     "card.label1":"Ubicación",
     "card.inputText":"Bloque-piso-salón/oficina",
     "card.label2":"Descripción",
-    "card.inputText2":"Comentarios"
+    "card.inputText2":"Comentarios",
+    "card.inputText3":"Extensión o Teléfono",
+    "card.button":"Enviar"
 }

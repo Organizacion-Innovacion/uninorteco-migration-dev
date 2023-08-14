@@ -7,11 +7,12 @@ import { spacing50 } from "@ellucian/react-design-system/core/styles/tokens";
 interface RequiredTextFieldProps {
   placeholder?: string;
   multiline?: boolean;
+  customId:string;
 }
 
 const RequiredTextField: React.FC<RequiredTextFieldProps> = ({
   placeholder,
-  multiline,
+  multiline,customId
 }) => {
   const [state, updateState] = useState({
     value: "",
@@ -27,23 +28,18 @@ const RequiredTextField: React.FC<RequiredTextFieldProps> = ({
   };
 
   const { value } = state;
-  const customId = multiline
-    ? "TextFieldMultilineExample"
-    : "TextFieldFullWidthExample";
-  const label = placeholder || "Label";
 
   return (
         <TextField
           id={`${customId}_Field`}
-          label={label}
-          name="value"
+          label={placeholder}
+          name={`${customId}_value`}
           onChange={handleChange}
           value={value}
           fullWidth
           multiline={multiline}
           maxCharacters={multiline ? 100 : undefined}
           minRows={multiline ? 5 : undefined}
-          placeholder={`Enter ${multiline ? "up to 100 " : ""}characters`}
           style={{ marginBottom: spacing50 }}
         />
   );

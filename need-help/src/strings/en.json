@@ -3,5 +3,7 @@
     "card.label1": "Location",
     "card.inputText":"Block-level-classroom/office",
     "card.label2":"Description",
-    "card.inputText2":"Comments"
+    "card.inputText2":"Comments",
+    "card.inputText3":"Extension or Phone Number",
+    "card.button":"Send"
 }

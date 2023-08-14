@@ -8,13 +8,6 @@ module.exports = {
       title: "¿Need help?",
       displayCardType: "¿Need help?",
       description: "This is the description of ¿Need help?",
-      pageRoute: {/*
-        route: "/",
-        excludeClickSelectors: ["a"],
-    */},
     },
-  ],
-  page: {
-   // source: "./src/app/App.jsx",
-  },
+  ]
 };

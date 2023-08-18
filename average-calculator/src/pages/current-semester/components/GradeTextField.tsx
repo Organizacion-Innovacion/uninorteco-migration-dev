@@ -22,15 +22,26 @@ export function GradeTextField({
 }: GradeTextFieldProps) {
   const classes = useStyles();
 
+  // If we use onChange, we perform the average calculation on every keystroke
+  // if the user leaves the input empty, we get the last valid value
   const handleChange = (data: number | null) => {
-    console.log(data);
-
-    if (data === null) {
-      onGradeChange(0);
-    } else {
+    if (data !== null) {
       onGradeChange(data);
     }
   };
+
+  // If we use onBlur, we perform the average calculation only when the user leaves the input
+  // if the user leaves the input empty, we get the value before focusing the input
+  // but if the user press enter, we get the last valid value
+
+  /* const onInputOut = (e: React.FocusEvent<HTMLInputElement>) => {
+    const data = e.target.value;
+    const parsedData = parseFloat(data);
+
+    if (!Number.isNaN(parsedData)) {
+      onGradeChange(parsedData);
+    }
+  }; */
 
   return (
     <TextField
@@ -44,8 +55,8 @@ export function GradeTextField({
       size="small"
       InputLabelProps={{ shrink: true }}
       onChange={handleChange}
+      // onBlur={onInputOut}
       value={value}
-      defaultValue={0}
       className={classes.root}
       {...props}
     />

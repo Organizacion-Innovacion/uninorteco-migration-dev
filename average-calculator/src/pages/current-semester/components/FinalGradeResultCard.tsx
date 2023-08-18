@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Typography } from "@ellucian/react-design-system/core";
 import { Stack } from "../../../components/Stack";
 import { BaseCard } from "./BaseCard";
+import { SemestreInfoModal } from "./SemestreInfoModal";
 
 export interface FinalGradeResultCard {
   title: string;
@@ -21,6 +22,12 @@ export function FinalGradeResultCard({
   result,
   precision = 2,
 }: FinalGradeResultCard) {
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   return (
     <BaseCard>
       <Stack sx={{ flexGrow: 1 }}>
@@ -28,7 +35,12 @@ export function FinalGradeResultCard({
         <Typography variant="body2" color="textSecondary" sx={{ mb: 3 }}>
           {subtitle}
         </Typography>
-        <Typography variant="body2" color="textSecondary">
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          onClick={handleOpen}
+          sx={{ cursor: "pointer" }}
+        >
           ¿Qué significa esto?
         </Typography>
       </Stack>
@@ -37,6 +49,7 @@ export function FinalGradeResultCard({
           {numberToString(result, precision)}
         </Typography>
       </Stack>
+      <SemestreInfoModal open={open} setOpen={setOpen} />
     </BaseCard>
   );
 }

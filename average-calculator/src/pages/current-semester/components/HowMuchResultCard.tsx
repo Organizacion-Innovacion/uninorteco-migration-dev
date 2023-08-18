@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Typography } from "@ellucian/react-design-system/core";
 import { Stack } from "../../../components/Stack";
 import { GradeTextField } from "./GradeTextField";
 import { BaseCard } from "./BaseCard";
+import { SemestreInfoModal } from "./SemestreInfoModal";
 
 export interface HowMuchResultCardProps {
   title: string;
@@ -17,6 +18,12 @@ export function HowMuchResultCard({
   value,
   onGradeChange,
 }: HowMuchResultCardProps) {
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   return (
     <BaseCard>
       <Stack sx={{ flexGrow: 1 }}>
@@ -26,13 +33,21 @@ export function HowMuchResultCard({
         <Typography variant="body2" color="textSecondary" sx={{ mb: 3 }}>
           {subtitle}
         </Typography>
-        <Typography variant="body2" color="textSecondary">
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          onClick={handleOpen}
+          sx={{ cursor: "pointer" }}
+        >
           ¿Qué significa esto?
         </Typography>
       </Stack>
       <Stack sx={{ flexDirection: "row" }}>
-        <GradeTextField value={value} onGradeChange={onGradeChange} />
+        <div style={{ width: 70 }}>
+          <GradeTextField value={value} onGradeChange={onGradeChange} />
+        </div>
       </Stack>
+      <SemestreInfoModal open={open} setOpen={setOpen} />
     </BaseCard>
   );
 }

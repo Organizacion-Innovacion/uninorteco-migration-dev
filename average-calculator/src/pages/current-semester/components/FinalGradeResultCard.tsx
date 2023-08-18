@@ -1,6 +1,7 @@
 import React from "react";
-import { Paper, Typography } from "@ellucian/react-design-system/core";
+import { Typography } from "@ellucian/react-design-system/core";
 import { Stack } from "../../../components/Stack";
+import { BaseCard } from "./BaseCard";
 
 export interface FinalGradeResultCard {
   title: string;
@@ -21,15 +22,7 @@ export function FinalGradeResultCard({
   precision = 2,
 }: FinalGradeResultCard) {
   return (
-    <Paper
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        p: 4,
-        alignItems: "center",
-        gap: "1rem",
-      }}
-    >
+    <BaseCard>
       <Stack sx={{ flexGrow: 1 }}>
         <Typography variant="h4">{title}</Typography>
         <Typography variant="body2" color="textSecondary" sx={{ mb: 3 }}>
@@ -44,6 +37,6 @@ export function FinalGradeResultCard({
           {numberToString(result, precision)}
         </Typography>
       </Stack>
-    </Paper>
+    </BaseCard>
   );
 }

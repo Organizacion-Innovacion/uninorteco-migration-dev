@@ -9,7 +9,7 @@ export interface PartialComponent {
   weight: number;
   /** whether the component has been evaluated, which means that the grade is definitive */
   wasEvaluated: boolean;
-  /** If the PartialComponent is locked it will not be considered by the algorithm of 'how much I need'. By default all partial components are locked */
+  /** If the PartialComponent is locked it will not be considered by the algorithm of 'how much I need'. By default all partial components are unlocked */
   isLocked: boolean;
 }
 

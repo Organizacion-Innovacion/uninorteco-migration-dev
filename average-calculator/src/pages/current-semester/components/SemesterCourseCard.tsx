@@ -1,5 +1,5 @@
 import React from "react";
-import { Paper, Typography, makeStyles } from "@ellucian/react-design-system/core";
+import { Typography, makeStyles } from "@ellucian/react-design-system/core";
 import { Icon } from "@ellucian/ds-icons/lib";
 // import { usePageControl, usePageInfo } from "@ellucian/experience-extension-utils";
 import { usePageInfo } from "@ellucian/experience-extension-utils";
@@ -7,6 +7,7 @@ import { SemesterCourse } from "../../../core/entities/semester";
 import { Stack } from "../../../components/Stack";
 import { CardLockButton } from "./lockIconButtons";
 import { GradeTextField } from "./GradeTextField";
+import { BaseCard } from "./BaseCard";
 
 const useStyles = makeStyles((theme: any) => ({
   iconStyles: {
@@ -31,17 +32,10 @@ export function SemesterCourseCard({
   // const { navigateToPage } = usePageControl();
   // onClick={() => navigateToPage({ route: `/courses/${semesterCourse.id}` })}
   const disableTextField = onLockIconPress !== undefined && semesterCourse.isLocked;
+  const bgProps = disableTextField ? { backgroundColor: "#f8f8f8" } : {};
 
   return (
-    <Paper
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        p: 4,
-        alignItems: "center",
-        gap: "1rem",
-      }}
-    >
+    <BaseCard sx={bgProps}>
       <Stack sx={{ flexGrow: 1 }}>
         <Typography variant="h4">{semesterCourse.name}</Typography>
         <Typography variant="body2" color="textSecondary" sx={{ mb: 3 }}>
@@ -79,6 +73,6 @@ export function SemesterCourseCard({
           />
         )}
       </Stack>
-    </Paper>
+    </BaseCard>
   );
 }

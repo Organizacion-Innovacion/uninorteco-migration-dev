@@ -9,7 +9,7 @@ export interface SemesterCourse {
   credits: number;
   /** whether the component has been evaluated, which means that the grade is final */
   wasEvaluated: boolean;
-  /** If the semester course is locked it will not be considered by the algorithm of 'how much I need'. By default all semester courses are locked */
+  /** If the semester course is locked it will not be considered by the algorithm of 'how much I need'. By default all semester courses are unlocked */
   isLocked: boolean;
 }
 

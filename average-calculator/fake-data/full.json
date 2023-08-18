@@ -9,7 +9,7 @@
                 "grade": 3.2,
                 "credits": 4,
                 "wasEvaluated": true,
-                "isLocked": true
+                "isLocked": false
             },
             {
                 "id": "fisica-1",
@@ -17,7 +17,7 @@
                 "grade": 4.5,
                 "credits": 4,
                 "wasEvaluated": true,
-                "isLocked": true
+                "isLocked": false
             },
             {
                 "id": "introduccion-a-la-ingenieria",
@@ -25,7 +25,7 @@
                 "grade": 2.8,
                 "credits": 2,
                 "wasEvaluated": true,
-                "isLocked": true
+                "isLocked": false
             },
             {
                 "id": "introduccion-a-la-programacion",
@@ -33,7 +33,7 @@
                 "grade": 3.8,
                 "credits": 3,
                 "wasEvaluated": true,
-                "isLocked": true
+                "isLocked": false
             }
         ]
     },
@@ -48,7 +48,7 @@
                     "grade": 5,
                     "weight": 30,
                     "wasEvaluated": true,
-                    "isLocked": true
+                    "isLocked": false
                 },
                 {
                     "id": "1",
@@ -56,7 +56,7 @@
                     "grade": 3.2,
                     "weight": 30,
                     "wasEvaluated": true,
-                    "isLocked": true
+                    "isLocked": false
                 },
                 {
                     "id": "1",
@@ -64,7 +64,7 @@
                     "grade": 2.5,
                     "weight": 40,
                     "wasEvaluated": true,
-                    "isLocked": true
+                    "isLocked": false
                 }
             ]
         }

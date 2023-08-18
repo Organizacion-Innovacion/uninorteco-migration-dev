@@ -17,5 +17,6 @@ module.exports = {
   ],
   page: {
     source: "./src/app/App.jsx",
+    backgroundColor: "neutral",
   },
 };

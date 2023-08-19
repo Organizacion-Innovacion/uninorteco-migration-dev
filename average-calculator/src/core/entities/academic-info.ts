@@ -3,4 +3,6 @@ export interface AcademicInfo {
   currentPGA: number;
   /** credits approved so far without consider the current semester */
   creditsSoFar: number;
+  /** total credits of the current semester */
+  currentCredits: number;
 }

@@ -1,4 +1,4 @@
-import { AcademicSemester } from "../entities/semester";
+import { AcademicSemester, SemesterCourse } from "../entities/semester";
 import { Course } from "../entities/course";
 import { ICalculatorRepository } from "./repo.definition";
 import { APIError, ErrorCode } from "../common/errors";
@@ -33,9 +33,14 @@ export class InMemoryCalculatorRepository implements ICalculatorRepository {
     if (statusCode !== 200) {
       throw new APIError(this.data.error, ErrorCode.INVALID_OPERATION);
     }
+    const currentSemester = await this.getCurrentAcademicSemester();
+    const totalCredits = currentSemester.courses.reduce(
+      (acc: number, course: SemesterCourse) => acc + course.credits,
+      0
+    );
 
     const { currentPGA, creditsSoFar } = this.data;
-    return Promise.resolve({ currentPGA, creditsSoFar });
+    return Promise.resolve({ currentPGA, creditsSoFar, currentCredits: totalCredits });
   }
 
   async getCurrentAcademicSemester(): Promise<AcademicSemester> {

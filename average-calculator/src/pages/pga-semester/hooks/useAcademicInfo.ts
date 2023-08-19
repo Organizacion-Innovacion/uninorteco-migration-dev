@@ -10,7 +10,8 @@ const myLogger = AppLogger.getAppLogger().createContextLogger("academic-info-hoo
 export function useAcademicInfo() {
   const [academicInfo, setAcademicInfo] = useState<AcademicInfo>({
     currentPGA: 0,
-    creditsSoFar: 0,
+    creditsSoFar: 1,
+    currentCredits: 1,
   });
 
   const { setLoadingStatus, setErrorMessage } = usePageControl();

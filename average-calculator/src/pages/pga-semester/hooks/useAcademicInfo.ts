@@ -4,6 +4,7 @@ import { AppLogger } from "../../../core/config/logger";
 import { calculatorRepository } from "../../../core/repositories/repository-factory";
 import { APIError } from "../../../core/common/errors";
 import { AcademicInfo } from "../../../core/entities/academic-info";
+import { usePageFatalError } from "../../../hooks/usePageFatalError";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("academic-info-hook");
 
@@ -14,7 +15,8 @@ export function useAcademicInfo() {
     currentCredits: 1,
   });
 
-  const { setLoadingStatus, setErrorMessage } = usePageControl();
+  const { setLoadingStatus } = usePageControl();
+  const { setFatalError } = usePageFatalError();
 
   const loadAcademicInfo = async () => {
     myLogger.debug("fetching academic info");
@@ -25,16 +27,7 @@ export function useAcademicInfo() {
       setAcademicInfo(currentAcademicInfo);
     } catch (error) {
       if (error instanceof APIError) {
-        myLogger.error("error fetching academic info", {
-          errorMessage: error.message,
-          errorCode: error.errorCode,
-        });
-        setErrorMessage({
-          headerMessage: "Lo sentimos",
-          textMessage: error.userMessage,
-          iconName: "error",
-          iconColor: "red",
-        });
+        setFatalError({ error });
       }
     } finally {
       setLoadingStatus(false);

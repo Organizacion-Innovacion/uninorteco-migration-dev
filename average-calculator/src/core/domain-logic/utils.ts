@@ -98,7 +98,7 @@ export function computeNeededGrade(
 
   if (desiredGrade < currentGrade) {
     throw new InvalidInputError(
-      "Lo sentimos, pero la nota deseada debe ser mayor a la nota actual",
+      "Lo sentimos, pero la nota deseada causa que tus notas restantes se vuelvan negativas",
       { fieldName: "desiredGrade" }
     );
   }

@@ -4,6 +4,7 @@ import { AppLogger } from "../../../core/config/logger";
 import { calculatorRepository } from "../../../core/repositories/repository-factory";
 import { AcademicSemester } from "../../../core/entities/semester";
 import { APIError } from "../../../core/common/errors";
+import { usePageFatalError } from "../../../hooks/usePageFatalError";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("academic-semester-hook");
 
@@ -13,7 +14,8 @@ export function useAcademicSemester() {
     name: "Semestre actual",
   });
 
-  const { setLoadingStatus, setErrorMessage } = usePageControl();
+  const { setLoadingStatus } = usePageControl();
+  const { setFatalError } = usePageFatalError();
 
   const loadCurrentSemester = async () => {
     myLogger.debug("fetching current semester");
@@ -25,16 +27,7 @@ export function useAcademicSemester() {
       setAcademicSemester(currentAcademicSemester);
     } catch (error) {
       if (error instanceof APIError) {
-        myLogger.error("error fetching current semester", {
-          errorMessage: error.message,
-          errorCode: error.errorCode,
-        });
-        setErrorMessage({
-          headerMessage: "Lo sentimos",
-          textMessage: error.userMessage,
-          iconName: "error",
-          iconColor: "red",
-        });
+        setFatalError({ error });
       }
     } finally {
       setLoadingStatus(false);

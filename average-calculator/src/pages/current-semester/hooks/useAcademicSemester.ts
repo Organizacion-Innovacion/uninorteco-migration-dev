@@ -3,7 +3,7 @@ import { usePageControl } from "@ellucian/experience-extension-utils";
 import { AppLogger } from "../../../core/config/logger";
 import { calculatorRepository } from "../../../core/repositories/repository-factory";
 import { AcademicSemester } from "../../../core/entities/semester";
-import { APIError } from "../../../core/common/errors";
+import { RepositoryError } from "../../../core/common/errors";
 import { usePageFatalError } from "../../../hooks/usePageFatalError";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("academic-semester-hook");
@@ -26,7 +26,7 @@ export function useAcademicSemester() {
       myLogger.debug("current semester fetched", { currentAcademicSemester });
       setAcademicSemester(currentAcademicSemester);
     } catch (error) {
-      if (error instanceof APIError) {
+      if (error instanceof RepositoryError) {
         setFatalError({ error });
       }
     } finally {

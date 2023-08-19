@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { usePageControl } from "@ellucian/experience-extension-utils";
 import { AppLogger } from "../../../core/config/logger";
 import { calculatorRepository } from "../../../core/repositories/repository-factory";
-import { APIError } from "../../../core/common/errors";
+import { RepositoryError } from "../../../core/common/errors";
 import { AcademicInfo } from "../../../core/entities/academic-info";
 import { usePageFatalError } from "../../../hooks/usePageFatalError";
 
@@ -26,7 +26,7 @@ export function useAcademicInfo() {
       myLogger.debug("academic info fetched", { currentAcademicInfo });
       setAcademicInfo(currentAcademicInfo);
     } catch (error) {
-      if (error instanceof APIError) {
+      if (error instanceof RepositoryError) {
         setFatalError({ error });
       }
     } finally {

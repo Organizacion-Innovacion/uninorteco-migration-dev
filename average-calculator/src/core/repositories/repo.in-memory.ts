@@ -1,7 +1,7 @@
 import { AcademicSemester, SemesterCourse } from "../entities/semester";
 import { Course } from "../entities/course";
 import { ICalculatorRepository } from "./repo.definition";
-import { APIError, ErrorCode } from "../common/errors";
+import { RepositoryError, ErrorCode } from "../common/errors";
 import { AcademicInfo } from "../entities/academic-info";
 
 export interface InMemoryCalculatorRepositoryOptions {
@@ -31,7 +31,7 @@ export class InMemoryCalculatorRepository implements ICalculatorRepository {
     await sleep(this.options.responseDelay);
     const { statusCode } = this.data;
     if (statusCode !== 200) {
-      throw new APIError(this.data.error, ErrorCode.INVALID_OPERATION);
+      throw new RepositoryError(this.data.error, ErrorCode.INVALID_OPERATION);
     }
     const currentSemester = await this.getCurrentAcademicSemester();
     const totalCredits = currentSemester.courses.reduce(
@@ -47,7 +47,7 @@ export class InMemoryCalculatorRepository implements ICalculatorRepository {
     await sleep(this.options.responseDelay);
     const { statusCode } = this.data;
     if (statusCode !== 200) {
-      throw new APIError(this.data.error, ErrorCode.INVALID_OPERATION);
+      throw new RepositoryError(this.data.error, ErrorCode.INVALID_OPERATION);
     }
 
     const { semester } = this.data;
@@ -58,13 +58,13 @@ export class InMemoryCalculatorRepository implements ICalculatorRepository {
     await sleep(this.options.responseDelay);
     const { statusCode } = this.data;
     if (statusCode !== 200) {
-      throw new APIError(this.data.error, ErrorCode.INVALID_OPERATION);
+      throw new RepositoryError(this.data.error, ErrorCode.INVALID_OPERATION);
     }
 
     const courses = this.data.courses as Course[];
     const course = courses.find((c) => c.id === courseIdentifier);
     if (!course) {
-      throw new APIError("El curso no fue encontrado", ErrorCode.NOT_FOUND);
+      throw new RepositoryError("El curso no fue encontrado", ErrorCode.NOT_FOUND);
     }
 
     return Promise.resolve(course);

@@ -6,8 +6,8 @@ import { usePageInfo } from "@ellucian/experience-extension-utils";
 import { SemesterCourse } from "../../../core/entities/semester";
 import { Stack } from "../../../components/Stack";
 import { CardLockButton } from "./lockIconButtons";
-import { GradeTextField } from "./GradeTextField";
-import { BaseCard } from "./BaseCard";
+import { BaseCard } from "../../../components/BaseCard";
+import { GradeTextField } from "../../../components/GradeTextField";
 
 const useStyles = makeStyles((theme: any) => ({
   iconStyles: {

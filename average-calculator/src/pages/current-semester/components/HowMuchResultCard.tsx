@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Typography } from "@ellucian/react-design-system/core";
 import { Stack } from "../../../components/Stack";
-import { GradeTextField } from "./GradeTextField";
-import { BaseCard } from "./BaseCard";
 import { SemestreInfoModal } from "./SemestreInfoModal";
+import { BaseCard } from "../../../components/BaseCard";
+import { GradeTextField } from "../../../components/GradeTextField";
 
 export interface HowMuchResultCardProps {
   title: string;

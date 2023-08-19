@@ -1,19 +1,15 @@
 import React, { useState } from "react";
 import { Typography } from "@ellucian/react-design-system/core";
 import { Stack } from "../../../components/Stack";
-import { BaseCard } from "./BaseCard";
 import { SemestreInfoModal } from "./SemestreInfoModal";
+import { BaseCard } from "../../../components/BaseCard";
+import { numberToString } from "../../../util/helpers";
 
 export interface FinalGradeResultCard {
   title: string;
   subtitle: string;
   result: number;
   precision?: number;
-}
-
-function numberToString(n: number, precision = 2) {
-  const roundNumber = Math.round(n * 10 ** precision) / 10 ** precision;
-  return roundNumber.toFixed(precision);
 }
 
 export function FinalGradeResultCard({

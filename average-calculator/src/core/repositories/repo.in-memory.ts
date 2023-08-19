@@ -2,6 +2,7 @@ import { AcademicSemester } from "../entities/semester";
 import { Course } from "../entities/course";
 import { ICalculatorRepository } from "./repo.definition";
 import { APIError, ErrorCode } from "../common/errors";
+import { AcademicInfo } from "../entities/academic-info";
 
 export interface InMemoryCalculatorRepositoryOptions {
   responseDelay?: number;
@@ -24,6 +25,17 @@ export class InMemoryCalculatorRepository implements ICalculatorRepository {
     private readonly repoOptions: InMemoryCalculatorRepositoryOptions = {}
   ) {
     this.options = { ...this.options, ...repoOptions };
+  }
+
+  async getAcademicInfo(): Promise<AcademicInfo> {
+    await sleep(this.options.responseDelay);
+    const { statusCode } = this.data;
+    if (statusCode !== 200) {
+      throw new APIError(this.data.error, ErrorCode.INVALID_OPERATION);
+    }
+
+    const { currentPGA, creditsSoFar } = this.data;
+    return Promise.resolve({ currentPGA, creditsSoFar });
   }
 
   async getCurrentAcademicSemester(): Promise<AcademicSemester> {

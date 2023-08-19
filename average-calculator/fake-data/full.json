@@ -1,5 +1,7 @@
 {
     "statusCode": 200,
+    "currentPGA": 4.3,
+    "creditsSoFar": 50,
     "semester": {
         "name": "Semestre 2021-30",
         "courses": [

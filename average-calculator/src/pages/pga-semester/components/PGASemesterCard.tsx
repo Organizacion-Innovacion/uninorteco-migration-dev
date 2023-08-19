@@ -3,7 +3,6 @@ import { Typography } from "@ellucian/react-design-system/core";
 import { Stack } from "../../../components/Stack";
 import { BaseCard } from "../../../components/BaseCard";
 import { GradeTextField } from "../../../components/GradeTextField";
-import { numberToString } from "../../../util/helpers";
 
 export interface PGASemesterCardProps {
   title: string;
@@ -40,7 +39,7 @@ export function PGASemesterCard({
           </div>
         ) : (
           <Typography variant="body1" sx={{ mr: 2 }}>
-            {numberToString(value, 2)}
+            {value}
           </Typography>
         )}
       </Stack>

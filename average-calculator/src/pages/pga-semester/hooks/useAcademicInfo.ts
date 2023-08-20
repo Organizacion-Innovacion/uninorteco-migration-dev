@@ -9,11 +9,7 @@ import { usePageFatalError } from "../../../hooks/usePageFatalError";
 const myLogger = AppLogger.getAppLogger().createContextLogger("academic-info-hook");
 
 export function useAcademicInfo() {
-  const [academicInfo, setAcademicInfo] = useState<AcademicInfo>({
-    currentPGA: 0,
-    creditsSoFar: 1,
-    currentCredits: 1,
-  });
+  const [academicInfo, setAcademicInfo] = useState<AcademicInfo | null>(null);
 
   const { setLoadingStatus } = usePageControl();
   const { setFatalError } = usePageFatalError();

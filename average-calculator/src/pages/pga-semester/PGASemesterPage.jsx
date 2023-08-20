@@ -20,6 +20,10 @@ const styles = () => ({
     width: "100%",
     marginBottom: "1rem",
   },
+  tabContent: {
+    display: "flex",
+    flexDirection: "column",
+  },
 });
 
 const PGASemesterPage = (props) => {
@@ -47,7 +51,7 @@ const PGASemesterPage = (props) => {
           <Tab label="Mi nota final es" />
           <Tab label="Cuanto necesito" />
         </Tabs>
-        <TabLayoutContent>
+        <TabLayoutContent className={classes.tabContent}>
           <TabRouter index={tabValue.index} />
         </TabLayoutContent>
       </TabLayout>

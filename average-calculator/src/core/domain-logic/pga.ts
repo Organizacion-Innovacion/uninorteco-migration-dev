@@ -29,7 +29,7 @@ export function computeNeededSemesterAverage(
 
   if (roundedNeededSemesterAverage > 5) {
     throw new InvalidInputError(
-      "Lo sentimos, La nota que necesitas para alcanzar tu meta es mayor a 5",
+      "Lo sentimos, para obtener la nota deseada necesitas un promedio semestral mayor a 5",
       {
         fieldName: "desiredGrade",
       }
@@ -38,7 +38,7 @@ export function computeNeededSemesterAverage(
 
   if (roundedNeededSemesterAverage < 0) {
     throw new InvalidInputError(
-      "Lo sentimos, La nota que necesitas para alcanzar tu meta es menor a 0",
+      "Lo sentimos, para obtener la nota deseada necesitas un promedio semestral menor a 0",
       {
         fieldName: "desiredGrade",
       }

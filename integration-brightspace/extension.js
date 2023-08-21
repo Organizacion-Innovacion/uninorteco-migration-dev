@@ -5,8 +5,8 @@ module.exports = {
     {
       type: "card-template-1",
       source: "./src/cards/MainCard.jsx",
-      title: "Card Template 1",
-      displayCardType: "Card Template 1",
+      title: "Notificaciones Brighspace",
+      displayCardType: "Notificaciones Brighspace",
       description: "This is the description of Card Template 1",
       pageRoute: {
         route: "/",
@@ -18,4 +18,3 @@ module.exports = {
     source: "./src/app/App.jsx",
   },
 };
-

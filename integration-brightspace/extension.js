@@ -1,13 +1,14 @@
 module.exports = {
-  name: "uninorte-extension-template",
+  name: "integration-brightspace",
   publisher: "uninorte",
   cards: [
     {
-      type: "card-template-1",
+      type: "integration-brightspace-card",
       source: "./src/cards/MainCard.jsx",
-      title: "Notificaciones Brighspace",
-      displayCardType: "Notificaciones Brighspace",
-      description: "This is the description of Card Template 1",
+      title: "Notificaciones Brightspace",
+      displayCardType: "Notificaciones Brightspace",
+      description:
+        "La integración con Brightspace permite que los estudiantes reciban notificaciones de Brightspace en el LMS de la Universidad del Norte.",
       pageRoute: {
         route: "/",
         excludeClickSelectors: ["a"],

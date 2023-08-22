@@ -1,7 +1,7 @@
 {
-  "name": "uninorte-extension-template",
+  "name": "integration-brightspace",
   "version": "1.0.0",
-  "description": "Description of uninorte extension template",
+  "description": "La integración con D2L permite a los usuarios acceder a contenido de Brightspace desde la aplicación móvil Ellucian GO. Los usuarios pueden ver el contenido de Brightspace en la aplicación móvil",
   "main": "index.js",
   "license": "UNLICENSED",
   "scripts": {

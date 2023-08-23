@@ -1,21 +1,27 @@
-import { withStyles } from "@ellucian/react-design-system/core/styles";
-import { spacing20 } from "@ellucian/react-design-system/core/styles/tokens";
-import { Typography } from "@ellucian/react-design-system/core";
-import PropTypes from "prop-types";
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/prop-types */
 import React from "react";
+import { withStyles } from "@ellucian/react-design-system/core/styles";
+import { v4 as uuidv4 } from "uuid";
+import { spacing20 } from "@ellucian/react-design-system/core/styles/tokens";
+import { Typography, Button, Link } from "@ellucian/react-design-system/core";
+import PropTypes from "prop-types";
 import { usePageControl } from "@ellucian/experience-extension-utils";
 import { useIntl } from "react-intl";
 import { calculateDistance } from "../core/common/utils";
 import { APP_ENV_VARS } from "../core/config/app-env-vars";
 import { AppLogger } from "../core/config/logger";
-import { CardMessage } from "./components/CardMessage";
+import FileCard from "./components/FileCard";
+import ExamCard from "./components/ExamCard";
 
-// set up a context to help to identify the log messages
 const myLogger = AppLogger.getAppLogger().createContextLogger("home.jsx");
-
 const styles = () => ({
   card: {
     margin: `0 ${spacing20}`,
+    border: "1px solid #e0e0e0",
+    padding: "20px",
+    borderRadius: "5px",
+    marginBottom: "20px",
   },
 });
 
@@ -27,23 +33,46 @@ const HomePage = (props) => {
   setPageTitle("Nombre de la funcionalidad");
 
   const distance = calculateDistance(11.1, -74.11, 11.2, -73.11);
-  // this will print "home.jsx: the distance is <number>"
   myLogger.debug(`the distance is ${distance}`);
 
+  const notifications = [
+    {
+      type: "file",
+      fileName: "Apuntes_Clase1.pdf",
+      fileFormat: "pdf",
+      downloadLink: "https://example.com/Apuntes_Clase1.pdf",
+    },
+    {
+      type: "exam",
+    },
+    {
+      type: "file",
+      fileName: "Tarea_Semana2.xls",
+      fileFormat: "xls",
+      downloadLink: "https://example.com/Tarea_Semana2.xls",
+    },
+    // ... otras notificaciones
+  ];
+
   return (
-    <div className={classes.card}>
-      <Typography>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis voluptates
-        exercitationem eius, optio cumque aut, pariatur laborum repellendus quasi eaque
-        explicabo! Asperiores assumenda necessitatibus eveniet facere officiis sequi
-        corrupti accusamus.
-      </Typography>
-      {/*  env vars are replaced with the real value at build time */}
-      <Typography>LogLevel: {APP_ENV_VARS.logLevel}</Typography>
-      <Typography>
-        {intl.formatMessage({ id: "home.section2.hellowMessage" })}
-      </Typography>
-      <CardMessage message="This is a message from a component" />
+    <div style={{ padding: "20px" }}>
+      {notifications.map((notification) => {
+        if (notification.type === "file") {
+          return (
+            <FileCard
+              key={uuidv4()}
+              fileName={notification.fileName}
+              fileFormat={notification.fileFormat}
+              downloadLink={notification.downloadLink}
+              classes={classes}
+            />
+          );
+        }
+        if (notification.type === "exam") {
+          return <ExamCard key={uuidv4()} classes={classes} />;
+        }
+        return null;
+      })}
     </div>
   );
 };

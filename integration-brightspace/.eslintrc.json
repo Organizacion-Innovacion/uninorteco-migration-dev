@@ -11,32 +11,39 @@
   ],
   "overrides": [
     {
-      "files": [
-        "*.ts",
-        "*.tsx"
-      ],
+      "files": ["*.ts", "*.tsx"],
       "parser": "@typescript-eslint/parser",
       "extends": [
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended"
       ],
       "rules": {
+        "import/no-extraneous-dependencies": [
+          "error",
+          {
+            "devDependencies": [
+              "**/*.test.ts",
+              "**/*.test.tsx",
+              "**/*.spec.ts",
+              "**/*.spec.tsx",
+              "**/*.stories.tsx",
+              "**/*.stories.mdx",
+              "**/setupTests.ts"
+            ]
+          }
+        ],
         "@typescript-eslint/explicit-module-boundary-types": 0,
         "@typescript-eslint/no-explicit-any": 0,
         "no-useless-constructor": 0
       },
       "parserOptions": {
-        "project": [
-          "./tsconfig.json"
-        ] // Specify it only for TypeScript files
+        "project": ["./tsconfig.json"] // Specify it only for TypeScript files
       }
     }
   ],
   "parserOptions": {
     "babelOptions": {
-      "presets": [
-        "@babel/preset-react"
-      ]
+      "presets": ["@babel/preset-react"]
     },
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true,
@@ -48,12 +55,7 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [
-          ".js",
-          ".jsx",
-          ".ts",
-          ".tsx"
-        ]
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     },
     "react": {
@@ -81,10 +83,7 @@
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [
-          ".tsx",
-          ".jsx"
-        ]
+        "extensions": [".tsx", ".jsx"]
       }
     ],
     "no-unused-vars": "warn",

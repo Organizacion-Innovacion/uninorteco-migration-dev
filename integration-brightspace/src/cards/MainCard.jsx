@@ -102,6 +102,12 @@ function MainCard(props) {
           <Typography variant="h4" style={{ marginBottom: "0.2rem" }}>
             Evaluación publicada
           </Typography>
+          <Typography
+            variant="body2"
+            style={{ color: "#ccc", fontSize: "12px", fontWeight: "700" }}
+          >
+            Hace 2 horas
+          </Typography>
           <Typography>
             Nueva evaluación disponible en el curso{" "}
             <strong>Ingeniería de Software I</strong>

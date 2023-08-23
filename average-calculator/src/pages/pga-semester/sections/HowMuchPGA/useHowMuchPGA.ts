@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AppLogger } from "../../../../core/config/logger";
 import { AcademicInfo } from "../../../../core/entities/academic-info";
 import { computeNeededSemesterAverage } from "../../../../core/domain-logic/pga";
@@ -66,6 +66,13 @@ export function useHowMuchPGA({ academicInfo }: HowMuchPGA) {
       }
     }
   };
+
+  useEffect(() => {
+    // We need to compute the semester average when the component is mounted,
+    // otherwise the user will see a 0 as the semester average which is not correct.
+    onNeededSemesterAverage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return {
     semesterAverage,

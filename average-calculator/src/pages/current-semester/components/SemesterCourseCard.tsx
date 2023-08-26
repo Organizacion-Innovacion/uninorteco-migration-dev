@@ -9,6 +9,49 @@ import { CardLockButton } from "./lockIconButtons";
 import { BaseCard } from "../../../components/BaseCard";
 import { GradeTextField } from "../../../components/GradeTextField";
 
+interface ParcelacionTypographyProps {
+  isSpecialCourse: boolean;
+  parcelacionUrl: string;
+  classes: any;
+}
+
+function ParcelacionTypography({
+  isSpecialCourse,
+  parcelacionUrl,
+  classes,
+}: ParcelacionTypographyProps) {
+  if (isSpecialCourse) {
+    return (
+      <Typography
+        variant="body2"
+        color="textSecondary"
+        sx={{ display: "flex", alignItems: "center", width: "fit-content" }}
+      >
+        Asignatura sin parcelación
+      </Typography>
+    );
+  }
+
+  return (
+    <Typography
+      variant="body2"
+      color="textSecondary"
+      sx={{ display: "flex", alignItems: "center", width: "fit-content" }}
+      component="a"
+      href={parcelacionUrl}
+      target="_self"
+      style={{ textDecoration: "none" }}
+    >
+      Ver parcelación
+      <Icon
+        name="chevron-right"
+        className={classes.iconStyles}
+        style={{ width: 14, height: 14, marginLeft: "0.25rem" }}
+      />
+    </Typography>
+  );
+}
+
 const useStyles = makeStyles((theme: any) => ({
   iconStyles: {
     color: theme.palette.grey["500"],
@@ -34,6 +77,10 @@ export function SemesterCourseCard({
   const disableTextField = onLockIconPress !== undefined && semesterCourse.isLocked;
   const bgProps = disableTextField ? { backgroundColor: "#f8f8f8" } : {};
 
+  const isSpecialCourse = semesterCourse.credits === 0;
+
+  const parcelacionUrl = `${basePath}courses/${semesterCourse.id}`;
+
   return (
     <BaseCard sx={bgProps}>
       <Stack sx={{ flexGrow: 1 }}>
@@ -41,38 +88,29 @@ export function SemesterCourseCard({
         <Typography variant="body2" color="textSecondary" sx={{ mb: 3 }}>
           Creditos: {semesterCourse.credits}
         </Typography>
-        <Typography
-          variant="body2"
-          color="textSecondary"
-          sx={{ display: "flex", alignItems: "center", width: "fit-content" }}
-          component="a"
-          href={`${basePath}courses/${semesterCourse.id}`}
-          target="_self"
-          style={{ textDecoration: "none" }}
-        >
-          Ver parcelación
-          <Icon
-            name="chevron-right"
-            className={classes.iconStyles}
-            style={{ width: 14, height: 14, marginLeft: "0.25rem" }}
-          />
-        </Typography>
+        <ParcelacionTypography
+          isSpecialCourse={isSpecialCourse}
+          parcelacionUrl={parcelacionUrl}
+          classes={classes}
+        />
       </Stack>
-      <Stack sx={{ flexDirection: "row" }}>
-        <div style={{ width: 70 }}>
-          <GradeTextField
-            value={semesterCourse.grade}
-            onGradeChange={(grade) => onGradeChange(semesterCourse.id, grade)}
-            disabled={disableTextField}
-          />
-        </div>
-        {onLockIconPress && (
-          <CardLockButton
-            onClick={() => onLockIconPress(semesterCourse.id)}
-            isLocked={semesterCourse.isLocked}
-          />
-        )}
-      </Stack>
+      {!isSpecialCourse && (
+        <Stack sx={{ flexDirection: "row" }}>
+          <div style={{ width: 70 }}>
+            <GradeTextField
+              value={semesterCourse.grade}
+              onGradeChange={(grade) => onGradeChange(semesterCourse.id, grade)}
+              disabled={disableTextField}
+            />
+          </div>
+          {onLockIconPress && (
+            <CardLockButton
+              onClick={() => onLockIconPress(semesterCourse.id)}
+              isLocked={semesterCourse.isLocked}
+            />
+          )}
+        </Stack>
+      )}
     </BaseCard>
   );
 }

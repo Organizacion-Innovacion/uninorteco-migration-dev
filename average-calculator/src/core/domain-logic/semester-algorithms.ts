@@ -7,8 +7,14 @@ import {
 } from "./utils";
 
 export function computeFinalGradeOfSemester(semester: AcademicSemester) {
-  const grades = semester.courses.map((course) => course.grade);
-  const weights = semester.courses.map((course) => course.credits);
+  // filter out courses with 0 credits, they don't count towards the average
+  // besides, they may have a different structure that can cause problems ahead
+  const coursesCreditsGreaterThanZero = semester.courses.filter(
+    (course) => course.credits > 0
+  );
+
+  const grades = coursesCreditsGreaterThanZero.map((course) => course.grade);
+  const weights = coursesCreditsGreaterThanZero.map((course) => course.credits);
 
   if (grades.length === 0 && weights.length === 0) {
     return 0;
@@ -24,10 +30,18 @@ export function computeNeededGradeForSemester(
   semester: AcademicSemester,
   desiredGrade: number
 ): number {
-  // compute average for locked courses
-  const lockedComponents = semester.courses.filter((component) => component.isLocked);
+  // filter out courses with 0 credits, they don't count towards the average
+  // besides, they may have a different structure that can cause problems ahead
+  const coursesCreditsGreaterThanZero = semester.courses.filter(
+    (course) => course.credits > 0
+  );
 
-  if (lockedComponents.length === semester.courses.length) {
+  // compute average for locked courses
+  const lockedComponents = coursesCreditsGreaterThanZero.filter(
+    (component) => component.isLocked
+  );
+
+  if (lockedComponents.length === coursesCreditsGreaterThanZero.length) {
     throw new InvalidInputError(
       "Lo sentimos, debes tener al menos un curso desbloqueado para realizar el cálculo"
     );
@@ -35,7 +49,7 @@ export function computeNeededGradeForSemester(
 
   const lockedGrades = lockedComponents.map((component) => component.grade);
   const lockedCredits = lockedComponents.map((component) => component.credits);
-  const totalCredits = semester.courses.reduce((a, b) => a + b.credits, 0);
+  const totalCredits = coursesCreditsGreaterThanZero.reduce((a, b) => a + b.credits, 0);
 
   // this is the current grade
   const currentGrade = computeWeightedAverageGivenTotalWeight(

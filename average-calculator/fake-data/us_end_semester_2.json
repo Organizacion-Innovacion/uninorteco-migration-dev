@@ -1,0 +1,74 @@
+{
+    "statusCode": 200,
+    "currentPGA": 4.3,
+    "creditsSoFar": 50,
+    "semester": {
+        "name": "Semestre 2021-30",
+        "courses": [
+            {
+                "id": "matematica-1",
+                "name": "Matemática 1",
+                "grade": 3.2,
+                "credits": 4,
+                "wasEvaluated": true,
+                "isLocked": true
+            },
+            {
+                "id": "fisica-1",
+                "name": "Física 1",
+                "grade": 4.5,
+                "credits": 4,
+                "wasEvaluated": true,
+                "isLocked": true
+            },
+            {
+                "id": "introduccion-a-la-ingenieria",
+                "name": "Introducción a la Ingeniería",
+                "grade": 4.2,
+                "credits": 2,
+                "wasEvaluated": true,
+                "isLocked": true
+            },
+            {
+                "id": "introduccion-a-la-programacion",
+                "name": "Introducción a la Programación",
+                "grade": 3.8,
+                "credits": 3,
+                "wasEvaluated": true,
+                "isLocked": true
+            }
+        ]
+    },
+    "courses": [
+        {
+            "id": "matematica-1",
+            "name": "Matemática 1",
+            "components": [
+                {
+                    "id": "1",
+                    "name": "Parcial 1",
+                    "grade": 5,
+                    "weight": 30,
+                    "wasEvaluated": true,
+                    "isLocked": true
+                },
+                {
+                    "id": "1",
+                    "name": "Parcial 2",
+                    "grade": 3.2,
+                    "weight": 30,
+                    "wasEvaluated": true,
+                    "isLocked": true
+                },
+                {
+                    "id": "1",
+                    "name": "Parcial 3",
+                    "grade": 2.5,
+                    "weight": 40,
+                    "wasEvaluated": true,
+                    "isLocked": true
+                }
+            ]
+        }
+    ]
+}

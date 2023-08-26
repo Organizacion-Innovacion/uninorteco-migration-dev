@@ -50,7 +50,7 @@
                     "grade": 5,
                     "weight": 30,
                     "wasEvaluated": true,
-                    "isLocked": false
+                    "isLocked": true
                 },
                 {
                     "id": "1",

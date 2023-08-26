@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { AppLogger } from "../../../core/config/logger";
 import { AcademicSemester, SemesterCourse } from "../../../core/entities/semester";
+import { sortSemesterCoursesByCredits } from "../util/helpers";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("semester-courses-hook");
 
@@ -19,7 +20,7 @@ export function useSemesterCourses({ academicSemester }: UseSemesterCourse) {
       }
       return course;
     });
-    setCourses(newCourses);
+    setCourses(sortSemesterCoursesByCredits(newCourses));
   };
 
   // we can use academicSemester.courses instead of courses state
@@ -30,7 +31,7 @@ export function useSemesterCourses({ academicSemester }: UseSemesterCourse) {
   );
 
   useEffect(() => {
-    setCourses(academicSemester.courses);
+    setCourses(sortSemesterCoursesByCredits(academicSemester.courses));
   }, [academicSemester]);
 
   return {

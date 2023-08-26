@@ -35,6 +35,14 @@ describe("semester algorithms", () => {
         expect(result).toBe(expected);
       }
     );
+    it("should ignore courses with 0 credits", () => {
+      const grades = [4, 5, 3];
+      const credits = [3, 2, 0];
+      const academicSemester = createTestAcademicSemester(grades, credits);
+      const result = computeFinalGradeOfSemester(academicSemester);
+
+      expect(result).toBe(4.4);
+    });
   });
   describe("computeNeededGradeForSemester", () => {
     test.each([
@@ -62,6 +70,23 @@ describe("semester algorithms", () => {
         expect(Math.abs(finalGrade - desiredGrade)).toBeLessThanOrEqual(0.1);
       }
     );
+    it("should ignore courses with 0 credits", () => {
+      const desiredGrade = 4.4;
+      const grades = [0, 5, 3];
+      const credits = [3, 2, 0];
+      const isLocked = [false, true, true];
+      const expected = 4.1;
+
+      const semester = createTestAcademicSemester(grades, credits, isLocked);
+      const neededGrade = computeNeededGradeForSemester(semester, desiredGrade);
+
+      replaceGradeOfUnLockedCourses(semester, neededGrade);
+      const finalGrade = computeFinalGradeOfSemester(semester);
+
+      expect(neededGrade).toBe(expected);
+      expect(finalGrade).toBeGreaterThanOrEqual(desiredGrade);
+      expect(Math.abs(finalGrade - desiredGrade)).toBeLessThanOrEqual(0.1);
+    });
     it("should compute needed grade of 5 if desired grade is 5 and all components are unlocked", () => {
       const desiredGrade = 5;
       const grades = [0, 0, 0];

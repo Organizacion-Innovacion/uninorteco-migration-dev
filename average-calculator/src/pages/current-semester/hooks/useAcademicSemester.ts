@@ -18,12 +18,12 @@ export function useAcademicSemester() {
   const { setFatalError } = usePageFatalError();
 
   const loadCurrentSemester = async () => {
-    myLogger.debug("fetching current semester");
+    myLogger.info("fetching current semester");
     setLoadingStatus(true);
     try {
       const currentAcademicSemester =
         await calculatorRepository.getCurrentAcademicSemester();
-      myLogger.debug("current semester fetched", { currentAcademicSemester });
+      myLogger.info("current semester fetched", { currentAcademicSemester });
       setAcademicSemester(currentAcademicSemester);
     } catch (error) {
       if (error instanceof RepositoryError) {

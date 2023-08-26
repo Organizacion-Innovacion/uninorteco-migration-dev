@@ -68,7 +68,7 @@ export function useHowMuch({ academicSemester }: UseHowMuch) {
   };
 
   const onLockIconPress = (id: string) => {
-    myLogger.info("lock icon pressed", { courseId: id });
+    myLogger.debug("lock icon pressed", { courseId: id });
     const newCourses = courses.map((course) => {
       if (course.id === id) {
         return { ...course, isLocked: !course.isLocked };

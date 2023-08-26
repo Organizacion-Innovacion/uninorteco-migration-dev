@@ -15,11 +15,11 @@ export function useAcademicInfo() {
   const { setFatalError } = usePageFatalError();
 
   const loadAcademicInfo = async () => {
-    myLogger.debug("fetching academic info");
+    myLogger.info("fetching academic info");
     setLoadingStatus(true);
     try {
       const currentAcademicInfo = await calculatorRepository.getAcademicInfo();
-      myLogger.debug("academic info fetched", { currentAcademicInfo });
+      myLogger.info("academic info fetched", { currentAcademicInfo });
       setAcademicInfo(currentAcademicInfo);
     } catch (error) {
       if (error instanceof RepositoryError) {

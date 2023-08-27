@@ -61,7 +61,7 @@
                     "isLocked": true
                 },
                 {
-                    "id": "1",
+                    "id": "2",
                     "name": "Parcial 2",
                     "grade": 0,
                     "weight": 30,
@@ -69,7 +69,7 @@
                     "isLocked": false
                 },
                 {
-                    "id": "1",
+                    "id": "3",
                     "name": "Parcial 3",
                     "grade": 0,
                     "weight": 40,

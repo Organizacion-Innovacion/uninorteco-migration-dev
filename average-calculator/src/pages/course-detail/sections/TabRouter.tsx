@@ -3,14 +3,16 @@ import { CircularProgress } from "@ellucian/react-design-system/core";
 import { FinalGradeCourse } from "./FinalGradeCourse";
 import { HowMuchCourse } from "./HowMuchCourse";
 import { Stack } from "../../../components/Stack";
+import { Course } from "../../../core/entities/course";
 
 export interface TabRouterProps {
   index: number;
+  course: Course;
 }
 
-export function TabRouter({ index }: TabRouterProps) {
+export function TabRouter({ index, course }: TabRouterProps) {
   if (index === 0) {
-    return <FinalGradeCourse />;
+    return <FinalGradeCourse course={course} />;
   }
 
   if (index === 1) {

@@ -10,6 +10,10 @@ export function computeFinalGradeOfCourse(course: Course) {
   const grades = course.components.map((component) => component.grade);
   const weights = course.components.map((component) => component.weight);
 
+  if (grades.length === 0 && weights.length === 0) {
+    return 0;
+  }
+
   const average = computeWeightedAverage(grades, weights);
   // round to 1 decimal place
   const finalGrade = Math.round(average * 10) / 10;

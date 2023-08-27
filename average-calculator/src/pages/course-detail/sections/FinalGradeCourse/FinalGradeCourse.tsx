@@ -1,9 +1,38 @@
 import React from "react";
+import { useFinalGradeCourse } from "./useFinalGradeCourse";
+import { CoursesContainer } from "../../../../components/CoursesContainer";
+import { PartialComponentCard } from "../../components/PartialComponentCard";
+import { Course } from "../../../../core/entities/course";
+import { FinalGradeResultCard } from "../../components/FinalGradeResultCard";
 
-export function FinalGradeCourse() {
+export interface FinalGradeCourseProps {
+  course: Course;
+}
+
+export function FinalGradeCourse({ course }: FinalGradeCourseProps) {
+  const { components, finalCourseGrade, evaluatedPercentage, onGradeChange } =
+    useFinalGradeCourse({
+      course,
+    });
+
   return (
-    <div>
-      <p>FinalGradeCourse</p>
-    </div>
+    <>
+      <CoursesContainer>
+        {components.map((component) => (
+          <PartialComponentCard
+            key={component.id}
+            partialComponent={component}
+            onGradeChange={onGradeChange}
+          />
+        ))}
+      </CoursesContainer>
+      <CoursesContainer sxProps={{ mt: 16 }}>
+        <FinalGradeResultCard
+          title="Nota final"
+          subtitle={`Porcentaje evaluado: ${evaluatedPercentage}%`}
+          result={finalCourseGrade}
+        />
+      </CoursesContainer>
+    </>
   );
 }

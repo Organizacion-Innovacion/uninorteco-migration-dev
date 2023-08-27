@@ -1,11 +1,12 @@
 import { withStyles } from "@ellucian/react-design-system/core/styles";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect } from "react";
 import { usePageControl } from "@ellucian/experience-extension-utils";
 import { useParams } from "react-router-dom";
 import { TabRouter } from "./sections/TabRouter";
 import { useTabLayout } from "../../components/HowMuchFinalTabLayout/useTabLayout";
 import { HowMuchFinalTabLayout } from "../../components/HowMuchFinalTabLayout";
+import { useCourse } from "./hooks/useCourse";
 
 const styles = () => ({
   page: {
@@ -18,20 +19,28 @@ const CourseDetailPage = (props) => {
   const { classes } = props;
   const { setPageTitle } = usePageControl();
   const { courseId } = useParams();
-
-  setPageTitle(`Asignatura id: ${courseId}`);
-
+  const { course } = useCourse({ courseId });
   const { onIndexChange, tabLabels, tabLayoutValue } = useTabLayout();
+
+  useEffect(() => {
+    if (course) {
+      setPageTitle(course.name);
+    } else {
+      setPageTitle("Cargando Curso");
+    }
+  }, [course, setPageTitle]);
 
   return (
     <div className={classes.page}>
-      <HowMuchFinalTabLayout
-        index={tabLayoutValue.index}
-        tabs={tabLabels}
-        onIndexChange={onIndexChange}
-      >
-        <TabRouter index={tabLayoutValue.index} />
-      </HowMuchFinalTabLayout>
+      {course && (
+        <HowMuchFinalTabLayout
+          index={tabLayoutValue.index}
+          tabs={tabLabels}
+          onIndexChange={onIndexChange}
+        >
+          <TabRouter index={tabLayoutValue.index} course={course} />
+        </HowMuchFinalTabLayout>
+      )}
     </div>
   );
 };

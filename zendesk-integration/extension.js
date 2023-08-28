@@ -1,13 +1,13 @@
 module.exports = {
-  name: "uninorte-extension-template",
+  name: "zendesk-integration",
   publisher: "uninorte",
   cards: [
     {
-      type: "card-template-1",
+      type: "zendesk-integration-card",
       source: "./src/cards/MainCard.jsx",
       title: "Centro de atención estudiantil",
-      displayCardType: "Card Template 1",
-      description: "Centro de ayuda y preugntas frecuentes",
+      displayCardType: "Centro de atención estudiantil",
+      description: "Centro de ayuda y preguntas frecuentes",
       pageRoute: {
         route: "/",
         excludeClickSelectors: ["a"],

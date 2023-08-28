@@ -47,6 +47,7 @@ const HomePage = (props) => {
     setLoading(true);
     setError(null);
 
+    
     axios
       .get(`http://localhost:3000/api/proxy?query=${encodeURIComponent(searchQuery)}`)
       .then((response) => {

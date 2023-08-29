@@ -16,8 +16,20 @@ const styles = () => ({
     alignItems: "center",
   },
 });
+
+const formatDate = (date) => {
+  const dateObj = new Date(date);
+  const day = dateObj.getDate();
+  const month = dateObj.getMonth() + 1;
+  const year = dateObj.getFullYear();
+  const hours = dateObj.getHours();
+  const minutes = dateObj.getMinutes();
+  const seconds = dateObj.getSeconds();
+  return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+};
 export default function FileCard(props) {
-  const { fileName, fileFormat, downloadLink } = props;
+  const { fileName, fileFormat, downloadLink, Title, Message, AlertDateTime, IconURL } =
+    props;
 
   const getFileIcon = (format) => {
     switch (format) {
@@ -31,18 +43,27 @@ export default function FileCard(props) {
   };
   return (
     <div className={props.classes.card}>
-      <Typography variant="h5">Nuevo archivo publicado</Typography>
-      <div style={{ display: "flex", alignItems: "center", marginTop: "10px" }}>
-        <span style={{ fontSize: "24px", marginRight: "10px" }}>
-          {getFileIcon(fileFormat)}
-        </span>
-        <Typography variant="body1">{fileName}</Typography>
+      <div
+        style={{
+          marginTop: "10px",
+          display: "flex",
+        }}
+      >
+        <Typography variant="h5">{Title}</Typography>
+        {/* icon */}
+        <img src={IconURL} alt="" />
       </div>
-      <div style={{ marginTop: "10px" }}>
+      <div style={{ display: "flex", alignItems: "center", marginTop: "10px" }}>
+        <Typography variant="body1">{Message}</Typography>
+      </div>
+      <Typography variant="body2" style={{ marginTop: "10px" }}>
+        {formatDate(AlertDateTime)}
+      </Typography>
+      {/* <div style={{ marginTop: "10px" }}>
         <TextLink href={downloadLink} target="_blank" rel="noopener noreferrer">
           Descargar
         </TextLink>
-      </div>
+      </div> */}
     </div>
   );
 }

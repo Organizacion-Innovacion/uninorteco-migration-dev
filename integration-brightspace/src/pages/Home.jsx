@@ -1,6 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { useEffect } from "react";
 import { withStyles } from "@ellucian/react-design-system/core/styles";
 import { v4 as uuidv4 } from "uuid";
 import { spacing20 } from "@ellucian/react-design-system/core/styles/tokens";
@@ -10,6 +10,7 @@ import { usePageControl } from "@ellucian/experience-extension-utils";
 import { useIntl } from "react-intl";
 import { calculateDistance } from "../core/common/utils";
 import { APP_ENV_VARS } from "../core/config/app-env-vars";
+import { useNotifications } from "../hooks/useNotifications";
 import { AppLogger } from "../core/config/logger";
 import FileCard from "./components/FileCard";
 import ExamCard from "./components/ExamCard";
@@ -33,37 +34,50 @@ const HomePage = (props) => {
   setPageTitle("Nombre de la funcionalidad");
 
   const distance = calculateDistance(11.1, -74.11, 11.2, -73.11);
+  const { notifications, loading, error } = useNotifications();
+  myLogger.debug(`notifications: ${notifications}`);
   myLogger.debug(`the distance is ${distance}`);
+  myLogger.debug(`loading: ${loading}`);
+  myLogger.debug(`error: ${error}`);
+  console.log("notifications from hook: ", notifications);
 
-  const notifications = [
-    {
-      type: "file",
-      fileName: "Apuntes_Clase1.pdf",
-      fileFormat: "pdf",
-      downloadLink: "https://example.com/Apuntes_Clase1.pdf",
-    },
-    {
-      type: "exam",
-    },
-    {
-      type: "file",
-      fileName: "Tarea_Semana2.xls",
-      fileFormat: "xls",
-      downloadLink: "https://example.com/Tarea_Semana2.xls",
-    },
-    // ... otras notificaciones
-  ];
+  useEffect(() => {
+    myLogger.debug("useEffect");
+  }, []);
+
+  // const notifications = [
+  //   {
+  //     type: "file",
+  //     fileName: "Apuntes_Clase1.pdf",
+  //     fileFormat: "pdf",
+  //     downloadLink: "https://example.com/Apuntes_Clase1.pdf",
+  //   },
+  //   {
+  //     type: "exam",
+  //   },
+  //   {
+  //     type: "file",
+  //     fileName: "Tarea_Semana2.xls",
+  //     fileFormat: "xls",
+  //     downloadLink: "https://example.com/Tarea_Semana2.xls",
+  //   },
+  //   // ... otras notificaciones
+  // ];
 
   return (
     <div style={{ padding: "20px" }}>
       {notifications.map((notification) => {
-        if (notification.type === "file") {
+        if (notification.Category === 1) {
           return (
             <FileCard
               key={uuidv4()}
               fileName={notification.fileName}
+              Title={notification.Title}
+              Message={notification.Message}
+              AlertDateTime={notification.AlertDateTime}
               fileFormat={notification.fileFormat}
               downloadLink={notification.downloadLink}
+              IconURL={notification.IconURL}
               classes={classes}
             />
           );

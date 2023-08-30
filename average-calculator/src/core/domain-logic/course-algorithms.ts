@@ -1,5 +1,5 @@
 import { InvalidInputError } from "../common/errors";
-import { Course } from "../entities/course";
+import { Course, PartialComponent } from "../entities/course";
 import {
   computeWeightedAverage,
   computeNeededGrade,
@@ -58,4 +58,17 @@ export function computeNeededGradeForCourse(
   }
 
   return roundedNeededGrade;
+}
+
+export function replaceGradeOfUnLockedComponents(
+  components: PartialComponent[],
+  grade: number
+) {
+  const newComponents = components.map((component) => {
+    if (!component.isLocked) {
+      return { ...component, grade };
+    }
+    return component;
+  });
+  return newComponents;
 }

@@ -16,7 +16,7 @@ export function TabRouter({ index, course }: TabRouterProps) {
   }
 
   if (index === 1) {
-    return <HowMuchCourse />;
+    return <HowMuchCourse course={course} />;
   }
 
   // The CircularProgress will never be rendered because of the loading state of

@@ -21,12 +21,12 @@ export const defaultTabs: TabContent[] = [
   },
 ];
 
-export interface TabLayoutHook {
+export interface UseTabLayoutHook {
   tabs?: TabContent[];
 }
 
 export function useTabLayout(
-  { tabs = defaultTabs }: TabLayoutHook = {
+  { tabs = defaultTabs }: UseTabLayoutHook = {
     tabs: defaultTabs,
   }
 ) {

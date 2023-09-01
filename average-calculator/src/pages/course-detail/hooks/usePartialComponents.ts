@@ -6,11 +6,11 @@ const myLogger = AppLogger.getAppLogger().createContextLogger(
   "partial-components-hook"
 );
 
-export interface PartialComponentHook {
+export interface UsePartialComponentHook {
   course: Course;
 }
 
-export function usePartialComponents({ course }: PartialComponentHook) {
+export function usePartialComponents({ course }: UsePartialComponentHook) {
   const [components, setComponents] = useState<PartialComponent[]>([]);
 
   const onGradeChange = (id: string, grade: number) => {

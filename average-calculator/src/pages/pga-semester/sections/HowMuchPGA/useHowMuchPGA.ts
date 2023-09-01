@@ -6,7 +6,7 @@ import { InvalidInputError } from "../../../../core/common/errors";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("how-much-pga-hook");
 
-export interface HowMuchPGA {
+export interface UseHowMuchPGAHook {
   academicInfo: AcademicInfo;
 }
 
@@ -15,7 +15,7 @@ export interface ErrorSnackbarOptions {
   message: string;
 }
 
-export function useHowMuchPGA({ academicInfo }: HowMuchPGA) {
+export function useHowMuchPGA({ academicInfo }: UseHowMuchPGAHook) {
   const [semesterAverage, setSemesterAverage] = useState<number>(0);
   const [desiredPGA, setDesiredPGA] = useState<number>(academicInfo.currentPGA);
 

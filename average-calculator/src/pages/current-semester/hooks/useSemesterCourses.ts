@@ -5,11 +5,11 @@ import { sortSemesterCoursesByCredits } from "../util/helpers";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("semester-courses-hook");
 
-export interface UseSemesterCourse {
+export interface UseSemesterCourseHook {
   academicSemester: AcademicSemester;
 }
 
-export function useSemesterCourses({ academicSemester }: UseSemesterCourse) {
+export function useSemesterCourses({ academicSemester }: UseSemesterCourseHook) {
   const [courses, setCourses] = useState<SemesterCourse[]>([]);
 
   const onGradeChange = (id: string, grade: number) => {

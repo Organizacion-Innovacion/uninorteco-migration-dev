@@ -11,7 +11,7 @@ import { useSemesterCourses } from "../../hooks/useSemesterCourses";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("how-much-hook");
 
-export interface UseHowMuch {
+export interface UseHowMuchHook {
   academicSemester: AcademicSemester;
 }
 
@@ -20,7 +20,7 @@ export interface ErrorSnackbarOptions {
   message: string;
 }
 
-export function useHowMuch({ academicSemester }: UseHowMuch) {
+export function useHowMuchSemester({ academicSemester }: UseHowMuchHook) {
   const [semesterAverage, setSemesterAverage] = useState<number>(0);
   const { courses, onGradeChange, setCourses } = useSemesterCourses({
     academicSemester,

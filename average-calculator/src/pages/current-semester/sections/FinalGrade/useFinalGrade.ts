@@ -6,11 +6,11 @@ import { useSemesterCourses } from "../../hooks/useSemesterCourses";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("final-grade-hook");
 
-export interface UseFinalGrade {
+export interface UseFinalGradeHook {
   academicSemester: AcademicSemester;
 }
 
-export function useFinalGrade({ academicSemester }: UseFinalGrade) {
+export function useFinalGradeSemester({ academicSemester }: UseFinalGradeHook) {
   const [semesterAverage, setSemesterAverage] = useState<number>(0);
   const { courses, onGradeChange, totalCredits } = useSemesterCourses({
     academicSemester,

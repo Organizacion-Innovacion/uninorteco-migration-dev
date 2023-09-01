@@ -12,11 +12,11 @@ import { InvalidInputError } from "../../../../core/common/errors";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("how-much-course-hook");
 
-export interface HowMuchCourseHook {
+export interface UseHowMuchCourseHook {
   course: Course;
 }
 
-export function useHowMuchCourse({ course }: HowMuchCourseHook) {
+export function useHowMuchCourse({ course }: UseHowMuchCourseHook) {
   const [finalCourseGrade, setFinalCourseGrade] = useState<number>(0);
   const { components, onGradeChange, evaluatedPercentage, setComponents } =
     usePartialComponents({

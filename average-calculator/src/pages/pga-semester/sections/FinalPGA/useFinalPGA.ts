@@ -5,11 +5,11 @@ import { computeNewPGA } from "../../../../core/domain-logic/pga";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("final-pga-hook");
 
-export interface UseFinalPGA {
+export interface UseFinalPGAHook {
   academicInfo: AcademicInfo;
 }
 
-export function useFinalPGA({ academicInfo }: UseFinalPGA) {
+export function useFinalPGA({ academicInfo }: UseFinalPGAHook) {
   const [semesterAverage, setSemesterAverage] = useState<number>(0);
   const [finalPGA, setFinalPGA] = useState<number>(0);
 

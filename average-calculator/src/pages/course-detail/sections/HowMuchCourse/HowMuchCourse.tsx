@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Snackbar } from "@ellucian/react-design-system/core";
 import { CoursesContainer } from "../../../../components/CoursesContainer";
 import { Course } from "../../../../core/entities/course";
-import { useHowMuchCourse } from "./useHowMuchCourse";
+import { useHowMuchCourse } from "./useHowMuch";
 import { PartialComponentCard } from "../../components/PartialComponentCard";
 import { HowMuchResultCard } from "../../components/HowMuchResultCard";
 

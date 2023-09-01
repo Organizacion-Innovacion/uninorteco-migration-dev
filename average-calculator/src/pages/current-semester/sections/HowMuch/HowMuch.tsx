@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Snackbar } from "@ellucian/react-design-system/core";
 import { SemesterCourseCard } from "../../components/SemesterCourseCard";
 import { AcademicSemester } from "../../../../core/entities/semester";
-import { useHowMuch } from "./useHowMuch";
+import { useHowMuchSemester } from "./useHowMuch";
 import { HowMuchResultCard } from "../../components/HowMuchResultCard";
 import { CoursesContainer } from "../../../../components/CoursesContainer";
 
@@ -20,7 +20,7 @@ export function HowMuch({ academicSemester }: HowMuchProps) {
     onComputeNeededGrade,
     errorSnackbarOptions,
     onCloseSnackbar,
-  } = useHowMuch({
+  } = useHowMuchSemester({
     academicSemester,
   });
 

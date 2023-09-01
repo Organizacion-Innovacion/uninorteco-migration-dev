@@ -1,7 +1,7 @@
 import React from "react";
 import { SemesterCourseCard } from "../../components/SemesterCourseCard";
 import { FinalGradeResultCard } from "../../components/FinalGradeResultCard";
-import { useFinalGrade } from "./useFinalGrade";
+import { useFinalGradeSemester } from "./useFinalGrade";
 import { AcademicSemester } from "../../../../core/entities/semester";
 import { CoursesContainer } from "../../../../components/CoursesContainer";
 
@@ -10,9 +10,10 @@ export interface FinalGradeProps {
 }
 
 export function FinalGrade({ academicSemester }: FinalGradeProps) {
-  const { courses, semesterAverage, onGradeChange, totalCredits } = useFinalGrade({
-    academicSemester,
-  });
+  const { courses, semesterAverage, onGradeChange, totalCredits } =
+    useFinalGradeSemester({
+      academicSemester,
+    });
 
   return (
     <>

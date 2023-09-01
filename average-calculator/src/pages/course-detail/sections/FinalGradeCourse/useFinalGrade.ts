@@ -8,11 +8,11 @@ const myLogger = AppLogger.getAppLogger().createContextLogger(
   "final-grade-course-hook"
 );
 
-export interface FinalGradeCourseHook {
+export interface UseFinalGradeCourseHook {
   course: Course;
 }
 
-export function useFinalGradeCourse({ course }: FinalGradeCourseHook) {
+export function useFinalGradeCourse({ course }: UseFinalGradeCourseHook) {
   const [finalCourseGrade, setFinalCourseGrade] = useState<number>(0);
   const { components, onGradeChange, evaluatedPercentage } = usePartialComponents({
     course,

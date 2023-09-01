@@ -1,5 +1,5 @@
 import React from "react";
-import { useFinalGradeCourse } from "./useFinalGradeCourse";
+import { useFinalGradeCourse } from "./useFinalGrade";
 import { CoursesContainer } from "../../../../components/CoursesContainer";
 import { PartialComponentCard } from "../../components/PartialComponentCard";
 import { Course } from "../../../../core/entities/course";

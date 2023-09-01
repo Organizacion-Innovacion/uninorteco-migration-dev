@@ -8,6 +8,7 @@ import {
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { usePageControl } from "@ellucian/experience-extension-utils";
+import { useHistory } from "react-router-dom";
 import { TabRouter } from "./sections/TabRouter";
 
 // set up a context to help to identify the log messages
@@ -26,10 +27,24 @@ const styles = () => ({
 
 const CurrentSemesterPage = (props) => {
   const { classes } = props;
-  const { setPageTitle } = usePageControl();
+  const { setPageTitle, setPageToolbar } = usePageControl();
   const [tabValue, setTabValue] = useState({
     index: 0,
     text: "Mi nota final es",
+  });
+
+  const history = useHistory();
+
+  setPageToolbar({
+    primaryCommands: [
+      {
+        icon: "arrow-left",
+        label: "Regresar a las asignaturas",
+        callback: () => {
+          history.push("/");
+        },
+      },
+    ],
   });
 
   setPageTitle("Mis asignaturas");

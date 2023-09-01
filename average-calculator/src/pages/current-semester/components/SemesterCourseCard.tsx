@@ -1,8 +1,6 @@
 import React from "react";
-import { Typography, makeStyles } from "@ellucian/react-design-system/core";
-import { Icon } from "@ellucian/ds-icons/lib";
-// import { usePageControl, usePageInfo } from "@ellucian/experience-extension-utils";
-import { usePageInfo } from "@ellucian/experience-extension-utils";
+import { Typography, TextLink } from "@ellucian/react-design-system/core";
+import { Link } from "react-router-dom";
 import { SemesterCourse } from "../../../core/entities/semester";
 import { Stack } from "../../../components/Stack";
 import { CardLockButton } from "./lockIconButtons";
@@ -12,13 +10,11 @@ import { GradeTextField } from "../../../components/GradeTextField";
 interface ParcelacionTypographyProps {
   isSpecialCourse: boolean;
   parcelacionUrl: string;
-  classes: any;
 }
 
 function ParcelacionTypography({
   isSpecialCourse,
   parcelacionUrl,
-  classes,
 }: ParcelacionTypographyProps) {
   if (isSpecialCourse) {
     return (
@@ -33,30 +29,17 @@ function ParcelacionTypography({
   }
 
   return (
-    <Typography
+    <TextLink
       variant="body2"
       color="textSecondary"
-      sx={{ display: "flex", alignItems: "center", width: "fit-content" }}
-      component="a"
-      href={parcelacionUrl}
-      target="_self"
+      component={Link}
+      to={parcelacionUrl}
       style={{ textDecoration: "none" }}
     >
       Ver parcelación
-      <Icon
-        name="chevron-right"
-        className={classes.iconStyles}
-        style={{ width: 14, height: 14, marginLeft: "0.25rem" }}
-      />
-    </Typography>
+    </TextLink>
   );
 }
-
-const useStyles = makeStyles((theme: any) => ({
-  iconStyles: {
-    color: theme.palette.grey["500"],
-  },
-}));
 
 export interface SemesterCourseCardProps {
   semesterCourse: SemesterCourse;
@@ -69,17 +52,13 @@ export function SemesterCourseCard({
   onGradeChange,
   onLockIconPress,
 }: SemesterCourseCardProps) {
-  const classes = useStyles();
-
-  const { basePath } = usePageInfo();
-  // const { navigateToPage } = usePageControl();
-  // onClick={() => navigateToPage({ route: `/courses/${semesterCourse.id}` })}
   const disableTextField = onLockIconPress !== undefined && semesterCourse.isLocked;
   const bgProps = disableTextField ? { backgroundColor: "#f8f8f8" } : {};
 
   const isSpecialCourse = semesterCourse.credits === 0;
 
-  const parcelacionUrl = `${basePath}courses/${semesterCourse.id}`;
+  // const parcelacionUrl = `${basePath}courses/${semesterCourse.id}`;
+  const parcelacionUrl = `/courses/${semesterCourse.id}`;
 
   return (
     <BaseCard sx={bgProps}>
@@ -91,7 +70,6 @@ export function SemesterCourseCard({
         <ParcelacionTypography
           isSpecialCourse={isSpecialCourse}
           parcelacionUrl={parcelacionUrl}
-          classes={classes}
         />
       </Stack>
       {!isSpecialCourse && (

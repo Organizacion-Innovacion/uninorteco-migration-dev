@@ -9,6 +9,7 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { usePageControl } from "@ellucian/experience-extension-utils";
 import { TabRouter } from "./sections/TabRouter";
+import { usePageToolbar } from "../../hooks/usePageToolbar";
 
 const styles = () => ({
   page: {
@@ -35,6 +36,7 @@ const PGASemesterPage = (props) => {
   });
 
   setPageTitle("Promedio General Acumulado");
+  usePageToolbar();
 
   return (
     <div className={classes.page}>

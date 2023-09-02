@@ -42,7 +42,7 @@ export function PGAInfoModal({ setOpen, open }: PGAInfoModalModalProps) {
       </Typography>
       <Typography variant="body1">
         El promedio acumulado tiene una precisión de 2 décimas y es redondeado hacia
-        abajo (floor).
+        abajo.
       </Typography>
     </InfoModal>
   );

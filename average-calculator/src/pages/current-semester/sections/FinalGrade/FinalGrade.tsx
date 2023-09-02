@@ -31,6 +31,7 @@ export function FinalGrade({ academicSemester }: FinalGradeProps) {
           title="Promedio semestral"
           subtitle={`Créditos: ${totalCredits}`}
           result={semesterAverage}
+          helpMessage="¿Cómo se calcula el promedio semestral?"
         />
       </CoursesContainer>
     </>

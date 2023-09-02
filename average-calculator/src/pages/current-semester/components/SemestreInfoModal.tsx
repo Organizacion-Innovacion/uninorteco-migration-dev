@@ -39,7 +39,7 @@ export function SemestreInfoModal({ setOpen, open }: SemestreInfoModalProps) {
       </Typography>
       <Typography variant="body1">
         El promedio semestral tiene una precisión de 2 décimas y es redondeado hacia
-        abajo (floor).
+        abajo.
       </Typography>
     </InfoModal>
   );

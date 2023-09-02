@@ -42,6 +42,7 @@ export function HowMuchCourse({ course }: HowMuchCourseProps) {
           subtitle="Los componentes no bloqueados serán modificados para obtener una nota final de"
           value={finalCourseGrade}
           onGradeChange={onFinalGradeChange}
+          helpMessage="¿Cómo se calcula la nota final?"
         />
         <Button
           sx={{

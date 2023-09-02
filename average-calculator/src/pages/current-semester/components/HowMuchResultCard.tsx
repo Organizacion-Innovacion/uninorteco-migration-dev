@@ -10,6 +10,7 @@ export interface HowMuchResultCardProps {
   subtitle: string;
   value: number;
   onGradeChange: (data: number) => void;
+  helpMessage: string;
 }
 
 export function HowMuchResultCard({
@@ -17,6 +18,7 @@ export function HowMuchResultCard({
   subtitle,
   value,
   onGradeChange,
+  helpMessage,
 }: HowMuchResultCardProps) {
   const [open, setOpen] = useState(false);
 
@@ -37,9 +39,9 @@ export function HowMuchResultCard({
           variant="body2"
           color="textSecondary"
           onClick={handleOpen}
-          sx={{ cursor: "pointer" }}
+          sx={{ cursor: "pointer", color: "#026BC8" }}
         >
-          ¿Qué significa esto?
+          {helpMessage}
         </Typography>
       </Stack>
       <Stack sx={{ flexDirection: "row" }}>

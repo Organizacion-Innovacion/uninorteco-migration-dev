@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import { Typography } from "@ellucian/react-design-system/core";
 import { AcademicInfo } from "../../../../core/entities/academic-info";
 import { useFinalPGA } from "./useFinalPGA";
 import { CoursesContainer } from "../../../../components/CoursesContainer";
 import { PGASemesterCard } from "../../components/PGASemesterCard";
-import { Fab } from "../../../../components/Fab";
 import { PGAInfoModal } from "../../components/PGAInfoModal";
 
 interface FinalPGAProps {
@@ -31,7 +31,20 @@ export function FinalPGA({ academicInfo }: FinalPGAProps) {
           value={finalPGA}
         />
       </CoursesContainer>
-      <Fab onClick={() => setOpen(true)} toolTipTitle="ayuda" iconName="help" />
+      <Typography
+        variant="body2"
+        onClick={() => setOpen(true)}
+        sx={{
+          cursor: "pointer",
+          alignSelf: "center",
+          mt: 6,
+          color: "#026BC8",
+          px: 2,
+          textAlign: "center",
+        }}
+      >
+        ¿Cómo se calcula el promedio acumulado?
+      </Typography>
       <PGAInfoModal open={open} setOpen={setOpen} />
     </>
   );

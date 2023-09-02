@@ -8,12 +8,14 @@ export interface FinalGradeResultCardProps {
   title: string;
   subtitle: string;
   result: number;
+  helpMessage: string;
 }
 
 export function FinalGradeResultCard({
   title,
   subtitle,
   result,
+  helpMessage,
 }: FinalGradeResultCardProps) {
   const [open, setOpen] = useState(false);
 
@@ -32,9 +34,9 @@ export function FinalGradeResultCard({
           variant="body2"
           color="textSecondary"
           onClick={handleOpen}
-          sx={{ cursor: "pointer" }}
+          sx={{ cursor: "pointer", color: "#026BC8" }}
         >
-          ¿Qué significa esto?
+          {helpMessage}
         </Typography>
       </Stack>
       <Stack sx={{ flexDirection: "row" }}>

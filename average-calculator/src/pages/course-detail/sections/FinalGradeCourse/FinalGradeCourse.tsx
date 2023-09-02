@@ -31,6 +31,7 @@ export function FinalGradeCourse({ course }: FinalGradeCourseProps) {
           title="Nota final"
           subtitle={`Porcentaje evaluado: ${evaluatedPercentage}%`}
           result={finalCourseGrade}
+          helpMessage="¿Cómo se calcula la nota final?"
         />
       </CoursesContainer>
     </>

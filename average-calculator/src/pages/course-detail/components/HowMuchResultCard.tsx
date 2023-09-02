@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Typography } from "@ellucian/react-design-system/core";
 import { Stack } from "../../../components/Stack";
 import { BaseCard } from "../../../components/BaseCard";
 import { GradeTextField } from "../../../components/GradeTextField";
+import { CourseInfoModal } from "./CourseInfoModal";
 
 export interface HowMuchResultCardProps {
   title: string;
   subtitle: string;
   value: number;
   onGradeChange: (data: number) => void;
+  helpMessage: string;
 }
 
 export function HowMuchResultCard({
@@ -16,7 +18,10 @@ export function HowMuchResultCard({
   subtitle,
   value,
   onGradeChange,
+  helpMessage,
 }: HowMuchResultCardProps) {
+  const [open, setOpen] = useState(false);
+
   return (
     <BaseCard>
       <Stack sx={{ flexGrow: 1 }}>
@@ -26,8 +31,13 @@ export function HowMuchResultCard({
         <Typography variant="body2" color="textSecondary" sx={{ mb: 3 }}>
           {subtitle}
         </Typography>
-        <Typography variant="body2" color="textSecondary" sx={{ cursor: "pointer" }}>
-          ¿Qué significa esto?
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          onClick={() => setOpen(true)}
+          sx={{ cursor: "pointer", color: "#026BC8" }}
+        >
+          {helpMessage}
         </Typography>
       </Stack>
       <Stack sx={{ flexDirection: "row" }}>
@@ -35,6 +45,7 @@ export function HowMuchResultCard({
           <GradeTextField value={value} onGradeChange={onGradeChange} />
         </div>
       </Stack>
+      <CourseInfoModal open={open} setOpen={setOpen} />
     </BaseCard>
   );
 }

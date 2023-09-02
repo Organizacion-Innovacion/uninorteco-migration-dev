@@ -42,6 +42,7 @@ export function HowMuch({ academicSemester }: HowMuchProps) {
           subtitle="Las asignaturas no bloqueadas serán modificadas para obtener un promedio semestral de"
           value={semesterAverage}
           onGradeChange={onFinalGradeChange}
+          helpMessage="¿Cómo se calcula el promedio semestral?"
         />
         <Button
           sx={{

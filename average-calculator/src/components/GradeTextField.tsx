@@ -5,6 +5,7 @@ export interface GradeTextFieldProps {
   onGradeChange: (data: number) => void;
   value: number;
   [key: string]: any;
+  presicion?: number;
 }
 
 const useStyles = makeStyles(() => ({
@@ -18,6 +19,7 @@ const useStyles = makeStyles(() => ({
 export function GradeTextField({
   onGradeChange,
   value,
+  presicion = 2,
   ...props
 }: GradeTextFieldProps) {
   const classes = useStyles();
@@ -49,7 +51,7 @@ export function GradeTextField({
       name="grade"
       fullWidth
       type="number"
-      precision={2}
+      precision={presicion}
       max={5}
       min={0}
       size="small"

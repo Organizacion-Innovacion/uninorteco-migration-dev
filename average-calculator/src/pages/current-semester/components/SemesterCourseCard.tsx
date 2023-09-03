@@ -65,7 +65,7 @@ export function SemesterCourseCard({
       <Stack sx={{ flexGrow: 1 }}>
         <Typography variant="h4">{semesterCourse.name}</Typography>
         <Typography variant="body2" color="textSecondary" sx={{ mb: 3 }}>
-          Creditos: {semesterCourse.credits}
+          Créditos: {semesterCourse.credits}
         </Typography>
         <ParcelacionTypography
           isSpecialCourse={isSpecialCourse}

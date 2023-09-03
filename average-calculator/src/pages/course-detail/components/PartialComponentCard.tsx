@@ -34,6 +34,7 @@ export function PartialComponentCard({
             value={partialComponent.grade}
             onGradeChange={(grade) => onGradeChange(partialComponent.id, grade)}
             disabled={disableTextField}
+            presicion={1}
           />
         </div>
         {onLockIconPress && (

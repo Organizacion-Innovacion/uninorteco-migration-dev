@@ -29,7 +29,7 @@ export function FinalGrade({ academicSemester }: FinalGradeProps) {
       <CoursesContainer sxProps={{ mt: 16 }}>
         <FinalGradeResultCard
           title="Promedio semestral"
-          subtitle={`Créditos: ${totalCredits}`}
+          subtitle={`Créditos Semestrales: ${totalCredits}`}
           result={semesterAverage}
           helpMessage="¿Cómo se calcula el promedio semestral?"
         />

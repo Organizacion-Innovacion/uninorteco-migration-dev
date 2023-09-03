@@ -29,8 +29,9 @@ export function useCourse({ courseId }: UseCourseHook) {
       if (error instanceof RepositoryError) {
         if (error.errorCode === ErrorCode.NOT_FOUND) {
           setFatalError({ error, iconColor: "blue", iconName: "info" });
+        } else {
+          setFatalError({ error });
         }
-        setFatalError({ error });
       }
     } finally {
       setLoadingStatus(false);

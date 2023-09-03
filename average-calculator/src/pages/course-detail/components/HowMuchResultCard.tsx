@@ -42,7 +42,7 @@ export function HowMuchResultCard({
       </Stack>
       <Stack sx={{ flexDirection: "row" }}>
         <div style={{ width: 70 }}>
-          <GradeTextField value={value} onGradeChange={onGradeChange} />
+          <GradeTextField value={value} onGradeChange={onGradeChange} presicion={1} />
         </div>
       </Stack>
       <CourseInfoModal open={open} setOpen={setOpen} />

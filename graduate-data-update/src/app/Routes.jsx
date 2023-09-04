@@ -12,6 +12,9 @@ export function AppRouter(props) {
         <Route path="/">
           <Home {...props} />
         </Route>
+        <Route path="/Home">
+          <Home {...props} />
+        </Route>
       </Switch>
     </Router>
   );

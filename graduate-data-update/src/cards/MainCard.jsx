@@ -30,7 +30,7 @@ function MainCard(props) {
 
   return (
     <div className={classes.card}>
-      <Typography>This is template card</Typography>
+      <Typography>This is templatea card</Typography>
       <Typography>{intl.formatMessage({ id: "card.hellowMessage" })}</Typography>
     </div>
   );

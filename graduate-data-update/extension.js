@@ -1,13 +1,13 @@
 module.exports = {
-  name: "uninorte-extension-template",
+  name: "graduate-data-update",
   publisher: "uninorte",
   cards: [
     {
-      type: "card-template-1",
+      type: "graduate-data-update-card",
       source: "./src/cards/MainCard.jsx",
-      title: "Card Template 1",
-      displayCardType: "Card Template 1",
-      description: "This is the description of Card Template 1",
+      title: "Actualización de datos egresados",
+      displayCardType: "Actualización de datos egresados",
+      description: "This is the description of graduate data update",
       pageRoute: {
         route: "/",
         excludeClickSelectors: ["a"],

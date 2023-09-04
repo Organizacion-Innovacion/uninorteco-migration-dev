@@ -8,7 +8,7 @@ import { usePageControl } from "@ellucian/experience-extension-utils";
 import { calculateDistance } from "../core/common/utils";
 // import { APP_ENV_VARS } from "../core/config/app-env-vars";
 import { AppLogger } from "../core/config/logger";
-import StepProgressComponent from "./components/StepProgressComponent/StepProgressComponent";
+import StepProgressComponent from "./components/stepProgressComponent/StepProgressComponent";
 
 // set up a context to help to identify the log messages
 const myLogger = AppLogger.getAppLogger().createContextLogger("home.jsx");

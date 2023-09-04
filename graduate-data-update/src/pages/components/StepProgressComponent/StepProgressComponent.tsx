@@ -10,13 +10,22 @@ import {
 import { withStyles } from "@ellucian/react-design-system/core/styles";
 import { stylesStepProgress } from "./StepProgressComponentStyles";
 
-const styles = stylesStepProgress;
+// Define el tipo para 'classes'
+type ClassesType = {
+  sectionHeaders:string;
+  root: string;
+  button: string;
+  stepProgressContent:string;
+  stepProgressContentContainer:string;
+  // Agrega otras propiedades según sea necesario
+};
+
 
 const customId = "LinearHorizontalProgress";
 
 const getSteps = () => ["Información personal", "Estado laboral", "Direcciones"];
 
-const getStepContent = (step) => {
+const getStepContent = (step:number) => {
   switch (step) {
     case 0:
       return "Content of Información personal";
@@ -29,7 +38,7 @@ const getStepContent = (step) => {
   }
 };
 
-const StepProgressComponent = ({ classes }) => {
+const StepProgressComponent: React.FC<{ classes: ClassesType }> = ({ classes }) => {
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
@@ -96,7 +105,13 @@ const StepProgressComponent = ({ classes }) => {
 };
 
 StepProgressComponent.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.shape({
+    sectionHeaders: PropTypes.string.isRequired,
+    root: PropTypes.string.isRequired,
+    button: PropTypes.string.isRequired,
+    stepProgressContent: PropTypes.string.isRequired,
+    stepProgressContentContainer: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
-export default withStyles(styles)(StepProgressComponent);
+export default withStyles(stylesStepProgress)(StepProgressComponent);

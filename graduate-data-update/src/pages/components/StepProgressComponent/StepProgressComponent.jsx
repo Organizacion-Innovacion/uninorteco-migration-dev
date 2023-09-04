@@ -14,61 +14,35 @@ const styles = stylesStepProgress;
 
 const customId = "LinearHorizontalProgress";
 
-function getSteps() {
-  return ["Template", "Details", "Preview"];
-}
+const getSteps = () => ["Información personal", "Estado laboral", "Direcciones"];
 
-function getStepContent(step) {
+const getStepContent = (step) => {
   switch (step) {
     case 0:
-      return "Content of template";
+      return "Content of Información personal";
     case 1:
-      return "Content of details";
+      return "Content of Estado laboral";
     case 2:
-      return "Content of preview";
+      return "Content of Direcciones";
     default:
       return "true";
   }
-}
+};
 
-const StepProgressComponent = (props) => {
-  const { classes } = props;
-  console.log(classes);
+const StepProgressComponent = ({ classes }) => {
   const [activeStep, setActiveStep] = useState(0);
-  const [skipped, setSkipped] = useState(new Set());
-  // const [showLabels] = useState(true);
-
-  const isStepOptional = (step) => step === 1;
-
-  const isStepSkipped = (step) => skipped.has(step);
 
   const handleNext = () => {
     const newActiveStep = activeStep + 1;
-    if (isStepSkipped(newActiveStep)) {
-      const newSkipped = new Set(skipped);
-      newSkipped.delete(newActiveStep);
-      setSkipped(newSkipped);
-    }
     setActiveStep(newActiveStep);
   };
 
   const handleBack = () => {
-    setActiveStep(activeStep - 1);
-  };
-
-  const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      throw new Error("You can't skip a step that isn't optional.");
-    }
-    const newSkipped = new Set(skipped);
-    newSkipped.add(activeStep);
-    setActiveStep(activeStep + 1);
-    setSkipped(newSkipped);
+    setActiveStep((prevStep) => prevStep - 1);
   };
 
   const handleReset = () => {
     setActiveStep(0);
-    setSkipped(new Set());
   };
 
   const steps = getSteps();
@@ -76,15 +50,9 @@ const StepProgressComponent = (props) => {
   return (
     <div className={classes.root} id={`${customId}_Container`}>
       <StepProgress activeStep={activeStep} alternativeLabel>
-        {steps.map((label, index) => {
-          const prop = {};
+        {steps.map((label) => {
+          const props = {};
           const labelProps = {};
-          if (isStepOptional(index)) {
-            labelProps.optional = "Optional";
-          }
-          if (isStepSkipped(index)) {
-            prop.completed = false;
-          }
           return (
             <Step key={label} {...props}>
               <StepLabel {...labelProps}>{label}</StepLabel>
@@ -96,7 +64,7 @@ const StepProgressComponent = (props) => {
         {activeStep === steps.length ? (
           <div className={classes.stepProgressContentContainer}>
             <Typography className={classes.stepProgressContent}>
-              All steps completed - you&#39;re finished
+              All steps completed - you are finished
             </Typography>
             <Button onClick={handleReset} className={classes.button}>
               Reset
@@ -116,15 +84,6 @@ const StepProgressComponent = (props) => {
               >
                 Back
               </Button>
-              {isStepOptional(activeStep) && (
-                <Button
-                  color="secondary"
-                  onClick={handleSkip}
-                  className={classes.button}
-                >
-                  Skip
-                </Button>
-              )}
               <Button color="primary" onClick={handleNext} className={classes.button}>
                 {activeStep === steps.length - 1 ? "Finish" : "Next"}
               </Button>

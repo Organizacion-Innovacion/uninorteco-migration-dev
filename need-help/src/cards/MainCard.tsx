@@ -2,15 +2,11 @@ import { withStyles } from "@ellucian/react-design-system/core/styles";
 import { spacing40 } from "@ellucian/react-design-system/core/styles/tokens";
 import { Typography } from "@ellucian/react-design-system/core";
 import PropTypes from "prop-types";
-import React, { ChangeEvent, useState } from "react";
-import { useIntl } from "react-intl";
+import React from "react";
+// import { useIntl } from "react-intl";
 import { setupLogger } from "../util/setup-logger";
 import { AppLogger } from "../core/config/logger";
 import { withIntl } from "../i18n/ReactIntlProviderWrapper";
-import RequireTextField from "../components/RequiredTextField";
-import DropdownComponent from "../components/DropdownComponent";
-import ButtonComponent from "../components/ButtonComponent";
-
 // setup logger for card
 setupLogger();
 
@@ -31,48 +27,18 @@ interface MainCardProps {
 
 const MainCard: React.FC<MainCardProps> = (props) => {
   const { classes } = props;
-  const intl = useIntl();
+ // const intl = useIntl();
 
-  myLogger.debug("card template 1");
+  myLogger.debug("card need help");
 
-  const [state, updateState] = useState({
-    degrees: "",
-    initialValue: "",
-  });
-
-  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const valueIsNone = event.target.value === "None";
-    if (valueIsNone) {
-      updateState({
-        ...state,
-        degrees: state.initialValue,
-      });
-    } else {
-      updateState({
-        ...state,
-        degrees: event.target.value,
-      });
-    }
-  };
 
   return (
     <div className={classes.card}>
-      <DropdownComponent
-        placeholder={intl.formatMessage({ id: "card.dropdown" })}
-        handleChange={handleChange}
-        degrees={state.degrees}
-      />
-      <Typography>{intl.formatMessage({ id: "card.label1" })}</Typography>
-      <RequireTextField customId="TextFieldMultiline" placeholder={intl.formatMessage({ id: "card.inputText" })} />
-      <Typography>{intl.formatMessage({ id: "card.label2" })}</Typography>
-      <RequireTextField customId="TextFieldFullWidth"
-        placeholder={intl.formatMessage({ id: "card.inputText2" })}
-        multiline
-      />
-      <RequireTextField customId="TextFieldExt"
-      placeholder={intl.formatMessage({ id: "card.inputText3" })}
-    />
-    <ButtonComponent textButton={intl.formatMessage({id:"card.button"})}/>
+      <Typography>
+        ¿Presentas algún problema con tus servicios TIC? como, por ejemplo: correo
+        electrónico, portales Uninorte o sistemas de información. crea un caso en el
+        centro de soluciones usando el siguiente formulario:
+      </Typography>
     </div>
   );
 };

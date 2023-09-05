@@ -1,0 +1,62 @@
+[
+    {
+        "countryCodePhone": null,
+        "seq": "4",
+        "statusInd": null,
+        "activityDate": "04-07-2023 07:28:07",
+        "pidm": "162865",
+        "phoneType": "CELU",
+        "phoneExt": null,
+        "intlAccess": "57",
+        "phoneArea": null,
+        "phoneNumber": "34",
+        "addressType": null,
+        "addressSeqno": null,
+        "primaryInd": null
+    },
+    {
+        "countryCodePhone": null,
+        "seq": "5",
+        "statusInd": null,
+        "activityDate": "04-07-2023 07:58:04",
+        "pidm": "162865",
+        "phoneType": "CELU",
+        "phoneExt": null,
+        "intlAccess": "57",
+        "phoneArea": null,
+        "phoneNumber": "98",
+        "addressType": null,
+        "addressSeqno": null,
+        "primaryInd": null
+    },
+    {
+        "countryCodePhone": null,
+        "seq": "6",
+        "statusInd": null,
+        "activityDate": "04-07-2023 07:58:09",
+        "pidm": "162865",
+        "phoneType": "CELU",
+        "phoneExt": null,
+        "intlAccess": "57",
+        "phoneArea": null,
+        "phoneNumber": "9844",
+        "addressType": null,
+        "addressSeqno": null,
+        "primaryInd": null
+    },
+    {
+        "countryCodePhone": null,
+        "seq": "7",
+        "statusInd": null,
+        "activityDate": "04-07-2023 10:13:36",
+        "pidm": "162865",
+        "phoneType": "CELU",
+        "phoneExt": null,
+        "intlAccess": "57",
+        "phoneArea": null,
+        "phoneNumber": "5",
+        "addressType": null,
+        "addressSeqno": null,
+        "primaryInd": null
+    }
+]

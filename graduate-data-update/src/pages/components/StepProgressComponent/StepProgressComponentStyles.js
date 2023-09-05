@@ -5,7 +5,7 @@ export const stylesStepProgress = (theme) => ({
     paddingTop: theme.spacing(7.5),
   },
   root: {
-    width: "90%",
+    width: "100%",
   },
   button: {
     marginRight: spacing40,

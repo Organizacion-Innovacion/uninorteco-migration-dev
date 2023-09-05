@@ -1,0 +1,19 @@
+[
+    {
+        "state": "706",
+        "seq": "2",
+        "statusInd": null,
+        "fromDate": "08-08-2016",
+        "toDate": null,
+        "activityDate": "28-06-2023 04:24:34",
+        "pidm": "162865",
+        "addressType": "DP",
+        "line1": "1264 streeth # 45",
+        "line2": "extranjero",
+        "line3": "El praditoX fuera del pais",
+        "city": "PolonuevoX",
+        "zip": "0706",
+        "county": "0706",
+        "nation": "DEU"
+    }
+]

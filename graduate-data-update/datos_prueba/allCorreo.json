@@ -1,0 +1,32 @@
+[
+    {
+        "dispWebInd": "Y",
+        "activityDate": "04-07-2023 07:59:37",
+        "pidm": "162865",
+        "internalRecordId": "AABGdvAALAAFYeSAAA",
+        "emailType": "PART",
+        "emailAddress": "asd@sd.com",
+        "statusInd": "A",
+        "preferredInd": "N"
+    },
+    {
+        "dispWebInd": "Y",
+        "activityDate": "01-09-2020 02:57:45",
+        "pidm": "162865",
+        "internalRecordId": "AABGdvAALAAFSAYABB",
+        "emailType": "FUNC",
+        "emailAddress": "mtotic_desa@uninorte.edu.co",
+        "statusInd": "A",
+        "preferredInd": "N"
+    },
+    {
+        "dispWebInd": "Y",
+        "activityDate": "08-02-2020 02:34:26",
+        "pidm": "162865",
+        "internalRecordId": "AABGdvAAGAAOH1OAA/",
+        "emailType": "STAN",
+        "emailAddress": "mtotic_desa@uninorte.edu.co",
+        "statusInd": "A",
+        "preferredInd": "N"
+    }
+]

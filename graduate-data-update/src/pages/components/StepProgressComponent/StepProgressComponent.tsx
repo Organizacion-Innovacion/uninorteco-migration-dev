@@ -9,6 +9,7 @@ import {
 } from "@ellucian/react-design-system/core";
 import { withStyles } from "@ellucian/react-design-system/core/styles";
 import { stylesStepProgress } from "./StepProgressComponentStyles";
+import CardComponent from "../cardComponent/CardComponent";
 
 // Define el tipo para 'classes'
 type ClassesType = {
@@ -28,7 +29,7 @@ const getSteps = () => ["Información personal", "Estado laboral", "Direcciones"
 const getStepContent = (step:number) => {
   switch (step) {
     case 0:
-      return "Content of Información personal";
+      return <CardComponent title='correo o telefono'/>;
     case 1:
       return "Content of Estado laboral";
     case 2:
@@ -91,10 +92,10 @@ const StepProgressComponent: React.FC<{ classes: ClassesType }> = ({ classes }) 
                 onClick={handleBack}
                 className={classes.button}
               >
-                Back
+                Atras
               </Button>
               <Button color="primary" onClick={handleNext} className={classes.button}>
-                {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                {activeStep === steps.length - 1 ? "Finalizar" : "Siguiente"}
               </Button>
             </div>
           </div>

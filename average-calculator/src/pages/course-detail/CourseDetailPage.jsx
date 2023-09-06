@@ -4,9 +4,10 @@ import React, { useEffect } from "react";
 import { usePageControl } from "@ellucian/experience-extension-utils";
 import { useParams } from "react-router-dom";
 import { TabRouter } from "./sections/TabRouter";
-import { useTabLayout } from "../../components/HowMuchFinalTabLayout/useTabLayout";
-import { HowMuchFinalTabLayout } from "../../components/HowMuchFinalTabLayout";
+import { useTabLayout } from "../../components/TabLayout/useTabLayout";
+import { TabLayout } from "../../components/TabLayout";
 import { useCourse } from "./hooks/useCourse";
+import { defaultFinalGradeHowMuchTabs } from "../common/utils";
 
 const styles = () => ({
   page: {
@@ -20,7 +21,9 @@ const CourseDetailPage = (props) => {
   const { setPageTitle } = usePageControl();
   const { courseId } = useParams();
   const { course } = useCourse({ courseId });
-  const { onIndexChange, tabLabels, tabLayoutValue } = useTabLayout();
+  const { onIndexChange, tabLabels, tabLayoutValue } = useTabLayout({
+    tabs: defaultFinalGradeHowMuchTabs,
+  });
 
   useEffect(() => {
     if (course) {
@@ -33,13 +36,13 @@ const CourseDetailPage = (props) => {
   return (
     <div className={classes.page}>
       {course && (
-        <HowMuchFinalTabLayout
+        <TabLayout
           index={tabLayoutValue.index}
           tabs={tabLabels}
           onIndexChange={onIndexChange}
         >
           <TabRouter index={tabLayoutValue.index} course={course} />
-        </HowMuchFinalTabLayout>
+        </TabLayout>
       )}
     </div>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  TabLayout,
+  TabLayout as EllucianTabLayout,
   Tab,
   Tabs,
   TabLayoutContent,
@@ -19,29 +19,24 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export interface HowMuchFinalTabLayoutProps {
+export interface TabLayoutProps {
   onIndexChange: (index: number) => void;
   index: number;
   tabs: string[];
   children: React.ReactNode;
 }
 
-export function HowMuchFinalTabLayout({
-  onIndexChange,
-  index,
-  tabs,
-  children,
-}: HowMuchFinalTabLayoutProps) {
+export function TabLayout({ onIndexChange, index, tabs, children }: TabLayoutProps) {
   const classes = useStyles();
 
   return (
-    <TabLayout className={classes.tabLayout} style={{ padding: 0 }}>
+    <EllucianTabLayout className={classes.tabLayout} style={{ padding: 0 }}>
       <Tabs onChange={(e: any, val: number) => onIndexChange(val)} value={index}>
         {tabs.map((tab) => (
           <Tab key={tab} label={tab} />
         ))}
       </Tabs>
       <TabLayoutContent className={classes.tabContent}>{children}</TabLayoutContent>
-    </TabLayout>
+    </EllucianTabLayout>
   );
 }

@@ -9,10 +9,9 @@ import { usePageFatalError } from "../../../hooks/usePageFatalError";
 const myLogger = AppLogger.getAppLogger().createContextLogger("academic-semester-hook");
 
 export function useAcademicSemester() {
-  const [academicSemester, setAcademicSemester] = useState<AcademicSemester>({
-    courses: [],
-    name: "Semestre actual",
-  });
+  const [academicSemester, setAcademicSemester] = useState<AcademicSemester | null>(
+    null
+  );
 
   const { setLoadingStatus } = usePageControl();
   const { setFatalError } = usePageFatalError();

@@ -10,26 +10,11 @@ export interface TabContent {
   tabId: string;
 }
 
-export const defaultTabs: TabContent[] = [
-  {
-    label: "Mi nota final es",
-    tabId: "finalGrade",
-  },
-  {
-    label: "Cuanto necesito",
-    tabId: "howMuch",
-  },
-];
-
 export interface UseTabLayoutHook {
-  tabs?: TabContent[];
+  tabs: TabContent[];
 }
 
-export function useTabLayout(
-  { tabs = defaultTabs }: UseTabLayoutHook = {
-    tabs: defaultTabs,
-  }
-) {
+export function useTabLayout({ tabs }: UseTabLayoutHook) {
   const [tabLayoutValue, setTabLayoutValue] = useState<TabLayoutValue>({
     index: 0,
     tabId: tabs[0].tabId,

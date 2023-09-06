@@ -1,9 +1,9 @@
 import React from "react";
 import { Typography } from "@ellucian/react-design-system/core";
 import { Stack } from "../../../components/Stack";
-import { CardLockButton } from "./lockIconButtons";
+import { CardLockButton } from "../../common/components/lockIconButtons";
 import { BaseCard } from "../../../components/BaseCard";
-import { GradeTextField } from "../../../components/GradeTextField";
+import { GradeTextField } from "../../common/components/GradeTextField";
 import { PartialComponent } from "../../../core/entities/course";
 
 export interface PartialComponentCardProps {

@@ -4,7 +4,7 @@ import { SemesterCourseCard } from "../../components/SemesterCourseCard";
 import { AcademicSemester } from "../../../../core/entities/semester";
 import { useHowMuchSemester } from "./useHowMuch";
 import { HowMuchResultCard } from "../../components/HowMuchResultCard";
-import { CoursesContainer } from "../../../../components/CoursesContainer";
+import { CoursesContainer } from "../../../common/components/CoursesContainer";
 
 export interface HowMuchProps {
   academicSemester: AcademicSemester;

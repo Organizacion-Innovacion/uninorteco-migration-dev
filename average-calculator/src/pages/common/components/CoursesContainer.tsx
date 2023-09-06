@@ -1,6 +1,6 @@
 import React from "react";
 import { withStyles } from "@ellucian/react-design-system/core/styles";
-import { Box } from "./Box";
+import { Box } from "../../../components/Box";
 
 // we cannot use SxProps type because ellucian path desing does not re export
 // any component from mui library

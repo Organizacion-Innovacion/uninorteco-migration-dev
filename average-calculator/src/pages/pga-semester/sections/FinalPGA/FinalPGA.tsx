@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Typography } from "@ellucian/react-design-system/core";
 import { AcademicInfo } from "../../../../core/entities/academic-info";
 import { useFinalPGA } from "./useFinalPGA";
-import { CoursesContainer } from "../../../../components/CoursesContainer";
+import { CoursesContainer } from "../../../common/components/CoursesContainer";
 import { PGASemesterCard } from "../../components/PGASemesterCard";
 import { PGAInfoModal } from "../../components/PGAInfoModal";
 

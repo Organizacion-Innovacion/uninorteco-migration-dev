@@ -3,7 +3,7 @@ import { Typography } from "@ellucian/react-design-system/core";
 import { Stack } from "../../../components/Stack";
 import { SemestreInfoModal } from "./SemestreInfoModal";
 import { BaseCard } from "../../../components/BaseCard";
-import { GradeTextField } from "../../../components/GradeTextField";
+import { GradeTextField } from "../../common/components/GradeTextField";
 
 export interface HowMuchResultCardProps {
   title: string;

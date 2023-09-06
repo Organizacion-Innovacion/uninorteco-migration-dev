@@ -3,9 +3,9 @@ import { Typography, TextLink } from "@ellucian/react-design-system/core";
 import { Link } from "react-router-dom";
 import { SemesterCourse } from "../../../core/entities/semester";
 import { Stack } from "../../../components/Stack";
-import { CardLockButton } from "./lockIconButtons";
+import { CardLockButton } from "../../common/components/lockIconButtons";
 import { BaseCard } from "../../../components/BaseCard";
-import { GradeTextField } from "../../../components/GradeTextField";
+import { GradeTextField } from "../../common/components/GradeTextField";
 
 interface ParcelacionTypographyProps {
   isSpecialCourse: boolean;

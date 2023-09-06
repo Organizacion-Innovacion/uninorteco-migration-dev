@@ -2,7 +2,7 @@ import React from "react";
 import { Snackbar, Button } from "@ellucian/react-design-system/core";
 import { AcademicInfo } from "../../../../core/entities/academic-info";
 import { useHowMuchPGA } from "./useHowMuchPGA";
-import { CoursesContainer } from "../../../../components/CoursesContainer";
+import { CoursesContainer } from "../../../common/components/CoursesContainer";
 import { PGASemesterCard } from "../../components/PGASemesterCard";
 
 interface HowMuchPGAProps {

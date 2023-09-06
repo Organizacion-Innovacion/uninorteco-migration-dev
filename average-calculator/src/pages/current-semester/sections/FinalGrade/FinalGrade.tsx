@@ -3,7 +3,7 @@ import { SemesterCourseCard } from "../../components/SemesterCourseCard";
 import { FinalGradeResultCard } from "../../components/FinalGradeResultCard";
 import { useFinalGradeSemester } from "./useFinalGrade";
 import { AcademicSemester } from "../../../../core/entities/semester";
-import { CoursesContainer } from "../../../../components/CoursesContainer";
+import { CoursesContainer } from "../../../common/components/CoursesContainer";
 
 export interface FinalGradeProps {
   academicSemester: AcademicSemester;

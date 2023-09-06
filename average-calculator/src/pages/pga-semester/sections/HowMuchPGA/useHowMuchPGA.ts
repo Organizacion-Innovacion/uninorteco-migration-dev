@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { AppLogger } from "../../../../core/config/logger";
 import { AcademicInfo } from "../../../../core/entities/academic-info";
-import { computeNeededSemesterAverage } from "../../../../core/domain-logic/pga";
 import { InvalidInputError } from "../../../../core/common/errors";
+import { calculatorFacade } from "../../../../core/domain-logic/facade";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("how-much-pga-hook");
 
@@ -38,18 +38,16 @@ export function useHowMuchPGA({ academicInfo }: UseHowMuchPGAHook) {
   };
 
   const onNeededSemesterAverage = () => {
-    myLogger.debug("computing semester average for desired grade", {
-      currentPGA: academicInfo.currentPGA,
-      creditsSoFar: academicInfo.creditsSoFar,
-      desiredPGA,
-      currentCredits: academicInfo.currentCredits,
-    });
     try {
-      const neededSemesterAverage = computeNeededSemesterAverage(
-        academicInfo.currentPGA,
-        academicInfo.creditsSoFar,
+      myLogger.debug("computing semester average for desired grade", {
+        currentPGA: academicInfo.currentPGA,
+        creditsSoFar: academicInfo.creditsSoFar,
         desiredPGA,
-        academicInfo.currentCredits
+        currentCredits: academicInfo.currentCredits,
+      });
+      const neededSemesterAverage = calculatorFacade.pgaHowMuch(
+        academicInfo,
+        desiredPGA
       );
       myLogger.debug("semester average for desired pga", { neededSemesterAverage });
       setSemesterAverage(neededSemesterAverage);

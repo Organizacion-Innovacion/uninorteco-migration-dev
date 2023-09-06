@@ -1,14 +1,10 @@
 import { useEffect, useState } from "react";
 import { AppLogger } from "../../../../core/config/logger";
-import {
-  computeNeededGradeForCourse,
-  replaceGradeOfUnLockedComponents,
-  computeFinalGradeOfCourse,
-} from "../../../../core/domain-logic/course-algorithms";
 import { Course } from "../../../../core/entities/course";
 import { usePartialComponents } from "../../hooks/usePartialComponents";
 import { useErrorSnackbar } from "../../../../hooks/useErrorSnackbar";
 import { InvalidInputError } from "../../../../core/common/errors";
+import { calculatorFacade } from "../../../../core/domain-logic/facade";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("how-much-course-hook");
 
@@ -28,12 +24,11 @@ export function useHowMuchCourse({ course }: UseHowMuchCourseHook) {
   const onComputeNeededGrade = () => {
     myLogger.debug("computing needed grade", { finalCourseGrade });
     try {
-      const neededGrade = computeNeededGradeForCourse(
-        { name: "", id: "", components },
+      const { neededGrade, newComponents } = calculatorFacade.courseHowMuch(
+        components,
         finalCourseGrade
       );
       myLogger.debug("needed grade computed", { neededGrade });
-      const newComponents = replaceGradeOfUnLockedComponents(components, neededGrade);
       setComponents(newComponents);
     } catch (error) {
       if (error instanceof InvalidInputError) {
@@ -64,7 +59,7 @@ export function useHowMuchCourse({ course }: UseHowMuchCourseHook) {
 
   useEffect(() => {
     myLogger.debug("computing final grade of course");
-    const finalGrade = computeFinalGradeOfCourse(course);
+    const finalGrade = calculatorFacade.courseFinalGrade(course.components);
     myLogger.debug("final grade of course", { finalGrade });
     setFinalCourseGrade(finalGrade);
   }, [course]);

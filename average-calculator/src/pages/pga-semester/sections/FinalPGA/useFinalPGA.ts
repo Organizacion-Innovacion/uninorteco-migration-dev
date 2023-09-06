@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AppLogger } from "../../../../core/config/logger";
 import { AcademicInfo } from "../../../../core/entities/academic-info";
-import { computeNewPGA } from "../../../../core/domain-logic/pga";
+import { calculatorFacade } from "../../../../core/domain-logic/facade";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("final-pga-hook");
 
@@ -25,12 +25,7 @@ export function useFinalPGA({ academicInfo }: UseFinalPGAHook) {
       semesterAverage,
       currentCredits: academicInfo.currentCredits,
     });
-    const newPga = computeNewPGA(
-      academicInfo.currentPGA,
-      academicInfo.creditsSoFar,
-      semesterAverage,
-      academicInfo.currentCredits
-    );
+    const newPga = calculatorFacade.pgaFinalGrade(semesterAverage, academicInfo);
     myLogger.debug("final pga", { newPga });
     setFinalPGA(newPga);
   }, [academicInfo, semesterAverage]);

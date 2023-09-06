@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { AppLogger } from "../../../../core/config/logger";
 import { AcademicSemester } from "../../../../core/entities/semester";
-import { computeFinalGradeOfSemester } from "../../../../core/domain-logic/semester-algorithms";
 import { useSemesterCourses } from "../../hooks/useSemesterCourses";
+import { calculatorFacade } from "../../../../core/domain-logic/facade";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("final-grade-hook");
 
@@ -17,13 +17,8 @@ export function useFinalGradeSemester({ academicSemester }: UseFinalGradeHook) {
   });
 
   useEffect(() => {
-    myLogger.debug("computing final grade of semester", {
-      coursesGrades: courses.map((course) => `${course.name}: ${course.grade}`),
-    });
-    // This function will not use the name of the semester, but the courses
-    // consider changing the function signature to only receive the courses
-    // if possible
-    const avg = computeFinalGradeOfSemester({ courses, name: "" });
+    myLogger.debug("computing final grade of semester");
+    const avg = calculatorFacade.semesterFinalGrade(courses);
     myLogger.debug("final grade of semester", { avg });
     setSemesterAverage(avg);
   }, [courses]);

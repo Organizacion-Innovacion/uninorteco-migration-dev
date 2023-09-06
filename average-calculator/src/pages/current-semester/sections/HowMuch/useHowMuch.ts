@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react";
 import { AppLogger } from "../../../../core/config/logger";
 import { AcademicSemester } from "../../../../core/entities/semester";
-import {
-  computeFinalGradeOfSemester,
-  computeNeededGradeForSemester,
-  replaceGradeOfUnLockedCourses,
-} from "../../../../core/domain-logic/semester-algorithms";
 import { InvalidInputError } from "../../../../core/common/errors";
 import { useSemesterCourses } from "../../hooks/useSemesterCourses";
+import { calculatorFacade } from "../../../../core/domain-logic/facade";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("how-much-hook");
 
@@ -39,14 +35,13 @@ export function useHowMuchSemester({ academicSemester }: UseHowMuchHook) {
   };
 
   const onComputeNeededGrade = () => {
-    myLogger.debug("computing needed grade", { semesterAverage });
     try {
-      const neededGrade = computeNeededGradeForSemester(
-        { name: "", courses },
+      myLogger.debug("computing needed grade", { semesterAverage });
+      const { neededGrade, newCourses } = calculatorFacade.semesterHowMuch(
+        courses,
         semesterAverage
       );
       myLogger.debug("needed grade computed", { neededGrade });
-      const newCourses = replaceGradeOfUnLockedCourses(courses, neededGrade);
       setCourses(newCourses);
     } catch (error) {
       if (error instanceof InvalidInputError) {
@@ -84,7 +79,7 @@ export function useHowMuchSemester({ academicSemester }: UseHowMuchHook) {
         (course) => `${course.name}: ${course.grade}`
       ),
     });
-    const avg = computeFinalGradeOfSemester(academicSemester);
+    const avg = calculatorFacade.semesterFinalGrade(academicSemester.courses);
     myLogger.debug("final grade of semester", { avg });
     setSemesterAverage(avg);
   }, [academicSemester]);

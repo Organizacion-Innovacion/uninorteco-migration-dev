@@ -4,6 +4,7 @@ import { Stack } from "../../../components/Stack";
 import { SemestreInfoModal } from "./SemestreInfoModal";
 import { BaseCard } from "../../../components/BaseCard";
 import { GradeTextField } from "../../common/components/GradeTextField";
+import { ClickableTypography } from "../../common/components/ClickableTypography";
 
 export interface HowMuchResultCardProps {
   title: string;
@@ -22,10 +23,6 @@ export function HowMuchResultCard({
 }: HowMuchResultCardProps) {
   const [open, setOpen] = useState(false);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
   return (
     <BaseCard>
       <Stack sx={{ flexGrow: 1 }}>
@@ -35,14 +32,7 @@ export function HowMuchResultCard({
         <Typography variant="body2" color="textSecondary" sx={{ mb: 3 }}>
           {subtitle}
         </Typography>
-        <Typography
-          variant="body2"
-          color="textSecondary"
-          onClick={handleOpen}
-          sx={{ cursor: "pointer", color: "#026BC8" }}
-        >
-          {helpMessage}
-        </Typography>
+        <ClickableTypography message={helpMessage} onClick={() => setOpen(true)} />
       </Stack>
       <Stack sx={{ flexDirection: "row" }}>
         <div style={{ width: 70 }}>

@@ -5,6 +5,7 @@ import { useFinalPGA } from "./useFinalPGA";
 import { CoursesContainer } from "../../../common/components/CoursesContainer";
 import { PGASemesterCard } from "../../components/PGASemesterCard";
 import { PGAInfoModal } from "../../components/PGAInfoModal";
+import { ClickableTypography } from "../../../common/components/ClickableTypography";
 
 interface FinalPGAProps {
   academicInfo: AcademicInfo;
@@ -31,20 +32,16 @@ export function FinalPGA({ academicInfo }: FinalPGAProps) {
           value={finalPGA}
         />
       </CoursesContainer>
-      <Typography
-        variant="body2"
+      <ClickableTypography
+        message="¿Cómo se calcula el promedio acumulado?"
         onClick={() => setOpen(true)}
-        sx={{
-          cursor: "pointer",
+        sxProps={{
           alignSelf: "center",
           mt: 6,
-          color: "#026BC8",
           px: 2,
           textAlign: "center",
         }}
-      >
-        ¿Cómo se calcula el promedio acumulado?
-      </Typography>
+      />
       <PGAInfoModal open={open} setOpen={setOpen} />
     </>
   );

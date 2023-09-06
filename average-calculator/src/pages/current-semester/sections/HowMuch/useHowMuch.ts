@@ -4,6 +4,7 @@ import { AcademicSemester } from "../../../../core/entities/semester";
 import { InvalidInputError } from "../../../../core/common/errors";
 import { useSemesterCourses } from "../../hooks/useSemesterCourses";
 import { calculatorFacade } from "../../../../core/domain-logic/facade";
+import { useErrorSnackbar } from "../../../../hooks/useErrorSnackbar";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("how-much-hook");
 
@@ -21,18 +22,7 @@ export function useHowMuchSemester({ academicSemester }: UseHowMuchHook) {
   const { courses, onGradeChange, setCourses } = useSemesterCourses({
     academicSemester,
   });
-  const [errorSnackbarOptions, setErrorSnackbarOptions] =
-    useState<ErrorSnackbarOptions>({
-      open: false,
-      message: "",
-    });
-
-  const onCloseSnackbar = () => {
-    setErrorSnackbarOptions({
-      open: false,
-      message: "",
-    });
-  };
+  const { errorSnackbarOptions, onCloseSnackbar, onError } = useErrorSnackbar();
 
   const onComputeNeededGrade = () => {
     try {
@@ -49,10 +39,7 @@ export function useHowMuchSemester({ academicSemester }: UseHowMuchHook) {
           errorMessage: error.message,
           errorCode: error.errorCode,
         });
-        setErrorSnackbarOptions({
-          open: true,
-          message: error.userMessage,
-        });
+        onError(error.userMessage);
       }
     }
   };

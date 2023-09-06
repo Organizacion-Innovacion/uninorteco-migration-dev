@@ -3,6 +3,7 @@ import { Typography } from "@ellucian/react-design-system/core";
 import { Stack } from "../../../components/Stack";
 import { SemestreInfoModal } from "./SemestreInfoModal";
 import { BaseCard } from "../../../components/BaseCard";
+import { ClickableTypography } from "../../common/components/ClickableTypography";
 
 export interface FinalGradeResultCardProps {
   title: string;
@@ -19,10 +20,6 @@ export function FinalGradeResultCard({
 }: FinalGradeResultCardProps) {
   const [open, setOpen] = useState(false);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
   return (
     <BaseCard>
       <Stack sx={{ flexGrow: 1 }}>
@@ -30,14 +27,7 @@ export function FinalGradeResultCard({
         <Typography variant="body2" color="textSecondary" sx={{ mb: 3 }}>
           {subtitle}
         </Typography>
-        <Typography
-          variant="body2"
-          color="textSecondary"
-          onClick={handleOpen}
-          sx={{ cursor: "pointer", color: "#026BC8" }}
-        >
-          {helpMessage}
-        </Typography>
+        <ClickableTypography message={helpMessage} onClick={() => setOpen(true)} />
       </Stack>
       <Stack sx={{ flexDirection: "row" }}>
         <Typography variant="body1" sx={{ mr: 2 }}>

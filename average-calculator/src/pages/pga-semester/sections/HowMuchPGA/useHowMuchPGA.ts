@@ -3,6 +3,7 @@ import { AppLogger } from "../../../../core/config/logger";
 import { AcademicInfo } from "../../../../core/entities/academic-info";
 import { InvalidInputError } from "../../../../core/common/errors";
 import { calculatorFacade } from "../../../../core/domain-logic/facade";
+import { useErrorSnackbar } from "../../../../hooks/useErrorSnackbar";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("how-much-pga-hook");
 
@@ -19,18 +20,7 @@ export function useHowMuchPGA({ academicInfo }: UseHowMuchPGAHook) {
   const [semesterAverage, setSemesterAverage] = useState<number>(0);
   const [desiredPGA, setDesiredPGA] = useState<number>(academicInfo.currentPGA);
 
-  const [errorSnackbarOptions, setErrorSnackbarOptions] =
-    useState<ErrorSnackbarOptions>({
-      open: false,
-      message: "",
-    });
-
-  const onCloseSnackbar = () => {
-    setErrorSnackbarOptions({
-      open: false,
-      message: "",
-    });
-  };
+  const { errorSnackbarOptions, onCloseSnackbar, onError } = useErrorSnackbar();
 
   const onGradeChange = (grade: number) => {
     myLogger.debug("desired pga changed", { grade });
@@ -57,10 +47,7 @@ export function useHowMuchPGA({ academicInfo }: UseHowMuchPGAHook) {
           errorMessage: error.message,
           errorCode: error.errorCode,
         });
-        setErrorSnackbarOptions({
-          open: true,
-          message: error.userMessage,
-        });
+        onError(error.userMessage);
       }
     }
   };

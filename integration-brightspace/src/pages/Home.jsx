@@ -8,12 +8,14 @@ import { Typography, Button, Link } from "@ellucian/react-design-system/core";
 import PropTypes from "prop-types";
 import { usePageControl } from "@ellucian/experience-extension-utils";
 import { useIntl } from "react-intl";
+import { useGetCourse } from "../hooks/useGetCourse";
 import { calculateDistance } from "../core/common/utils";
 import { APP_ENV_VARS } from "../core/config/app-env-vars";
 import { useNotifications } from "../hooks/useNotifications";
 import { AppLogger } from "../core/config/logger";
 import FileCard from "./components/FileCard";
 import ExamCard from "./components/ExamCard";
+import NotificationCard from "./components/NotificationCard";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("home.jsx");
 const styles = () => ({
@@ -35,58 +37,29 @@ const HomePage = (props) => {
 
   const distance = calculateDistance(11.1, -74.11, 11.2, -73.11);
   const { notifications, loading, error } = useNotifications();
+  const { course } = useGetCourse();
   myLogger.debug(`notifications: ${notifications}`);
   myLogger.debug(`the distance is ${distance}`);
   myLogger.debug(`loading: ${loading}`);
   myLogger.debug(`error: ${error}`);
   console.log("notifications from hook: ", notifications);
-
+  console.log("course from hook: ", course);
   useEffect(() => {
     myLogger.debug("useEffect");
   }, []);
 
-  // const notifications = [
-  //   {
-  //     type: "file",
-  //     fileName: "Apuntes_Clase1.pdf",
-  //     fileFormat: "pdf",
-  //     downloadLink: "https://example.com/Apuntes_Clase1.pdf",
-  //   },
-  //   {
-  //     type: "exam",
-  //   },
-  //   {
-  //     type: "file",
-  //     fileName: "Tarea_Semana2.xls",
-  //     fileFormat: "xls",
-  //     downloadLink: "https://example.com/Tarea_Semana2.xls",
-  //   },
-  //   // ... otras notificaciones
-  // ];
-
   return (
     <div style={{ padding: "20px" }}>
-      {notifications.map((notification) => {
-        if (notification.Category === 1) {
-          return (
-            <FileCard
-              key={uuidv4()}
-              fileName={notification.fileName}
-              Title={notification.Title}
-              Message={notification.Message}
-              AlertDateTime={notification.AlertDateTime}
-              fileFormat={notification.fileFormat}
-              downloadLink={notification.downloadLink}
-              IconURL={notification.IconURL}
-              classes={classes}
-            />
-          );
-        }
-        if (notification.type === "exam") {
-          return <ExamCard key={uuidv4()} classes={classes} />;
-        }
-        return null;
-      })}
+      {notifications.map((notification) => (
+        <NotificationCard
+          key={uuidv4()}
+          Title={notification.Title}
+          Message={notification.Message}
+          AlertDateTime={notification.AlertDateTime}
+          IconURL={notification.IconURL}
+          Course={notification.Course}
+        />
+      ))}
     </div>
   );
 };

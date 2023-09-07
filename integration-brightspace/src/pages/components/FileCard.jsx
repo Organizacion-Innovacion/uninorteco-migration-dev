@@ -28,8 +28,16 @@ const formatDate = (date) => {
   return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
 };
 export default function FileCard(props) {
-  const { fileName, fileFormat, downloadLink, Title, Message, AlertDateTime, IconURL } =
-    props;
+  const {
+    fileName,
+    fileFormat,
+    course,
+    downloadLink,
+    Title,
+    Message,
+    AlertDateTime,
+    IconURL,
+  } = props;
 
   const getFileIcon = (format) => {
     switch (format) {
@@ -56,6 +64,8 @@ export default function FileCard(props) {
       <div style={{ display: "flex", alignItems: "center", marginTop: "10px" }}>
         <Typography variant="body1">{Message}</Typography>
       </div>
+      <Typography variant="body1">{course.Name}</Typography>
+
       <Typography variant="body2" style={{ marginTop: "10px" }}>
         {formatDate(AlertDateTime)}
       </Typography>

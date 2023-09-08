@@ -8,6 +8,7 @@ import { useTabLayout } from "../../components/TabLayout/useTabLayout";
 import { TabLayout } from "../../components/TabLayout";
 import { useCourse } from "./hooks/useCourse";
 import { defaultFinalGradeHowMuchTabs } from "../common/utils";
+import { usePageToolbar } from "../../hooks/usePageToolbar";
 
 const styles = () => ({
   page: {
@@ -32,6 +33,8 @@ const CourseDetailPage = (props) => {
       setPageTitle("Cargando Curso");
     }
   }, [course, setPageTitle]);
+
+  usePageToolbar();
 
   return (
     <div className={classes.page}>

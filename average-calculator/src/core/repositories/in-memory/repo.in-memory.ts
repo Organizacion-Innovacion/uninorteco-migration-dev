@@ -1,8 +1,8 @@
-import { AcademicSemester, SemesterCourse } from "../entities/semester";
-import { Course } from "../entities/course";
-import { ICalculatorRepository } from "./repo.definition";
-import { RepositoryError, ErrorCode } from "../common/errors";
-import { AcademicInfo } from "../entities/academic-info";
+import { AcademicSemester, SemesterCourse } from "../../entities/semester";
+import { Course } from "../../entities/course";
+import { ICalculatorRepository } from "../repo.definition";
+import { RepositoryError, ErrorCode } from "../../common/errors";
+import { AcademicInfo } from "../../entities/academic-info";
 
 export interface InMemoryCalculatorRepositoryOptions {
   responseDelay?: number;

@@ -1,4 +1,4 @@
-import { spacing40, spacing50 } from "@ellucian/react-design-system/core/styles/tokens";
+import { spacing40 } from "@ellucian/react-design-system/core/styles/tokens";
 
 
 export const stylesStepProgress = (theme) => ({
@@ -16,6 +16,9 @@ export const stylesStepProgress = (theme) => ({
     marginBottom: spacing40,
   },
   stepProgressContentContainer: {
-    padding: `0 ${spacing50} ${spacing50}`,
+    padding: `0 ${spacing40} ${spacing40}`,
   },
+  endProgressContent:{
+    textAlign:'center'
+  }
 });

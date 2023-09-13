@@ -19,6 +19,7 @@ type ClassesType = {
   button: string;
   stepProgressContent: string;
   stepProgressContentContainer: string;
+  endProgressContent: string;
 };
 
 const getSteps = () => ["Información personal", "Estado laboral", "Direcciones"];
@@ -30,7 +31,7 @@ const getStepContent = (step: number) => {
     case 1:
       return <SectionTwoComponent />;
     case 2:
-      return <SectionThreeComponent/>;
+      return <SectionThreeComponent />;
     default:
       return "true";
   }
@@ -70,8 +71,8 @@ const StepProgressComponent: React.FC<{ classes: ClassesType }> = ({ classes }) 
       <div>
         {activeStep === steps.length ? (
           <div className={classes.stepProgressContentContainer}>
-            <Typography className={classes.stepProgressContent}>
-              All steps completed - you are finished
+            <Typography className={classes.endProgressContent}>
+              <img src={process.env.REACT_APP_IMAGE_URL} alt="agradecimiento" />
             </Typography>
             <Button onClick={handleReset} className={classes.button}>
               Reset
@@ -109,6 +110,7 @@ StepProgressComponent.propTypes = {
     button: PropTypes.string.isRequired,
     stepProgressContent: PropTypes.string.isRequired,
     stepProgressContentContainer: PropTypes.string.isRequired,
+    endProgressContent: PropTypes.string.isRequired,
   }).isRequired,
 };
 

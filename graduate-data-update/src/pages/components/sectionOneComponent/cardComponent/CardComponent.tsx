@@ -4,7 +4,6 @@ import { withStyles } from "@ellucian/react-design-system/core/styles";
 import {
   Typography,
   TextField,
-  Divider,
   Grid,
   Button,
   Card,
@@ -26,7 +25,6 @@ const SimpleCard: React.FC<{ classes: ClassesType; titleCard: string; labelTextf
   return (
     <Card  className={classes.card}>
       <CardHeader title={titleCard} />
-      <Divider />
       <CardContent>
         <Grid container spacing={1}>
           <Grid item xs={9} sm={9} md={10} lg={11} xl={11}>

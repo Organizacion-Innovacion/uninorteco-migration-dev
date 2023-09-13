@@ -1,7 +1,6 @@
 import React from "react";
 import { withStyles } from "@ellucian/react-design-system/core/styles";
 import CardComponent from "./cardComponent/CardComponent";
-import { stylesComponent } from "./SectionOneComponentStyles";
 
 const SectionOneComponent: React.FC<{ classes: any }> = () => (
     <>
@@ -10,4 +9,4 @@ const SectionOneComponent: React.FC<{ classes: any }> = () => (
     </>
   );
 
-export default withStyles(stylesComponent)(SectionOneComponent);
+export default withStyles()(SectionOneComponent);

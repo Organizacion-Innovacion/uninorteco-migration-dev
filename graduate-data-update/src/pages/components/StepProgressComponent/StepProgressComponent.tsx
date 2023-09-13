@@ -9,6 +9,7 @@ import {
 } from "@ellucian/react-design-system/core";
 import { withStyles } from "@ellucian/react-design-system/core/styles";
 import SectionOneComponent from "../sectionOneComponent/SectionOneComponent";
+import SectionTwoComponent from "../sectionTwoComponent/SectionTwoComponent";
 import { stylesStepProgress } from "./StepProgressComponentStyles";
 
 type ClassesType = {
@@ -26,7 +27,7 @@ const getStepContent = (step: number) => {
     case 0:
       return <SectionOneComponent />;
     case 1:
-      return "Content of Estado laboral";
+      return <SectionTwoComponent />;
     case 2:
       return "Content of Direcciones";
     default:

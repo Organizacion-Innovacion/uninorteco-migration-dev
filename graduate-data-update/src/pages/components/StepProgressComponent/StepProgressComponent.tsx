@@ -8,28 +8,23 @@ import {
   Typography,
 } from "@ellucian/react-design-system/core";
 import { withStyles } from "@ellucian/react-design-system/core/styles";
+import SectionOneComponent from "../sectionOneComponent/SectionOneComponent";
 import { stylesStepProgress } from "./StepProgressComponentStyles";
-import CardComponent from "../cardComponent/CardComponent";
 
-// Define el tipo para 'classes'
 type ClassesType = {
-  sectionHeaders:string;
+  sectionHeaders: string;
   root: string;
   button: string;
-  stepProgressContent:string;
-  stepProgressContentContainer:string;
-  // Agrega otras propiedades según sea necesario
+  stepProgressContent: string;
+  stepProgressContentContainer: string;
 };
-
-
-const customId = "LinearHorizontalProgress";
 
 const getSteps = () => ["Información personal", "Estado laboral", "Direcciones"];
 
-const getStepContent = (step:number) => {
+const getStepContent = (step: number) => {
   switch (step) {
     case 0:
-      return <CardComponent title='correo o telefono'/>;
+      return <SectionOneComponent />;
     case 1:
       return "Content of Estado laboral";
     case 2:
@@ -58,7 +53,7 @@ const StepProgressComponent: React.FC<{ classes: ClassesType }> = ({ classes }) 
   const steps = getSteps();
 
   return (
-    <div className={classes.root} id={`${customId}_Container`}>
+    <div className={classes.root}>
       <StepProgress activeStep={activeStep} alternativeLabel>
         {steps.map((label) => {
           const props = {};

@@ -1,6 +1,5 @@
 import React from "react";
 import { withStyles } from "@ellucian/react-design-system/core/styles";
-import { spacing20 } from "@ellucian/react-design-system/core/styles/tokens";
 import { Typography } from "@ellucian/react-design-system/core";
 import PropTypes from "prop-types";
 import { usePageControl } from "@ellucian/experience-extension-utils";
@@ -8,15 +7,20 @@ import { usePageControl } from "@ellucian/experience-extension-utils";
 import { calculateDistance } from "../core/common/utils";
 // import { APP_ENV_VARS } from "../core/config/app-env-vars";
 import { AppLogger } from "../core/config/logger";
-import StepProgressComponent from "./components/stepProgressComponent/StepProgressComponent";
+import StepProgressComponent from "./components/StepProgressComponent/StepProgressComponent";
 
 // set up a context to help to identify the log messages
 const myLogger = AppLogger.getAppLogger().createContextLogger("home.jsx");
 
 const styles = () => ({
   card: {
-    margin: `0 ${spacing20}`,
-  },
+    marginTop: 0,
+    marginRight: "1rem",
+    marginBottom: 0,
+    marginLeft: "1rem",
+    display: "flex",
+    flexDirection: "column",
+  }
 });
 
 const HomePage = (props) => {

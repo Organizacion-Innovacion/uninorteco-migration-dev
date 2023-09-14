@@ -30,6 +30,17 @@ const styles = () => ({
     flexDirection: "column",
     gap: spacing20,
   },
+  chip: {
+    display: "inline-flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: "10px 20px", // Ajusta el padding según tus necesidades
+    borderRadius: "50%", // Esto hará que los bordes sean 100% redondeados
+    backgroundColor: "#f0f0f0", // Ajusta el color de fondo según tus necesidades
+    color: "#000", // Ajusta el color del texto según tus necesidades
+    fontSize: "14px", // Ajusta el tamaño de la fuente según tus necesidades
+    fontWeight: "bold", // Ajusta el grosor de la fuente según tus necesidades
+  },
 });
 
 const HomePage = (props) => {
@@ -47,14 +58,18 @@ const HomePage = (props) => {
     setLoading(true);
     setError(null);
 
-    
     axios
       .get(`http://localhost:3000/api/proxy?query=${encodeURIComponent(searchQuery)}`)
       .then((response) => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        setResults(response.data.results);
+        setResults(response.data);
+        console.log("results: ", response.data);
+
+        const flatResults = response.data.map((result) => result.results).flat();
+
+        console.log("flatResults: ", flatResults);
         setLoading(false);
-        console.log("results: ", response.data.results);
+        setResults(flatResults);
       })
       .catch((err) => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
@@ -94,14 +109,23 @@ const HomePage = (props) => {
       )}
       {results && (
         <div className="results">
-          {results.map((result) => (
+          {results?.map((result) => (
             <div className={classes.container} id={`${customId}_GridContainer`}>
               <Card
                 className={classes.card}
                 id={`${customId}_Card0`}
                 accent="secondary"
               >
-                <CardHeader title={result.title} />
+                <CardHeader
+                  title={
+                    <>
+                      <Typography variant="h4" id={`${customId}_Typography0`}>
+                        {result.title}
+                      </Typography>
+                      {/* <p className={classes.chip}>{result.url}</p> */}
+                    </>
+                  }
+                />
                 <CardContent id={`${customId}_CardContent0`}>
                   {React.createElement("div", {
                     dangerouslySetInnerHTML: { __html: result.body },

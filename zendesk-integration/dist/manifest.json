@@ -1,0 +1,31 @@
+{
+    "name": "zendesk-integration",
+    "extension-version": "1.0.0",
+    "sdk-version": "7.3.0",
+    "publisher": "uninorte",
+    "cards": [
+        {
+            "type": "zendesk-integration-card",
+            "title": "Centro de atención estudiantil",
+            "displayCardType": "Centro de atención estudiantil",
+            "description": "Centro de ayuda y preguntas frecuentes",
+            "componentFile": "zendesk-integration-card-19e889bd4145d493ff69.js",
+            "pageRoute": {
+                "route": "/",
+                "excludeClickSelectors": [
+                    "a"
+                ]
+            },
+            "previewId": "001G000000oSi8rIAC|uninorte|zendesk-integration|zendesk-integration-card"
+        }
+    ],
+    "adminComponents": [],
+    "otherAssets": [],
+    "page": {
+        "componentFile": "Page-8623dd018447b43857af.js",
+        "allowPublicAccess": false,
+        "fullWidth": false,
+        "backgroundColor": "default"
+    },
+    "previewExtId": "001G000000oSi8rIAC|uninorte|zendesk-integration"
+}

@@ -5,7 +5,7 @@ import { useFinalPGA } from "./useFinalPGA";
 import { CoursesContainer } from "../../../common/components/CoursesContainer";
 import { PGASemesterCard } from "../../components/PGASemesterCard";
 import { PGAInfoModal } from "../../components/PGAInfoModal";
-import { ClickableTypography } from "../../../common/components/ClickableTypography";
+import { ClickableTypography } from "../../../../components/ClickableTypography";
 
 interface FinalPGAProps {
   academicInfo: AcademicInfo;

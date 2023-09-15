@@ -15,6 +15,8 @@ const styles = () => ({
   card: {
     marginTop: 0,
     marginBottom: 0,
+    marginRight: "1rem",
+    marginLeft: "1rem",
     display: "flex",
     flexDirection: "column",
   },

@@ -4,7 +4,7 @@ import { Stack } from "../../../components/Stack";
 import { SemestreInfoModal } from "./SemestreInfoModal";
 import { BaseCard } from "../../../components/BaseCard";
 import { GradeTextField } from "../../common/components/GradeTextField";
-import { ClickableTypography } from "../../common/components/ClickableTypography";
+import { ClickableTypography } from "../../../components/ClickableTypography";
 
 export interface HowMuchResultCardProps {
   title: string;

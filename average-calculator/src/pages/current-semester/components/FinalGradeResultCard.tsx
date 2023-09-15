@@ -3,7 +3,7 @@ import { Typography } from "@ellucian/react-design-system/core";
 import { Stack } from "../../../components/Stack";
 import { SemestreInfoModal } from "./SemestreInfoModal";
 import { BaseCard } from "../../../components/BaseCard";
-import { ClickableTypography } from "../../common/components/ClickableTypography";
+import { ClickableTypography } from "../../../components/ClickableTypography";
 
 export interface FinalGradeResultCardProps {
   title: string;

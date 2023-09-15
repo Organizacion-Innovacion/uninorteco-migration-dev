@@ -7,14 +7,14 @@ import {
 } from "./utils";
 
 export function computeFinalGradeOfSemester(semester: AcademicSemester) {
-  // filter out courses with 0 credits, they don't count towards the average
-  // besides, they may have a different structure that can cause problems ahead
-  const coursesCreditsGreaterThanZero = semester.courses.filter(
-    (course) => course.credits > 0
+  // compute the final grade of the semester with the normal courses, special courses
+  // may have a different structure that can cause problems ahead
+  const normalCourses = semester.courses.filter(
+    (course) => course.courseType === "normal"
   );
 
-  const grades = coursesCreditsGreaterThanZero.map((course) => course.grade);
-  const weights = coursesCreditsGreaterThanZero.map((course) => course.credits);
+  const grades = normalCourses.map((course) => course.grade);
+  const weights = normalCourses.map((course) => course.credits);
 
   if (grades.length === 0 && weights.length === 0) {
     return 0;
@@ -30,18 +30,16 @@ export function computeNeededGradeForSemester(
   semester: AcademicSemester,
   desiredGrade: number
 ): number {
-  // filter out courses with 0 credits, they don't count towards the average
-  // besides, they may have a different structure that can cause problems ahead
-  const coursesCreditsGreaterThanZero = semester.courses.filter(
-    (course) => course.credits > 0
+  // compute the final grade of the semester with the normal courses, special courses
+  // may have a different structure that can cause problems ahead
+  const normalCourses = semester.courses.filter(
+    (course) => course.courseType === "normal"
   );
 
   // compute average for locked courses
-  const lockedComponents = coursesCreditsGreaterThanZero.filter(
-    (component) => component.isLocked
-  );
+  const lockedComponents = normalCourses.filter((component) => component.isLocked);
 
-  if (lockedComponents.length === coursesCreditsGreaterThanZero.length) {
+  if (lockedComponents.length === normalCourses.length) {
     throw new InvalidInputError(
       "Lo sentimos, debes tener al menos un curso desbloqueado para realizar el cálculo"
     );
@@ -49,7 +47,7 @@ export function computeNeededGradeForSemester(
 
   const lockedGrades = lockedComponents.map((component) => component.grade);
   const lockedCredits = lockedComponents.map((component) => component.credits);
-  const totalCredits = coursesCreditsGreaterThanZero.reduce((a, b) => a + b.credits, 0);
+  const totalCredits = normalCourses.reduce((a, b) => a + b.credits, 0);
 
   // this is the current grade
   const currentGrade = computeWeightedAverageGivenTotalWeight(

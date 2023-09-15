@@ -5,6 +5,7 @@ import { APP_ENV_VARS } from "../config/app-env-vars";
 import { ICalculatorRepository } from "./repo.definition";
 import { InMemoryCalculatorRepository } from "./in-memory/repo.in-memory";
 import { RestCalculatorRepository } from "./rest/repo.rest";
+import { EnrollmentAPI } from "./rest/enrollment-api";
 
 type RepositoryOptions = "InMemory" | "rest";
 
@@ -16,7 +17,8 @@ function getRepository(name: RepositoryOptions): ICalculatorRepository {
   }
 
   if (name === "rest") {
-    return new RestCalculatorRepository();
+    const enrollmentAPI = new EnrollmentAPI();
+    return new RestCalculatorRepository(enrollmentAPI);
   }
 
   throw new Error("Repository not found");

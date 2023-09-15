@@ -61,6 +61,7 @@ export function createTestAcademicSemester(
       credits: courseCredits,
       wasEvaluated: courseGrade >= 0,
       isLocked: isLocked ? isLocked[i] : true,
+      courseType: courseCredits > 0 ? "normal" : "zero-credits",
     };
 
     courses.push(course);

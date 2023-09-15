@@ -40,7 +40,12 @@ export class InMemoryCalculatorRepository implements ICalculatorRepository {
     );
 
     const { currentPGA, creditsSoFar } = this.data;
-    return Promise.resolve({ currentPGA, creditsSoFar, currentCredits: totalCredits });
+    return Promise.resolve({
+      currentPGA,
+      creditsSoFar,
+      currentCredits: totalCredits,
+      currentSemesterAverage: 0,
+    });
   }
 
   async getCurrentAcademicSemester(): Promise<AcademicSemester> {

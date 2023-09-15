@@ -10,7 +10,9 @@ export interface UseFinalPGAHook {
 }
 
 export function useFinalPGA({ academicInfo }: UseFinalPGAHook) {
-  const [semesterAverage, setSemesterAverage] = useState<number>(0);
+  const [semesterAverage, setSemesterAverage] = useState<number>(
+    academicInfo.currentSemesterAverage
+  );
   const [finalPGA, setFinalPGA] = useState<number>(0);
 
   const onGradeChange = (grade: number) => {

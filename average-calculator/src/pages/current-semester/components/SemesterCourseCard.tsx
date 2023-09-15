@@ -55,7 +55,7 @@ export function SemesterCourseCard({
   const disableTextField = onLockIconPress !== undefined && semesterCourse.isLocked;
   const bgProps = disableTextField ? { backgroundColor: "#f8f8f8" } : {};
 
-  const isSpecialCourse = semesterCourse.credits === 0;
+  const isSpecialCourse = semesterCourse.courseType !== "normal";
 
   // const parcelacionUrl = `${basePath}courses/${semesterCourse.id}`;
   const parcelacionUrl = `/courses/${semesterCourse.id}`;

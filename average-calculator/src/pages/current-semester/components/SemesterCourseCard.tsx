@@ -6,15 +6,21 @@ import { Stack } from "../../../components/Stack";
 import { CardLockButton } from "../../common/components/lockIconButtons";
 import { BaseCard } from "../../../components/BaseCard";
 import { GradeTextField } from "../../common/components/GradeTextField";
+import {
+  containOnlyValidGrades,
+  getCourseParcelacionMessage,
+} from "../../../core/domain-logic/course-utils";
 
 interface ParcelacionTypographyProps {
   isSpecialCourse: boolean;
   parcelacionUrl: string;
+  message: string;
 }
 
 function ParcelacionTypography({
   isSpecialCourse,
   parcelacionUrl,
+  message,
 }: ParcelacionTypographyProps) {
   if (isSpecialCourse) {
     return (
@@ -23,7 +29,7 @@ function ParcelacionTypography({
         color="textSecondary"
         sx={{ display: "flex", alignItems: "center", width: "fit-content" }}
       >
-        Asignatura sin parcelación
+        {message}
       </Typography>
     );
   }
@@ -36,7 +42,7 @@ function ParcelacionTypography({
       to={parcelacionUrl}
       style={{ textDecoration: "none" }}
     >
-      Ver parcelación
+      {message}
     </TextLink>
   );
 }
@@ -55,7 +61,8 @@ export function SemesterCourseCard({
   const disableTextField = onLockIconPress !== undefined && semesterCourse.isLocked;
   const bgProps = disableTextField ? { backgroundColor: "#f8f8f8" } : {};
 
-  const isSpecialCourse = semesterCourse.courseType !== "normal";
+  const isSpecialCourse = !containOnlyValidGrades(semesterCourse);
+  const message = getCourseParcelacionMessage(semesterCourse);
 
   // const parcelacionUrl = `${basePath}courses/${semesterCourse.id}`;
   const parcelacionUrl = `/courses/${semesterCourse.id}`;
@@ -70,6 +77,7 @@ export function SemesterCourseCard({
         <ParcelacionTypography
           isSpecialCourse={isSpecialCourse}
           parcelacionUrl={parcelacionUrl}
+          message={message}
         />
       </Stack>
       {!isSpecialCourse && (

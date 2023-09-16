@@ -1,6 +1,6 @@
-export type SemesterCourseType = "normal" | "zero-credits" | "no-components";
+import { BaseCourse } from "./base-course";
 
-export interface SemesterCourse {
+export interface SemesterCourse extends BaseCourse {
   /** the id of the course */
   id: string;
   /** the name of the course */
@@ -13,16 +13,6 @@ export interface SemesterCourse {
   wasEvaluated: boolean;
   /** If the semester course is locked it will not be considered by the algorithm of 'how much I need'. By default all semester courses are unlocked */
   isLocked: boolean;
-  /** the type of the course.
-   *
-   * _normal:_ a course with standard 'parcelación'
-   *
-   * _zero-credits:_ a course with zero credits and no components,
-   * such as 'proyecto de vida'
-   *
-   * _no-components_: a course with no components due to unexpected errors
-   */
-  courseType: SemesterCourseType;
 }
 
 export interface AcademicSemester {

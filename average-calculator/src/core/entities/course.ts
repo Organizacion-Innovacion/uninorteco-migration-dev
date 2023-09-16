@@ -2,8 +2,9 @@ export interface PartialComponent {
   /** the id of the component */
   id: string;
   /** the grade of the component. if grade is equal to -1 it means
-   * that the grade is not a number. This is possible for special courses
-   * which does not have a standard grade such as AP, NP */
+   * that the grade is not a number between 0 and 5.
+   * This is possible for special courses which does not have a standard grade
+   * such as AP, NP. Also for schema errors */
   grade: number;
   /** the name of the component */
   name: string;

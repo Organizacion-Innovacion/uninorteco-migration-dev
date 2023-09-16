@@ -18,8 +18,8 @@ export function AECourseToSemesterCourse(aeCourse: AECourse): SemesterCourse {
     isLocked: false,
     wasEvaluated: false,
     grade: 0,
-    // in this adapter we consider that all courses are normal
-    courseType: "normal",
+    // in this adapter we consider that there are no characteristics for the course
+    characteristics: new Set(),
   };
 }
 
@@ -40,16 +40,21 @@ export function AEResponseToSemesterCourses(
 export function PGComponentToPartialComponent(
   pgComponent: PGComponent
 ): PartialComponent {
-  const grade = pgComponent.NOTA;
+  let grade = pgComponent.NOTA;
   const gradeAsStr = pgComponent.NOTAA;
 
   const wasEvaluated = gradeAsStr !== "---";
   const isLocked = wasEvaluated;
 
-  // if grade is not a number, we use -1 as a representation of an invalid grade
-  /* if (Number.isNaN(Number(gradeAsStr))) {
+  if (grade < 0 || grade > 5) {
     grade = -1;
-  } */
+  }
+
+  // if grade is not a number, we use -1 as a representation of an invalid grade
+  // special case of PA, NA, etc.
+  if (gradeAsStr !== "---" && Number.isNaN(Number(gradeAsStr))) {
+    grade = -1;
+  }
 
   const partialComponent: PartialComponent = {
     id: `${pgComponent.SHRGCOM_SEQ_NO}`,

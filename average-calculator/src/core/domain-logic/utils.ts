@@ -9,6 +9,24 @@ export function validateGrade(grade: number): void {
   }
 }
 
+function checkGradesAndWeightsGt0(grades: number[], weights: number[]): void {
+  if (grades.length === 0 || weights.length === 0) {
+    throw new DomainError(
+      "Las notas y los pesos no pueden estar vacíos",
+      ErrorCode.INVALID_LOGIC
+    );
+  }
+}
+
+function checkGradesAndWeightsLenght(grades: number[], weights: number[]): void {
+  if (grades.length !== weights.length) {
+    throw new DomainError(
+      "Las notas y los pesos deben tener la misma longitud",
+      ErrorCode.INVALID_LOGIC
+    );
+  }
+}
+
 /**
  * Given a list of grades and a list of weights, compute the weighted average.
  *
@@ -17,19 +35,8 @@ export function validateGrade(grade: number): void {
  * @returns the weighted average
  */
 export function computeWeightedAverage(grades: number[], weights: number[]): number {
-  if (grades.length === 0 || weights.length === 0) {
-    throw new DomainError(
-      "Las notas y los pesos no pueden estar vacíos",
-      ErrorCode.INVALID_LOGIC
-    );
-  }
-
-  if (grades.length !== weights.length) {
-    throw new DomainError(
-      "Las notas y los pesos deben tener la misma longitud",
-      ErrorCode.INVALID_LOGIC
-    );
-  }
+  checkGradesAndWeightsLenght(grades, weights);
+  checkGradesAndWeightsGt0(grades, weights);
 
   const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
 
@@ -45,7 +52,9 @@ export function computeWeightedAverage(grades: number[], weights: number[]): num
  * Given a list of grades and a list of weights, compute the weighted average.
  * This function is different from computeWeightedAverage because it takes the total weight as a parameter. This is useful when you want to compute the weighted average of a subset of components.
  *
- * @param grades the list of grades. grades are between 0 and 5
+ * Both grades and weights can be empty.
+ *
+ * @param grades the list of grades. grades are between 0 and 5.
  * @param weights the list of weights. weigths can be any number, but they must be positive
  * @param totalWeight the total weight of the components
  * @returns the weighted average
@@ -55,12 +64,7 @@ export function computeWeightedAverageGivenTotalWeight(
   weights: number[],
   totalWeight: number
 ): number {
-  if (grades.length !== weights.length) {
-    throw new DomainError(
-      "Las notas y los pesos deben tener la misma longitud",
-      ErrorCode.INVALID_LOGIC
-    );
-  }
+  checkGradesAndWeightsLenght(grades, weights);
 
   if (totalWeight <= 0) {
     throw new DomainError("El peso total debe ser mayor a 0", ErrorCode.INVALID_LOGIC);
@@ -73,6 +77,11 @@ export function computeWeightedAverageGivenTotalWeight(
 
   return weightedSum / totalWeight;
 }
+
+export type NeededGradeOptions = {
+  maxGrade?: number;
+  minGrade?: number;
+};
 
 /**
  * Given my current grade, a desired final grade and the remaining percentage of the course/semester to be evaluated, what is the grade I need to obtain in the remaining components to obtain the necessary points to raise my current grade to the desired final grade?
@@ -87,7 +96,8 @@ export function computeNeededGrade(
   desiredGrade: number,
   currentGrade: number,
   remainingWeight: number,
-  offset = 0.05
+  offset = 0.05,
+  options: NeededGradeOptions = {}
 ): number {
   if (remainingWeight === 0) {
     // if remaining weight is 0 is because we did not perform validations
@@ -97,19 +107,48 @@ export function computeNeededGrade(
   }
 
   if (desiredGrade < currentGrade) {
-    throw new InvalidInputError(
-      "Lo sentimos, pero la nota deseada causa que tus notas restantes se vuelvan negativas",
-      { fieldName: "desiredGrade" }
-    );
+    const minGradeDefined = options.minGrade !== undefined;
+    const errorFields = {
+      fieldName: "desiredGrade",
+      ...(minGradeDefined && { minGrade: options.minGrade }),
+    };
+
+    const errorMessage = minGradeDefined
+      ? `Tu mínima nota alcanzable es ${options.minGrade}. Desear algo menor a esto no tiene sentido`
+      : "Lo sentimos, pero la nota deseada causa que tus componentes restantes se vuelvan negativos";
+
+    throw new InvalidInputError(errorMessage, errorFields);
   }
 
   const neededGradePoints = desiredGrade - currentGrade;
 
   if (neededGradePoints > 5 * remainingWeight + offset) {
-    throw new InvalidInputError("Lo sentimos, La nota deseada no puede ser alcanzada", {
+    const maxGradeDefined = options.maxGrade !== undefined;
+    const errorFields = {
       fieldName: "desiredGrade",
-    });
+      ...(maxGradeDefined && { maxGrade: options.maxGrade }),
+    };
+
+    const errorMessage = maxGradeDefined
+      ? `Tu máxima nota alcanzable es ${options.maxGrade}. Lo que deseas es imposible`
+      : "Lo sentimos, La nota deseada no puede ser alcanzada";
+
+    throw new InvalidInputError(errorMessage, errorFields);
   }
 
   return neededGradePoints / remainingWeight;
+}
+
+/**
+ * Lost points are the points you lose when you do not obtain the maximum grade in a specific component.
+ * */
+export function computeLostPoints(grades: number[], weights: number[]): number {
+  checkGradesAndWeightsLenght(grades, weights);
+
+  const lostPoints = grades.reduce((sum, grade, index) => {
+    const weight = weights[index];
+    return sum + (5 - grade) * weight;
+  }, 0);
+
+  return lostPoints;
 }

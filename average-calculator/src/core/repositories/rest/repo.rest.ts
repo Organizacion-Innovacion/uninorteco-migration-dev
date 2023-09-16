@@ -11,10 +11,13 @@ import {
   PGResponseToPartialComponents,
 } from "./adapters/basic";
 import { AppLogger } from "../../config/logger";
-import { getSemesterCourseType, wasSemesterCourseEvaluated } from "./adapters/utils";
 import { calculatorFacade } from "../../domain-logic/facade";
 import { getSemesterName } from "../../../util/helpers";
 import { EnrollmentAPI } from "./enrollment-api";
+import {
+  getSemesterCourseCharacteristics,
+  wasCourseEvaluated,
+} from "../../domain-logic/course-utils";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("rest-repo");
 
@@ -29,16 +32,16 @@ export class RestCalculatorRepository implements ICalculatorRepository {
   ): Promise<SemesterCourse[]> {
     return semesterCourses.map((sc, index) => {
       const pcs = listOfPartialComponents[index];
-      const wasEvaluated = wasSemesterCourseEvaluated(pcs);
-      const courseType = getSemesterCourseType(sc, pcs);
+      const wasEvaluated = wasCourseEvaluated(pcs);
+      const characteristics = getSemesterCourseCharacteristics(sc, pcs);
       const currentGrade = calculatorFacade.courseFinalGrade(pcs);
 
       return {
         ...sc,
         wasEvaluated,
         isLocked: wasEvaluated,
-        courseType,
         grade: currentGrade,
+        characteristics,
       };
     });
   }

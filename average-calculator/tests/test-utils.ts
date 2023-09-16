@@ -1,3 +1,4 @@
+import { getSemesterCourseCharacteristics } from "../src/core/domain-logic/course-utils";
 import { Course, PartialComponent } from "../src/core/entities/course";
 import { AcademicSemester, SemesterCourse } from "../src/core/entities/semester";
 
@@ -54,14 +55,25 @@ export function createTestAcademicSemester(
     const courseGrade = grades[i];
     const courseCredits = credits[i];
 
-    const course: SemesterCourse = {
+    const baseCourse: SemesterCourse = {
       id: `c-${i + 1}`,
       name: courseName,
       grade: courseGrade,
       credits: courseCredits,
       wasEvaluated: courseGrade >= 0,
       isLocked: isLocked ? isLocked[i] : true,
-      courseType: courseCredits > 0 ? "normal" : "zero-credits",
+      characteristics: new Set(),
+    };
+    // to avoid having the characteristic 'no-components' and 'one-component'
+    const dummyCourse = createTestCourse([3, 0], [90, 10]);
+
+    const characteristics = getSemesterCourseCharacteristics(
+      baseCourse,
+      dummyCourse.components
+    );
+    const course: SemesterCourse = {
+      ...baseCourse,
+      characteristics: characteristics,
     };
 
     courses.push(course);

@@ -1,5 +1,6 @@
 import { InvalidInputError } from "../common/errors";
 import { AcademicSemester, SemesterCourse } from "../entities/semester";
+import { containOnlyValidGrades } from "./course-utils";
 import {
   computeNeededGrade,
   computeWeightedAverage,
@@ -7,11 +8,7 @@ import {
 } from "./utils";
 
 export function computeFinalGradeOfSemester(semester: AcademicSemester) {
-  // compute the final grade of the semester with the normal courses, special courses
-  // may have a different structure that can cause problems ahead
-  const normalCourses = semester.courses.filter(
-    (course) => course.courseType === "normal"
-  );
+  const normalCourses = semester.courses.filter(containOnlyValidGrades);
 
   const grades = normalCourses.map((course) => course.grade);
   const weights = normalCourses.map((course) => course.credits);
@@ -30,11 +27,7 @@ export function computeNeededGradeForSemester(
   semester: AcademicSemester,
   desiredGrade: number
 ): number {
-  // compute the final grade of the semester with the normal courses, special courses
-  // may have a different structure that can cause problems ahead
-  const normalCourses = semester.courses.filter(
-    (course) => course.courseType === "normal"
-  );
+  const normalCourses = semester.courses.filter(containOnlyValidGrades);
 
   // compute average for locked courses
   const lockedComponents = normalCourses.filter((component) => component.isLocked);

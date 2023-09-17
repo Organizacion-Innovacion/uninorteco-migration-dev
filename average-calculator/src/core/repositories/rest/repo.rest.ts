@@ -12,12 +12,12 @@ import {
 } from "./adapters/basic";
 import { AppLogger } from "../../config/logger";
 import { calculatorFacade } from "../../domain-logic/facade";
-import { getSemesterName } from "../../../util/helpers";
 import { EnrollmentAPI } from "./enrollment-api";
 import {
   getSemesterCourseCharacteristics,
   wasCourseEvaluated,
 } from "../../domain-logic/course-utils";
+import { getSemesterName } from "../../common/utils";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("rest-repo");
 

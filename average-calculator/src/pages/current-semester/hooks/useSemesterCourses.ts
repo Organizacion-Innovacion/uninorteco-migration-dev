@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AppLogger } from "../../../core/config/logger";
 import { AcademicSemester, SemesterCourse } from "../../../core/entities/semester";
-import { sortSemesterCoursesByCredits } from "../util/helpers";
+import { sortSemesterCoursesByCredits } from "../../../core/domain-logic/course-utils";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("semester-courses-hook");
 

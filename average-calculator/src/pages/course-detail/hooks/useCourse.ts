@@ -30,7 +30,10 @@ export function useCourse({ courseId }: UseCourseHook) {
         if (error.errorCode === ErrorCode.NOT_FOUND) {
           setFatalError({ error, iconColor: "blue", iconName: "info" });
         } else {
-          setFatalError({ error });
+          setFatalError({
+            error,
+            userMessage: "Hubo un error obteniendo la información de la asignatura",
+          });
         }
       }
     } finally {

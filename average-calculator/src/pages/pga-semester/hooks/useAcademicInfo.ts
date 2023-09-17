@@ -23,7 +23,11 @@ export function useAcademicInfo() {
       setAcademicInfo(currentAcademicInfo);
     } catch (error) {
       if (error instanceof RepositoryError) {
-        setFatalError({ error });
+        setFatalError({
+          error,
+          userMessage:
+            "Hubo un error obteniendo las asignaturas matriculadas. Es posible que no hayas realizado la evaluación docente",
+        });
       }
     } finally {
       setLoadingStatus(false);

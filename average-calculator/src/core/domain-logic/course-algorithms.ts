@@ -4,6 +4,7 @@ import {
   computeWeightedAverage,
   computeNeededGrade,
   computeWeightedAverageGivenTotalWeight,
+  computeMaximumGrade,
 } from "./utils";
 
 export function computeFinalGradeOfCourse(course: Course) {
@@ -42,13 +43,31 @@ export function computeNeededGradeForCourse(
     lockedWeights,
     100
   );
+  const currentGradeRounded = Math.ceil(currentGrade * 10) / 10;
+
+  const unlockedWeights = course.components
+    .filter((component) => !component.isLocked)
+    .map((component) => component.weight);
+
+  const maxPossibleGrade = computeMaximumGrade(
+    lockedGrades,
+    lockedWeights,
+    unlockedWeights
+  );
+  const roundedMaxPossibleGrade = Math.ceil(maxPossibleGrade * 10) / 10;
 
   // Compute the remaining weight
   const remainingWeightAsPercentage = 100 - lockedWeights.reduce((a, b) => a + b, 0);
   const remainingWeight = remainingWeightAsPercentage / 100;
 
   // compute the needed grade
-  const neededGrade = computeNeededGrade(desiredGrade, currentGrade, remainingWeight);
+  const neededGrade = computeNeededGrade(
+    desiredGrade,
+    currentGrade,
+    remainingWeight,
+    0.05,
+    { maxGrade: roundedMaxPossibleGrade, minGrade: currentGradeRounded }
+  );
   const roundedNeededGrade = Math.ceil(neededGrade * 10) / 10;
 
   // it is possible to get a grade of 5.1 because we are ceiling the number.

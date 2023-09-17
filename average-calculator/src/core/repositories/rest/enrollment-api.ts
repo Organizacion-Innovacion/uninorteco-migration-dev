@@ -57,7 +57,6 @@ export class EnrollmentAPI {
   }
 
   private getCoursesUrl(): string {
-    console.log(`username: ${this.username}, period: ${this.period}`);
     if (this.username && this.period) {
       return `/matricula/user/${this.username}/periodo/${this.period}`;
     }

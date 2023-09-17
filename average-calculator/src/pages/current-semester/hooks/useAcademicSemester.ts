@@ -23,10 +23,23 @@ export function useAcademicSemester() {
       const currentAcademicSemester =
         await calculatorRepository.getCurrentAcademicSemester();
       myLogger.info("current semester fetched", { currentAcademicSemester });
-      setAcademicSemester(currentAcademicSemester);
+
+      if (currentAcademicSemester.courses.length === 0) {
+        myLogger.info("no courses found");
+        setFatalError({
+          userMessage:
+            "No se pudo acceder a las asignaturas matriculadas. Es posible que no hayas realizado la evaluación docente",
+        });
+      } else {
+        setAcademicSemester(currentAcademicSemester);
+      }
     } catch (error) {
       if (error instanceof RepositoryError) {
-        setFatalError({ error });
+        setFatalError({
+          error,
+          userMessage:
+            "Hubo un error obteniendo las asignaturas matriculadas. Es posible que no hayas realizado la evaluación docente",
+        });
       }
     } finally {
       setLoadingStatus(false);

@@ -37,6 +37,13 @@ export function usePageToolbar(
           history.push("/");
         },
       },
+      {
+        icon: "graduation",
+        label: "PGA",
+        callback: () => {
+          history.push("/pga");
+        },
+      },
       ...primaryCommands,
     ],
     menuCommands,

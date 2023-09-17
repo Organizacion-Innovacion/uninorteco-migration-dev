@@ -5,11 +5,9 @@ import { setupLogger } from "../util/setup-logger";
 import { withIntl } from "../i18n/ReactIntlProviderWrapper";
 import { MainCardContent } from "./components/MainCardContent";
 import { JwtStore } from "../core/repositories/rest/jwtStore";
-import { setupRepository } from "../util/setup-repository";
 
 // setup logger for card
-setupLogger();
-setupRepository();
+setupLogger("average-calculator-card");
 
 const styles = () => ({
   card: {

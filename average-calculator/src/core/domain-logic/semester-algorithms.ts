@@ -5,6 +5,7 @@ import {
   computeNeededGrade,
   computeWeightedAverage,
   computeWeightedAverageGivenTotalWeight,
+  computeMaximumGrade,
 } from "./utils";
 
 export function computeFinalGradeOfSemester(semester: AcademicSemester) {
@@ -48,6 +49,17 @@ export function computeNeededGradeForSemester(
     lockedCredits,
     totalCredits
   );
+  const currentGradeRounded = Math.floor(currentGrade * 100) / 100;
+
+  const unlockedCredits = normalCourses
+    .filter((component) => !component.isLocked)
+    .map((component) => component.credits);
+  const maxPossibleGrade = computeMaximumGrade(
+    lockedGrades,
+    lockedCredits,
+    unlockedCredits
+  );
+  const roundedMaxPossibleGrade = Math.floor(maxPossibleGrade * 100) / 100;
 
   // Compute the remaining weight
   const remainingWeightAsCredits =
@@ -62,9 +74,11 @@ export function computeNeededGradeForSemester(
     // offset of 0. Computing the needed grade at semester level does not have
     // the same issue as courses have.
     // Here computing a needed grade greater than 5 means that the grade is unreachable
-    0
+    0,
+    { maxGrade: roundedMaxPossibleGrade, minGrade: currentGradeRounded }
   );
 
+  // remember, we are computing the grade for a course, which has a precision of 1 decimal place
   const roundedNeededGrade = Math.ceil(neededGrade * 10) / 10;
   return roundedNeededGrade;
 }

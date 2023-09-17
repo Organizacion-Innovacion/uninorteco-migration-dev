@@ -87,6 +87,7 @@ export function SemesterCourseCard({
               value={semesterCourse.grade}
               onGradeChange={(grade) => onGradeChange(semesterCourse.id, grade)}
               disabled={disableTextField}
+              presicion={1}
             />
           </div>
           {onLockIconPress && (

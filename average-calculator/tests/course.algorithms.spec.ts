@@ -159,12 +159,13 @@ describe("course algorithms", () => {
         expect(error).toBeInstanceOf(InvalidInputError);
         if (error instanceof InvalidInputError) {
           expect(error.errorParams.fieldName).toBe("desiredGrade");
+          expect(error.errorParams.minGrade).toBeCloseTo(3.5);
         }
       }
     });
     it("should throw an error if desired grade is unrechable", () => {
       const desiredGrade = 4.8;
-      // current grade is 3.5
+      // maximun grade is 4.5
       const grades = [5, 4, 0];
       const weights = [30, 50, 20];
       const isLocked = [true, true, false];
@@ -176,6 +177,7 @@ describe("course algorithms", () => {
         expect(error).toBeInstanceOf(InvalidInputError);
         if (error instanceof InvalidInputError) {
           expect(error.errorParams.fieldName).toBe("desiredGrade");
+          expect(error.errorParams.maxGrade).toBeCloseTo(4.5);
         }
       }
     });

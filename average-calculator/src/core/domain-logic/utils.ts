@@ -114,7 +114,7 @@ export function computeNeededGrade(
     };
 
     const errorMessage = minGradeDefined
-      ? `Tu mínima nota alcanzable es ${options.minGrade}. Desear algo menor a esto no tiene sentido`
+      ? `Tu nota actual es ${options.minGrade}. Desear algo menor a esto no tiene sentido`
       : "Lo sentimos, pero la nota deseada causa que tus componentes restantes se vuelvan negativos";
 
     throw new InvalidInputError(errorMessage, errorFields);
@@ -151,4 +151,17 @@ export function computeLostPoints(grades: number[], weights: number[]): number {
   }, 0);
 
   return lostPoints;
+}
+
+export function computeMaximumGrade(
+  lockedGrades: number[],
+  lockedWeights: number[],
+  unlockedWeights: number[]
+): number {
+  const unlockedGrades = Array(unlockedWeights.length).fill(5);
+
+  const grades = [...lockedGrades, ...unlockedGrades];
+  const weights = [...lockedWeights, ...unlockedWeights];
+
+  return computeWeightedAverage(grades, weights);
 }

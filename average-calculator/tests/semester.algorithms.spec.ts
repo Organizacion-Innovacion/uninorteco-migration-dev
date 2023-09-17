@@ -118,7 +118,7 @@ describe("semester algorithms", () => {
     });
     it("should throw an error if desired grade is less than current grade", () => {
       const desiredGrade = 3;
-      // current grade is 3.5
+      // current grade is 3.5, so it is impossible to get 3
       const grades = [5, 4, 0];
       const credits = [3, 5, 2];
       const isLocked = [true, true, false];
@@ -130,11 +130,13 @@ describe("semester algorithms", () => {
         expect(error).toBeInstanceOf(InvalidInputError);
         if (error instanceof InvalidInputError) {
           expect(error.errorParams.fieldName).toBe("desiredGrade");
+          expect(error.errorParams.minGrade).toBeCloseTo(3.5);
         }
       }
     });
     it("should throw an error if desired grade is 4.8 and current grade is 3.5 and remaining weight is 0.2", () => {
       const desiredGrade = 4.8;
+      // maximun grade is 4.5, so it is impossible to get 4.8
       const grades = [5, 4, 0];
       const credits = [3, 5, 2];
       const isLocked = [true, true, false];
@@ -146,6 +148,7 @@ describe("semester algorithms", () => {
         expect(error).toBeInstanceOf(InvalidInputError);
         if (error instanceof InvalidInputError) {
           expect(error.errorParams.fieldName).toBe("desiredGrade");
+          expect(error.errorParams.maxGrade).toBe(4.5);
         }
       }
     });

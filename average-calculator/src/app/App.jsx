@@ -7,7 +7,7 @@ import { JwtStore } from "../core/repositories/rest/jwtStore";
 import { setupRepository } from "../util/setup-repository";
 
 // setup logger for all pages
-setupLogger();
+setupLogger("average-calculator");
 setupRepository();
 
 function App(props) {

@@ -18,17 +18,17 @@ export interface BaseErrorParams {
 }
 
 export class BaseError extends Error {
-  public rawMessage: string;
+  public userMessage: string;
 
   constructor(
-    rawMessage: string,
+    userMessage: string,
     public errorCode: ErrorCode,
     public level: ErrorLevel,
     public errorParams: BaseErrorParams = {}
   ) {
-    super(`[${new Date().toISOString()}] - [${level}] ${rawMessage}`);
+    super(`[${new Date().toISOString()}] - [${level}] ${userMessage}`);
 
-    this.rawMessage = rawMessage;
+    this.userMessage = userMessage;
   }
 }
 

@@ -5,13 +5,10 @@ import PropTypes from "prop-types";
 import React from "react";
 import { useIntl } from "react-intl";
 import { setupLogger } from "../util/setup-logger";
-import { AppLogger } from "../core/config/logger";
 import { withIntl } from "../i18n/ReactIntlProviderWrapper";
 
 // setup logger for card
 setupLogger("grades-card");
-
-const myLogger = AppLogger.getAppLogger().createContextLogger("main card");
 
 const styles = () => ({
   card: {
@@ -25,8 +22,6 @@ const styles = () => ({
 function MainCard(props) {
   const { classes } = props;
   const intl = useIntl();
-
-  myLogger.debug("card template 1");
 
   return (
     <div className={classes.card}>

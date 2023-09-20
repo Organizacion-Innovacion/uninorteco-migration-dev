@@ -1,18 +1,28 @@
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
-import SPANISH_TRANSLATIONS from "../strings/es.json";
 
-// copy from: https://github.com/ellucian-developer/experience-ethos-examples/blob/main/today-classes-lambda/extension/src/i18n/intlUtility.js
-// Our university will probably not have territory translations
+function getAllMessagesFrom(requireContext) {
+  const rawData = requireContext.keys().map(requireContext);
+  const messages = Object.assign({}, ...rawData);
+  return messages;
+}
 
 export const getMessages = (userLocale) => {
-  const baseMessages = SPANISH_TRANSLATIONS;
+  const baseMessages = getAllMessagesFrom(
+    require.context("../strings/es", false, /.json$/)
+  );
 
   try {
     const actionLanguage = userLocale.split(/[-_]/)[0];
-    const localeMessages = require(`../strings/${actionLanguage}.json`);
-    return { ...baseMessages, ...localeMessages };
-  } catch (e) {
+    if (actionLanguage === "en") {
+      const localeMessages = getAllMessagesFrom(
+        require.context("../strings/en", false, /.json$/)
+      );
+      return { ...baseMessages, ...localeMessages };
+    }
+    // This userLocale is not supported.
+    return baseMessages;
+  } catch (error) {
     // This userLocale is not supported.
     return baseMessages;
   }

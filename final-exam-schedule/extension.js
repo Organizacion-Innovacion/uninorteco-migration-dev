@@ -7,7 +7,7 @@ module.exports = {
       source: "./src/cards/MainCard.jsx",
       title: "Examenes Finales",
       displayCardType: "Card Examenes Finales",
-      description: "This is the description of Card Examenes Finales",
+      description: "Los estudiantes pueden ver sus examenes finales en esta tarjeta",
       pageRoute: {
         route: "/",
         excludeClickSelectors: ["a"],

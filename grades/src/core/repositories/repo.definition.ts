@@ -1,5 +1,5 @@
-import { SemesterCourse } from "../entities/courses";
+import { AcademicSemester } from "../entities/courses";
 
 export interface IGradesRepository {
-  getCourses(period: string): Promise<SemesterCourse[]>;
+  getAcademicSemester(period: string): Promise<AcademicSemester>;
 }

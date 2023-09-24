@@ -6,8 +6,9 @@ import {
   PGResponseToPartialComponents,
 } from "./adapters/basic";
 import { EnrollmentAPI } from "./enrollment-api";
-import { PartialComponent, SemesterCourse } from "../../entities/courses";
+import { AcademicSemester, PartialComponent } from "../../entities/courses";
 import { addGradeRelatedInfoToSemesterCourses } from "../../domain-logic/course-utils";
+import { getSemesterName } from "../../common/utils";
 
 export class RestGradesRepository implements IGradesRepository {
   constructor(private readonly enrollmentAPI: EnrollmentAPI) {}
@@ -36,7 +37,7 @@ export class RestGradesRepository implements IGradesRepository {
     return listOfPartialComponents;
   }
 
-  async getCourses(period: string): Promise<SemesterCourse[]> {
+  async getAcademicSemester(period: string): Promise<AcademicSemester> {
     const academicEnrollment = await this.enrollmentAPI.getAcademicEnrollment(period);
     const semesterCourses = AEResponseToSemesterCourses(academicEnrollment);
     const nrcs = semesterCourses.map((sc) => sc.id);
@@ -49,7 +50,14 @@ export class RestGradesRepository implements IGradesRepository {
       listOfPartialComponents
     );
 
-    return semesterCoursesWithGradeInfo;
+    const semesterName = getSemesterName(period);
+
+    const academicSemester: AcademicSemester = {
+      name: semesterName,
+      courses: semesterCoursesWithGradeInfo,
+    };
+
+    return academicSemester;
   }
 
   setUserName(username: string): void {

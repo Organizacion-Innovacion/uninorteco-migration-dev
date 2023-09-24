@@ -9,12 +9,16 @@ const myLogger = AppLogger.getAppLogger().createContextLogger("enrollment-api");
 export class EnrollmentAPI {
   private username?: string;
 
-  private academicEnrollment: { [period: string]: AcademicEnrollmentResponse } = {};
+  private academicEnrollment: {
+    [period: string]: AcademicEnrollmentResponse | undefined;
+  } = {};
 
   private nrcToPartialGradeResponse: {
-    [period: string]: {
-      [nrc: string]: PartialGradeResponse | undefined;
-    };
+    [period: string]:
+      | {
+          [nrc: string]: PartialGradeResponse | undefined;
+        }
+      | undefined;
   } = {};
 
   private async fetchAcademicEnrollement(period: string): Promise<void> {
@@ -85,7 +89,7 @@ export class EnrollmentAPI {
   }
 
   async getAcademicEnrollment(period: string): Promise<AcademicEnrollmentResponse> {
-    if (!this.academicEnrollment) {
+    if (this.academicEnrollment[period] === undefined) {
       await this.fetchAcademicEnrollement(period);
     }
     // We can safely use the ! operator because we know
@@ -100,7 +104,7 @@ export class EnrollmentAPI {
     nrc: string,
     period: string
   ): Promise<PartialGradeResponse> {
-    if (!this.nrcToPartialGradeResponse[nrc]) {
+    if (this.nrcToPartialGradeResponse?.[period]?.[nrc] === undefined) {
       await this.fetchPartialGrades(nrc, period);
     }
     // We can safely use the ! operator because we know

@@ -24,3 +24,10 @@ export interface SemesterCourse extends BaseCourse {
   /** whether the component has been evaluated, which means that the grade is final */
   wasEvaluated: boolean;
 }
+
+export interface AcademicSemester {
+  /** the name of the semester. ex 'Semestre 2021-30' */
+  name: string;
+  /** the courses of the semester */
+  courses: SemesterCourse[];
+}

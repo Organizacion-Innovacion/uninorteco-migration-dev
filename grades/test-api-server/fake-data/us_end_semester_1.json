@@ -1,0 +1,120 @@
+{
+    "coursesResponse": {
+        "codigo": "200",
+        "descripcion": "Se ejecutó correctamente el servicio de consulta matrícula",
+        "resultado": [
+            {
+                "SFRSTCR_CRN": "2777",
+                "SSBSECT_CRSE_TITLE": "ANÁLISIS  DE DATOS EN INGEN I",
+                "SFRSTCR_CREDIT_HR": 4,
+                "PUNTOS": 393.6,
+                "CREDITOS": 81,
+                "(SELECTSHRTTRM_ASTD_CODE_END_OF_TERMESTADOFROMSHRTTRMWHERESHRTTRM_PIDM=SPRIDEN_PIDMANDSHRTTRM_TERM_CODE=SFRSTCR_TERM_CODE)": "ED"
+            },
+            {
+                "SFRSTCR_CRN": "3261",
+                "SSBSECT_CRSE_TITLE": "EXAMEN COMPREHENSIVO I",
+                "SFRSTCR_CREDIT_HR": 0,
+                "PUNTOS": 393.6,
+                "CREDITOS": 81,
+                "(SELECTSHRTTRM_ASTD_CODE_END_OF_TERMESTADOFROMSHRTTRMWHERESHRTTRM_PIDM=SPRIDEN_PIDMANDSHRTTRM_TERM_CODE=SFRSTCR_TERM_CODE)": "ED"
+            },
+            {
+                "SFRSTCR_CRN": "3498",
+                "SSBSECT_CRSE_TITLE": "ALGORITMOS Y COMPLEJIDAD",
+                "SFRSTCR_CREDIT_HR": 3,
+                "PUNTOS": 393.6,
+                "CREDITOS": 81,
+                "(SELECTSHRTTRM_ASTD_CODE_END_OF_TERMESTADOFROMSHRTTRMWHERESHRTTRM_PIDM=SPRIDEN_PIDMANDSHRTTRM_TERM_CODE=SFRSTCR_TERM_CODE)": "ED"
+            },
+            {
+                "SFRSTCR_CRN": "3513",
+                "SSBSECT_CRSE_TITLE": "SEMINARIO DE CARRERA I",
+                "SFRSTCR_CREDIT_HR": 0,
+                "PUNTOS": 393.6,
+                "CREDITOS": 81,
+                "(SELECTSHRTTRM_ASTD_CODE_END_OF_TERMESTADOFROMSHRTTRMWHERESHRTTRM_PIDM=SPRIDEN_PIDMANDSHRTTRM_TERM_CODE=SFRSTCR_TERM_CODE)": "ED"
+            }
+        ]
+    },
+    "nrcResponse": {
+        "2777": {
+            "codigo": "200",
+            "descripcion": "Se ejecutó correctamente el servicio consulta de notas parciales",
+            "resultado": [
+                {
+                    "SHRMRKS_CRN": "2777",
+                    "SHRGCOM_SEQ_NO": 1,
+                    "SHRGCOM_NAME": "PRUEBA 1",
+                    "SHRGCOM_DESCRIPTION": "PRUEBA 1",
+                    "SHRGCOM_WEIGHT": 30,
+                    "NOTA": 4.3,
+                    "NOTAA": "4.3"
+                },
+                {
+                    "SHRMRKS_CRN": "2777",
+                    "SHRGCOM_SEQ_NO": 2,
+                    "SHRGCOM_NAME": "PRUEBA 2",
+                    "SHRGCOM_DESCRIPTION": "PRUEBA 2",
+                    "SHRGCOM_WEIGHT": 70,
+                    "NOTA": 3.5,
+                    "NOTAA": "3.5"
+                }
+            ]
+        },
+        "3261": {
+            "codigo": "200",
+            "descripcion": "Se ejecutó correctamente el servicio consulta de notas parciales",
+            "resultado": [
+                {
+                    "SHRMRKS_CRN": "3261",
+                    "SHRGCOM_SEQ_NO": 1,
+                    "SHRGCOM_NAME": "NOTA FINAL",
+                    "SHRGCOM_DESCRIPTION": "NOTA FINAL",
+                    "SHRGCOM_WEIGHT": 100,
+                    "NOTA": 100,
+                    "NOTAA": "AP"
+                }
+            ]
+        },
+        "3498": {
+            "codigo": "200",
+            "descripcion": "Se ejecutó correctamente el servicio consulta de notas parciales",
+            "resultado": [
+                {
+                    "SHRMRKS_CRN": "3498",
+                    "SHRGCOM_SEQ_NO": 1,
+                    "SHRGCOM_NAME": "PRUEBA 1",
+                    "SHRGCOM_DESCRIPTION": "PRUEBA 1",
+                    "SHRGCOM_WEIGHT": 30,
+                    "NOTA": 5,
+                    "NOTAA": "5"
+                },
+                {
+                    "SHRMRKS_CRN": "3498",
+                    "SHRGCOM_SEQ_NO": 2,
+                    "SHRGCOM_NAME": "PRUEBA 2",
+                    "SHRGCOM_DESCRIPTION": "PRUEBA 2",
+                    "SHRGCOM_WEIGHT": 70,
+                    "NOTA": 4.2,
+                    "NOTAA": "4.2"
+                }
+            ]
+        },
+        "5313": {
+            "codigo": "200",
+            "descripcion": "Se ejecutó correctamente el servicio consulta de notas parciales",
+            "resultado": [
+                {
+                    "SHRMRKS_CRN": "3513",
+                    "SHRGCOM_SEQ_NO": 1,
+                    "SHRGCOM_NAME": "NOTA FINAL",
+                    "SHRGCOM_DESCRIPTION": "NOTA FINAL",
+                    "SHRGCOM_WEIGHT": 100,
+                    "NOTA": 100,
+                    "NOTAA": "AP"
+                }
+            ]
+        }
+    }
+}

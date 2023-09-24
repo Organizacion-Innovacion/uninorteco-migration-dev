@@ -10,7 +10,7 @@ export class JwtStore {
 
   private static _instance: JwtStore;
 
-  private _jwtFunc!: () => string;
+  private _jwtFunc!: () => Promise<string>;
 
   public static getJwtStore(): JwtStore {
     if (!this._instance) this._instance = new JwtStore();
@@ -18,7 +18,7 @@ export class JwtStore {
     return this._instance;
   }
 
-  public setJwtFunc(jwtFunc: () => string): void {
+  public setJwtFunc(jwtFunc: () => Promise<string>): void {
     this._jwtFunc = jwtFunc;
   }
 

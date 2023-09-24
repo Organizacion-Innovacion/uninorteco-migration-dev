@@ -90,6 +90,7 @@ export class EnrollmentAPI {
 
   async getAcademicEnrollment(period: string): Promise<AcademicEnrollmentResponse> {
     if (this.academicEnrollment[period] === undefined) {
+      myLogger.info("academic enrollment not in cache, fetching from api");
       await this.fetchAcademicEnrollement(period);
     }
     // We can safely use the ! operator because we know
@@ -105,6 +106,7 @@ export class EnrollmentAPI {
     period: string
   ): Promise<PartialGradeResponse> {
     if (this.nrcToPartialGradeResponse?.[period]?.[nrc] === undefined) {
+      myLogger.info("partial grade not in cache, fetching from api");
       await this.fetchPartialGrades(nrc, period);
     }
     // We can safely use the ! operator because we know

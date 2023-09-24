@@ -1,0 +1,13 @@
+@baseUrl = http://localhost:3000
+@contentType = application/json
+
+### node .\test-api-server\server.js .\test-api-server\fake-data\us_end_semester_1.json
+GET {{baseUrl}}/matricula/user/pedro/periodo/2010 HTTP/1.1
+
+###
+POST {{baseUrl}}/notas-parciales/ HTTP/1.1
+content-type: {{contentType}}
+
+{
+    "nrc": "5313"
+}

@@ -6,7 +6,7 @@ import { APP_ENV_VARS } from "../../config/app-env-vars";
 const myLogger = AppLogger.getAppLogger().createContextLogger("axios-client");
 
 export const axiosClient = axios.create({
-  baseURL: APP_ENV_VARS.averageCalculatorBaseApiUrl,
+  baseURL: APP_ENV_VARS.baseApiUrl,
   timeout: 5000,
 });
 

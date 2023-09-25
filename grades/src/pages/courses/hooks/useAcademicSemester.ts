@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import { usePageControl } from "@ellucian/experience-extension-utils";
 import { AppLogger } from "../../../core/config/logger";
 import { RepositoryError } from "../../../core/common/errors";
 import { usePageFatalError } from "../../../hooks/usePageFatalError";
@@ -16,13 +15,13 @@ export function useAcademicSemester({ period }: UseAcademicSemesterHook) {
   const [academicSemester, setAcademicSemester] = useState<AcademicSemester | null>(
     null
   );
+  const [isLoading, setLoading] = useState(false);
 
-  const { setLoadingStatus } = usePageControl();
   const { setFatalError } = usePageFatalError();
 
   const loadCurrentSemester = useCallback(async () => {
     myLogger.info("fetching current semester");
-    setLoadingStatus(true);
+    setLoading(true);
     try {
       const currentAcademicSemester = await gradesRepository.getAcademicSemester(
         period
@@ -47,7 +46,7 @@ export function useAcademicSemester({ period }: UseAcademicSemesterHook) {
         });
       }
     } finally {
-      setLoadingStatus(false);
+      setLoading(false);
     }
     // just reload when period changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -60,5 +59,6 @@ export function useAcademicSemester({ period }: UseAcademicSemesterHook) {
 
   return {
     academicSemester,
+    isLoading,
   };
 }

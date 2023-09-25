@@ -17,6 +17,7 @@ export function AECourseToSemesterCourse(aeCourse: AECourse): SemesterCourse {
     wasEvaluated: false,
     // in this adapter we consider that there are no characteristics for the course
     characteristics: new Set(),
+    components: [],
   };
 }
 
@@ -54,7 +55,7 @@ export function PGComponentToPartialComponent(
 
   const partialComponent: PartialComponent = {
     id: `${pgComponent.SHRGCOM_SEQ_NO}`,
-    name: pgComponent.SHRGCOM_DESCRIPTION,
+    name: pgComponent.SHRGCOM_NAME,
     weight: pgComponent.SHRGCOM_WEIGHT,
     grade,
     gradeAsString: gradeAsStr,

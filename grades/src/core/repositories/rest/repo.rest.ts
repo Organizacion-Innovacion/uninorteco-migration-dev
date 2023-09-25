@@ -49,12 +49,22 @@ export class RestGradesRepository implements IGradesRepository {
       semesterCourses,
       listOfPartialComponents
     );
+    const semesterCoursesWithComponents = semesterCoursesWithGradeInfo.map(
+      (sc, index) => {
+        const partialComponents = listOfPartialComponents[index];
+        const semesterCourseWithComponents = {
+          ...sc,
+          components: partialComponents,
+        };
+        return semesterCourseWithComponents;
+      }
+    );
 
     const semesterName = getSemesterName(period);
 
     const academicSemester: AcademicSemester = {
       name: semesterName,
-      courses: semesterCoursesWithGradeInfo,
+      courses: semesterCoursesWithComponents,
     };
 
     return academicSemester;

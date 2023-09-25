@@ -2,7 +2,7 @@ import { BaseCourse, CourseCharacteristic } from "../entities/base-course";
 import { PartialComponent, SemesterCourse } from "../entities/courses";
 
 export function wasCourseEvaluated(components: PartialComponent[]): boolean {
-  return components.every((component) => component.grade > 0);
+  return components.every((component) => component.wasEvaluated);
 }
 
 export function getSemesterCourseCharacteristics(

@@ -23,6 +23,8 @@ export interface SemesterCourse extends BaseCourse {
   credits: number;
   /** whether the component has been evaluated, which means that the grade is final */
   wasEvaluated: boolean;
+  /** the partial components of the course */
+  components: PartialComponent[];
 }
 
 export interface AcademicSemester {

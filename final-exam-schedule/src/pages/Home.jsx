@@ -5,9 +5,7 @@ import React, { useEffect, useState } from "react";
 import { usePageControl } from "@ellucian/experience-extension-utils";
 // import { useIntl } from "react-intl";
 import { calculateDistance } from "../core/common/utils";
-// import { APP_ENV_VARS } from "../core/config/app-env-vars";
 import { AppLogger } from "../core/config/logger";
-// import { CardMessage } from "./components/CardMessage";
 import { withIntl } from "../i18n/ReactIntlProviderWrapper";
 import HeaderComponent from "./components/headerCoponent/HeaderComponent";
 import CardComponent from "./components/cardComponent/CardComponent";
@@ -34,12 +32,10 @@ const Home = (props) => {
   // this will print "home.jsx: the distance is <number>"
   myLogger.debug(`the distance is ${distance}`);
 
-  // start
 
   const [dato, setDato] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  // const [user, setUser] = useState(useUserInfo());
 
   useEffect(() => {
     async function fetchData() {

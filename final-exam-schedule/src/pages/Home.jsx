@@ -11,6 +11,7 @@ import { AppLogger } from "../core/config/logger";
 import { withIntl } from "../i18n/ReactIntlProviderWrapper";
 import HeaderComponent from "./components/headerCoponent/HeaderComponent";
 import CardComponent from "./components/cardComponent/CardComponent";
+import { MyRepository } from "../core/repositories/repo-rest";
 
 // set up a context to help to identify the log messages
 const myLogger = AppLogger.getAppLogger().createContextLogger("home.jsx");
@@ -25,6 +26,7 @@ const Home = (props) => {
   const { classes, data } = props;
   const { setPageTitle } = usePageControl();
   // const intl = useIntl();
+  const myRepository = new MyRepository();
 
   setPageTitle("Horario examenes finales");
 
@@ -39,36 +41,20 @@ const Home = (props) => {
   const [error, setError] = useState(null);
   // const [user, setUser] = useState(useUserInfo());
 
-  const jwt = data.getExtensionJwt();
-  console.log(jwt);
-  // Mueve esta función al inicio para que esté disponible en el alcance
-  async function invokeCustomApi() {
-    const response = await fetch(
-      `https://intunqa.uninorte.edu.co/sba-estudiantes/api/v1/horario-final/dpuchej`,
-      {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${jwt}`,
-        },
-      }
-    );
-    // Retorna la respuesta para que pueda ser utilizada
-    return response.json();
-  }
-
   useEffect(() => {
-    // Utiliza la función invokeCustomApi para realizar la llamada a la API
-    /*  getPidm().then((pidm) => { */
-    invokeCustomApi()
-      .then((dataApi) => {
-        console.log(dataApi.resultado);
+    async function fetchData() {
+      try {
+        await myRepository.fetchFinalExams();
+        const finalExamResponse = await myRepository.getFinalExamResponse();
+        // Resto de tu lógica para procesar los datos
+        // ...
+
+        console.log(finalExamResponse.resultado);
         // Objeto para almacenar los elementos agrupados por fecha
         const grupos = {};
 
         // Itera sobre los elementos y agrúpalos por fecha
-        dataApi.resultado.forEach((item) => {
+        finalExamResponse.resultado.forEach((item) => {
           const fecha = item.FECHA;
           if (!grupos[fecha]) {
             grupos[fecha] = [];
@@ -78,12 +64,13 @@ const Home = (props) => {
         console.log(grupos);
         setDato(grupos);
         setLoading(false);
-      })
-      .catch((errorApi) => {
+      } catch (errorApi) {
         setError(errorApi);
         setLoading(false);
-      });
-    /* }); */
+      }
+    }
+
+    fetchData();
   }, []);
 
   if (loading) {

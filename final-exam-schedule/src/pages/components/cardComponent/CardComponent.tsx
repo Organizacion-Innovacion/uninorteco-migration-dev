@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@ellucian/react-design-system/core/styles";
 import {
@@ -24,7 +24,6 @@ export const CardComponent: React.FC<{
   classRoom: string;
 }> = (props) => {
   const theme = useThemeInfo();
-  const [state, setState] = useState(0);
   const { classes, title, hour, teacher, classRoom } = props;
 
   console.log(theme);

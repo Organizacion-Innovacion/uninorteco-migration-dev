@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { usePageControl } from "@ellucian/experience-extension-utils";
 import { withIntl } from "../i18n/ReactIntlProviderWrapper";
 import { FinalExamService } from "../core/domain-logic/final-exam-domain";
+import { DateTimeService } from "../core/domain-logic/date-services";
 import HeaderComponent from "./components/headerCoponent/HeaderComponent";
 import CardComponent from "./components/cardComponent/CardComponent";
 
@@ -18,7 +19,7 @@ const Home = ({ classes }) => {
   const { setPageTitle } = usePageControl();
   const finalExamService = new FinalExamService();
 
-  setPageTitle("Horario examenes finales");
+  setPageTitle("Horario exámenes finales");
 
   const [dato, setDato] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -51,14 +52,10 @@ const Home = ({ classes }) => {
   return (
     <div className={classes.card}>
       {Object.keys(dato).map((fecha) => {
-        const [dia, mes, año] = fecha.split("/").map(Number);
-        const fechaObj = new Date(año, mes - 1, dia);
-        const options = { weekday: "long" };
-        const nombreDia = new Intl.DateTimeFormat("es-ES", options).format(fechaObj);
-
+        const { dia, month, año, dayName } = DateTimeService.formatDate(fecha);
         return (
           <div key={fecha}>
-            <HeaderComponent day={dia} month={mes} year={año} dayName={nombreDia} />
+            <HeaderComponent day={dia} month={month} year={año} dayName={dayName} />
             {dato[fecha].map((item) => (
               <CardComponent
                 key={item.CODIGO_ESTUDIANTE}

@@ -62,4 +62,19 @@ export class DateTimeService {
 
     return hoursA - hoursB; // Compare hours
   }
+
+  /**
+   * Formatea una fecha en formato "dd/mm/yyyy" en un objeto con propiedades separadas.
+   * @param {string} dateString - La fecha en formato "dd/mm/yyyy".
+   * @returns {object} - Un objeto con propiedades separadas para día, mes, año y nombre del día.
+   */
+  static formatDate(dateString: string) {
+    const [dia, mes, año] = dateString.split("/").map(Number);
+    const fechaObj = new Date(año, mes - 1, dia);
+    const optionsDay: Intl.DateTimeFormatOptions = { weekday: "long" };
+    const optionMonth: Intl.DateTimeFormatOptions = { month: "long" };
+    const nombreDia = new Intl.DateTimeFormat("es-ES", optionsDay).format(fechaObj);
+    const fechaFormateada = fechaObj.toLocaleDateString("es-ES", optionMonth);
+    return { dia, month: fechaFormateada, año, dayName: nombreDia };
+  }
 }

@@ -78,6 +78,8 @@ export class FinalExamService {
 
   private finalExamResponse: FinalExamResponse | null = null;
 
+  private examsLoaded = false;
+
   /**
    * Constructor for the service.
    * Initializes the repository.
@@ -91,9 +93,21 @@ export class FinalExamService {
    */
   private async initializeFinalExamResponse() {
     try {
-      this.finalExamResponse = await this.repository.getAllFinalExams();
+      if (!this.examsLoaded) {
+        this.finalExamResponse = await this.repository.getAllFinalExams();
+        this.examsLoaded = true; // Marcar los exámenes como cargados
+      }
     } catch (error) {
       console.error("Error initializing finalExamResponse:", error);
+    }
+  }
+
+  /**
+   * verify if finalExamResponse is initialized.
+   */
+  private async ensureFinalExamsLoaded(): Promise<void> {
+    if (!this.examsLoaded) {
+      await this.initializeFinalExamResponse();
     }
   }
 
@@ -102,7 +116,7 @@ export class FinalExamService {
    * @returns An object with exams grouped by date and sorted by time or null if there is no data.
    */
   async getGroupExamByDate(): Promise<ObjectFinalExams | null> {
-      await this.initializeFinalExamResponse();
+    await this.ensureFinalExamsLoaded();
 
     try {
       if (!this.finalExamResponse) {
@@ -136,5 +150,4 @@ export class FinalExamService {
       return null;
     }
   }
-
 }

@@ -1,194 +1,21 @@
 import { ExamSortingService } from "../../src/core/domain-logic/final-exam-domain";
-import { FinalExam } from "../../src/core/entities/final-exam";
+import { ObjectFinalExams,FinalExam } from "../../src/core/entities/final-exam";
+import { sampleExams,expectedSampleExams,sampleExamsByDate ,expectedSampleExamsByDate} from "./test-data";
 
 describe("ExamSortingService", () => {
   test("sortExamsByDate sorts exams by date", () => {
-    const exams: FinalExam[] = [
-      {
-        CODIGO_ESTUDIANTE: "123456789",
-        NOMBRE_ESTUDIANTE: "Nombre Apellido",
-        MAT: "IST",
-        CURSO: "7121",
-        SESION: "01",
-        NRC: "2930",
-        DESCRIPCION: "DISEÑO DE SOFTWARE I",
-        PROFESOR: "Profesor Apellido",
-        FECHA: "03/01/2023",
-        DIA: "JUEVES",
-        HORA: "10:30 - 12:30",
-        LUGAR: "BLOQJ1 - 35J",
-      },
-      {
-        CODIGO_ESTUDIANTE: "123456789",
-        NOMBRE_ESTUDIANTE: "Nombre Apellido",
-        MAT: "IST",
-        CURSO: "7081",
-        SESION: "02",
-        NRC: "2926",
-        DESCRIPCION: "SISTEMAS OPERACIONALES",
-        PROFESOR: "Profesor Apellido",
-        FECHA: "02/01/2023",
-        DIA: "MARTES",
-        HORA: "16:30 - 18:30",
-        LUGAR: "BLOQE - 12E",
-      },
-      {
-        CODIGO_ESTUDIANTE: "123456789",
-        NOMBRE_ESTUDIANTE: "Nombre Apellido",
-        MAT: "IST",
-        CURSO: "7420",
-        SESION: "01",
-        NRC: "2938",
-        DESCRIPCION: "OPTIMIZACION",
-        PROFESOR: "Profesor Apellido",
-        FECHA: "01/01/2023",
-        DIA: "VIERNES",
-        HORA: "08:30 - 10:30",
-        LUGAR: "BLOQG - SDU6",
-      },
-    ];
+    const exams: FinalExam[] = sampleExams;
 
-    const sortedExams = ExamSortingService.sortExamsByDate(exams);
+    const sortedExams:FinalExam[] = ExamSortingService.sortExamsByDate(exams);
 
-    expect(sortedExams).toEqual([
-      {
-        CODIGO_ESTUDIANTE: "123456789",
-        NOMBRE_ESTUDIANTE: "Nombre Apellido",
-        MAT: "IST",
-        CURSO: "7420",
-        SESION: "01",
-        NRC: "2938",
-        DESCRIPCION: "OPTIMIZACION",
-        PROFESOR: "Profesor Apellido",
-        FECHA: "01/01/2023",
-        DIA: "VIERNES",
-        HORA: "08:30 - 10:30",
-        LUGAR: "BLOQG - SDU6",
-      },
-      {
-        CODIGO_ESTUDIANTE: "123456789",
-        NOMBRE_ESTUDIANTE: "Nombre Apellido",
-        MAT: "IST",
-        CURSO: "7081",
-        SESION: "02",
-        NRC: "2926",
-        DESCRIPCION: "SISTEMAS OPERACIONALES",
-        PROFESOR: "Profesor Apellido",
-        FECHA: "02/01/2023",
-        DIA: "MARTES",
-        HORA: "16:30 - 18:30",
-        LUGAR: "BLOQE - 12E",
-      },
-      {
-        CODIGO_ESTUDIANTE: "123456789",
-        NOMBRE_ESTUDIANTE: "Nombre Apellido",
-        MAT: "IST",
-        CURSO: "7121",
-        SESION: "01",
-        NRC: "2930",
-        DESCRIPCION: "DISEÑO DE SOFTWARE I",
-        PROFESOR: "Profesor Apellido",
-        FECHA: "03/01/2023",
-        DIA: "JUEVES",
-        HORA: "10:30 - 12:30",
-        LUGAR: "BLOQJ1 - 35J",
-      },
-    ]);
+    expect(sortedExams).toEqual(expectedSampleExams);
   });
 
   test("sortExamsByHour sorts exams by hour within each date", () => {
-    const examsByDate = {
-      "01/01/2023": [
-        {
-          CODIGO_ESTUDIANTE: "123456789",
-          NOMBRE_ESTUDIANTE: "Nombre Apellido",
-          MAT: "IST",
-          CURSO: "7420",
-          SESION: "01",
-          NRC: "2938",
-          DESCRIPCION: "OPTIMIZACION",
-          PROFESOR: "Profesor Apellido",
-          FECHA: "01/01/2023",
-          DIA: "VIERNES",
-          HORA: "08:30 - 10:30",
-          LUGAR: "BLOQG - SDU6",
-        },
-        {
-          CODIGO_ESTUDIANTE: "123456789",
-          NOMBRE_ESTUDIANTE: "Nombre Apellido",
-          MAT: "IST",
-          CURSO: "7081",
-          SESION: "02",
-          NRC: "2926",
-          DESCRIPCION: "SISTEMAS OPERACIONALES",
-          PROFESOR: "Profesor Apellido",
-          FECHA: "01/01/2023",
-          DIA: "MARTES",
-          HORA: "16:30 - 18:30",
-          LUGAR: "BLOQE - 12E",
-        },
-        {
-          CODIGO_ESTUDIANTE: "123456789",
-          NOMBRE_ESTUDIANTE: "Nombre Apellido",
-          MAT: "IST",
-          CURSO: "7121",
-          SESION: "01",
-          NRC: "2930",
-          DESCRIPCION: "DISEÑO DE SOFTWARE I",
-          PROFESOR: "Profesor Apellido",
-          FECHA: "01/01/2023",
-          DIA: "JUEVES",
-          HORA: "10:30 - 12:30",
-          LUGAR: "BLOQJ1 - 35J",
-        },
-      ],
-    };
+    const examsByDate:ObjectFinalExams = sampleExamsByDate;
 
-    const sortedExams = ExamSortingService.sortExamsByHour(examsByDate);
+    const sortedExams:ObjectFinalExams = ExamSortingService.sortExamsByHour(examsByDate);
 
-    expect(sortedExams["01/01/2023"]).toEqual([
-      {
-        CODIGO_ESTUDIANTE: "123456789",
-        NOMBRE_ESTUDIANTE: "Nombre Apellido",
-        MAT: "IST",
-        CURSO: "7420",
-        SESION: "01",
-        NRC: "2938",
-        DESCRIPCION: "OPTIMIZACION",
-        PROFESOR: "Profesor Apellido",
-        FECHA: "01/01/2023",
-        DIA: "VIERNES",
-        HORA: "08:30 - 10:30",
-        LUGAR: "BLOQG - SDU6",
-      },
-      {
-        CODIGO_ESTUDIANTE: "123456789",
-        NOMBRE_ESTUDIANTE: "Nombre Apellido",
-        MAT: "IST",
-        CURSO: "7121",
-        SESION: "01",
-        NRC: "2930",
-        DESCRIPCION: "DISEÑO DE SOFTWARE I",
-        PROFESOR: "Profesor Apellido",
-        FECHA: "01/01/2023",
-        DIA: "JUEVES",
-        HORA: "10:30 - 12:30",
-        LUGAR: "BLOQJ1 - 35J",
-      },
-      {
-        CODIGO_ESTUDIANTE: "123456789",
-        NOMBRE_ESTUDIANTE: "Nombre Apellido",
-        MAT: "IST",
-        CURSO: "7081",
-        SESION: "02",
-        NRC: "2926",
-        DESCRIPCION: "SISTEMAS OPERACIONALES",
-        PROFESOR: "Profesor Apellido",
-        FECHA: "01/01/2023",
-        DIA: "MARTES",
-        HORA: "16:30 - 18:30",
-        LUGAR: "BLOQE - 12E",
-      },
-    ]);
+    expect(sortedExams["01/01/2023"]).toEqual(expectedSampleExamsByDate);
   });
 });

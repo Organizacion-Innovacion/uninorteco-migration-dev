@@ -1,13 +1,14 @@
 import { withStyles } from "@ellucian/react-design-system/core/styles";
 import { spacing40 } from "@ellucian/react-design-system/core/styles/tokens";
-import { Typography } from "@ellucian/react-design-system/core";
 import PropTypes from "prop-types";
-import React,{useEffect} from "react";
+import React, { useEffect, useState } from "react";
 // import { useIntl } from "react-intl";
 import { setupLogger } from "../util/setup-logger";
 import { AppLogger } from "../core/config/logger";
 import { withIntl } from "../i18n/ReactIntlProviderWrapper";
 import { FinalExamService } from "../core/domain-logic/final-exam-domain";
+import NextExam from "../components/nextExam/NextExam";
+import { DividerSectionCard } from "../components/dividerSectionCard/DividerSectionCard";
 
 // setup logger for card
 setupLogger();
@@ -27,16 +28,21 @@ function MainCard(props) {
   const { classes } = props;
   // const intl = useIntl();
   const finalExamService = new FinalExamService();
+  const [exam, setExam] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   myLogger.debug("card examenes finales");
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const exam = await finalExamService.getNextExam();
-        console.log(exam);
-      } catch (error) {
-        console.log(error)
+        const data = await finalExamService.getNextExam();
+        setExam(data);
+        setLoading(false);
+      } catch (errorRepository) {
+        setError(errorRepository);
+        setLoading(false);
       }
     }
 
@@ -44,9 +50,24 @@ function MainCard(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (loading) {
+    return <p>Cargando...</p>;
+  }
+
+  if (error) {
+    return <p>Hubo un error: {error.message}</p>;
+  }
+
   return (
     <div className={classes.card}>
-      <Typography>Horario de Examenes finales</Typography>
+      <DividerSectionCard title="Próximo examen" />
+      <NextExam
+        title={exam.DESCRIPCION}
+        fecha={exam.FECHA}
+        hour={exam.HORA}
+        teacher={exam.PROFESOR}
+        classRoom={exam.LUGAR}
+      />
     </div>
   );
 }

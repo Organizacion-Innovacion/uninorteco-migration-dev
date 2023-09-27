@@ -10,6 +10,7 @@ import { withIntl } from "../i18n/ReactIntlProviderWrapper";
 import HeaderComponent from "./components/headerCoponent/HeaderComponent";
 import CardComponent from "./components/cardComponent/CardComponent";
 import { MyRepository } from "../core/repositories/repo-rest";
+import { FinalExamService } from "../core/domain-logic/final-exam-domain";
 
 // set up a context to help to identify the log messages
 const myLogger = AppLogger.getAppLogger().createContextLogger("home.jsx");
@@ -21,10 +22,11 @@ const styles = () => ({
 });
 
 const Home = (props) => {
-  const { classes, data } = props;
+  const { classes } = props;
   const { setPageTitle } = usePageControl();
   // const intl = useIntl();
   const myRepository = new MyRepository();
+  const finalExamService = new FinalExamService(myRepository);
 
   setPageTitle("Horario examenes finales");
 
@@ -32,33 +34,18 @@ const Home = (props) => {
   // this will print "home.jsx: the distance is <number>"
   myLogger.debug(`the distance is ${distance}`);
 
-
   const [dato, setDato] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
   useEffect(() => {
     async function fetchData() {
       try {
         await myRepository.fetchFinalExams();
-        const finalExamResponse = await myRepository.getFinalExamResponse();
-        // Resto de tu lógica para procesar los datos
-        // ...
-
-        console.log(finalExamResponse.resultado);
-        // Objeto para almacenar los elementos agrupados por fecha
-        const grupos = {};
-
-        // Itera sobre los elementos y agrúpalos por fecha
-        finalExamResponse.resultado.forEach((item) => {
-          const fecha = item.FECHA;
-          if (!grupos[fecha]) {
-            grupos[fecha] = [];
-          }
-          grupos[fecha].push(item);
-        });
-        console.log(grupos);
-        setDato(grupos);
+        const finalExamResponse = await myRepository.getAllFinalExams();
+        const groupedExams = await finalExamService.getGroupExamByDate(
+          finalExamResponse
+        );
+        setDato(groupedExams);
         setLoading(false);
       } catch (errorApi) {
         setError(errorApi);
@@ -67,6 +54,7 @@ const Home = (props) => {
     }
 
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading) {

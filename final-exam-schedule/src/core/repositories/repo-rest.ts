@@ -6,7 +6,7 @@ export class MyRepository {
 
   private FinalExamResponse?: FinalExamResponse;
 
-  async fetchFinalExams() {
+  private async fetchFinalExams() {
     const url = this.getUserName();
     // eslint-disable-next-line no-useless-catch
     try {
@@ -17,7 +17,7 @@ export class MyRepository {
     }
   }
 
-  async getFinalExamResponse(): Promise<FinalExamResponse> {
+  async getAllFinalExams(): Promise<FinalExamResponse> {
     if (!this.FinalExamResponse) {
       await this.fetchFinalExams();
     }

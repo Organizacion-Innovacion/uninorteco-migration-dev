@@ -12,6 +12,7 @@ import { stylesComponent } from "./CardComponentStyles";
 
 type ClassesType = {
   card: string;
+  cardContent:string;
   endText: string;
   centerButton: string;
 };
@@ -31,7 +32,7 @@ export const CardComponent: React.FC<{
   return (
     <Card className={classes.card}>
       <CardHeader title={title} />
-      <CardContent>
+      <CardContent className={classes.cardContent}>
         <Typography>
           <strong>Hora:</strong> {hour}
         </Typography>
@@ -51,6 +52,7 @@ CardComponent.propTypes = {
     centerButton: PropTypes.string.isRequired,
     endText: PropTypes.string.isRequired,
     card: PropTypes.string.isRequired,
+    cardContent:PropTypes.string.isRequired,
   }).isRequired,
   title: PropTypes.string.isRequired,
   hour: PropTypes.string.isRequired,

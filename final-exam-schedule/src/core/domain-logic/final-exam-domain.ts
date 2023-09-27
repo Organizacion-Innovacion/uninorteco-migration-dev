@@ -102,9 +102,8 @@ export class FinalExamService {
    * @returns An object with exams grouped by date and sorted by time or null if there is no data.
    */
   async getGroupExamByDate(): Promise<ObjectFinalExams | null> {
-    if (!this.finalExamResponse) {
       await this.initializeFinalExamResponse();
-    }
+
     try {
       if (!this.finalExamResponse) {
         return null;
@@ -137,4 +136,5 @@ export class FinalExamService {
       return null;
     }
   }
+
 }

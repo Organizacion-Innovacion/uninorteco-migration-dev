@@ -11,7 +11,8 @@ export const stylesComponent = () => ({
   },
 
   mesAno: {
-    textAlign: "right",
+    textAlign: "start",
+    marginLeft:'1rem'
   },
 
   dayName: {

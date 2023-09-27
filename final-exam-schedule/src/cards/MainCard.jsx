@@ -1,4 +1,5 @@
 import { withStyles } from "@ellucian/react-design-system/core/styles";
+import { Typography } from "@ellucian/react-design-system/core";
 import { spacing40 } from "@ellucian/react-design-system/core/styles/tokens";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
@@ -60,14 +61,20 @@ function MainCard(props) {
 
   return (
     <div className={classes.card}>
-      <DividerSectionCard title="Próximo examen" />
-      <NextExam
-        title={exam.DESCRIPCION}
-        fecha={exam.FECHA}
-        hour={exam.HORA}
-        teacher={exam.PROFESOR}
-        classRoom={exam.LUGAR}
-      />
+      {exam ? (
+        <>
+          <DividerSectionCard title="Próximo examen" />
+          <NextExam
+            title={exam.DESCRIPCION}
+            fecha={exam.FECHA}
+            hour={exam.HORA}
+            teacher={exam.PROFESOR}
+            classRoom={exam.LUGAR}
+          />
+        </>
+      ) : (
+        <Typography>No hay exámenes finales disponibles.</Typography>
+      )}
     </div>
   );
 }

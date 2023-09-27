@@ -1,31 +1,13 @@
 import { MyRepository } from "../repositories/repo-rest";
-import { FinalExam, ObjectFinalExams } from "../entities/final-exam";
+import { FinalExam, ObjectFinalExams, FinalExamResponse } from "../entities/final-exam";
 
-export class FinalExamService {
-  constructor(private readonly repository: MyRepository) {}
-
-  // Private method to get exams and sort them by date
-  private async getExamsDateSort(): Promise<FinalExam[] | null> {
-    try {
-      const { resultado: allExams } = await this.repository.getAllFinalExams();
-
-      if (allExams.length === 0) {
-        return null;
-      }
-
-      // Sort exams by date using the dateCompare function
-      allExams.sort((examA, examB) => this.dateCompare(examA.FECHA, examB.FECHA));
-
-      return allExams;
-    } catch (error) {
-      // Handle errors appropriately
-      console.error("Error fetching exams:", error);
-      return null;
-    }
-  }
-
-  // Private method to get the current date in "dd/mm/yyyy" format
-  private getCurrentDate(): string {
+// Class for handling dates and times
+export class DateTimeService {
+  /**
+   * Get the current date in "dd/mm/yyyy" format.
+   * @returns The current date as a formatted string.
+   */
+  static getCurrentDate(): string {
     const currentDate = new Date();
     const day = currentDate.getDate().toString().padStart(2, "0");
     const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
@@ -33,8 +15,13 @@ export class FinalExamService {
     return `${day}/${month}/${year}`;
   }
 
-  // Private method to compare two dates in "dd/mm/yyyy" format
-  private dateCompare(dateOne: string, dateTwo: string): number {
+  /**
+   * Compare two dates in "dd/mm/yyyy" format.
+   * @param dateOne First date to compare.
+   * @param dateTwo Second date to compare.
+   * @returns A number indicating the comparison between the dates.
+   */
+  static dateCompare(dateOne: string, dateTwo: string): number {
     const [dayOne, monthOne, yearOne] = dateOne.split("/").map(Number);
     const [dayTwo, monthTwo, yearTwo] = dateTwo.split("/").map(Number);
 
@@ -46,87 +33,106 @@ export class FinalExamService {
     }
     return dayOne - dayTwo;
   }
+}
 
-  // Private method to sort exams within each date by hour
-  private examsSortByHour(ExamsByDate: ObjectFinalExams) {
-    // Convert the JSON object into an array of dates and exams
-    const examsArray = Object.entries(ExamsByDate).map(([fecha, exams]) => ({
-      fecha,
-      exams,
-    }));
+// Class for sorting exams
+export class ExamSortingService {
+  /**
+   * Sort exams by date.
+   * @param exams Array of exams to be sorted.
+   * @returns An array of exams sorted by date.
+   */
+  static sortExamsByDate(exams: FinalExam[]): FinalExam[] {
+    exams.sort((examA, examB) => DateTimeService.dateCompare(examA.FECHA, examB.FECHA));
+    return exams;
+  }
 
-    // Sort the array by exam time within each date
-    examsArray.forEach(({ exams }) => {
-      exams.sort((examA, examB) => {
-        const timeA = examA.HORA;
-        const timeB = examB.HORA;
-        // Convert time to a format that can be compared (e.g., "10:30" -> 1030)
-        const timeAInt = parseInt(timeA.replace(":", ""), 10);
-        const timeBInt = parseInt(timeB.replace(":", ""), 10);
-        return timeAInt - timeBInt;
-      });
+  /**
+   * Sort exams by hour within each date.
+   * @param examsByDate Object containing exams grouped by date.
+   * @returns An object with exams sorted by date and time.
+   */
+  static sortExamsByHour(examsByDate: ObjectFinalExams): ObjectFinalExams {
+    const sortedExamsObj: ObjectFinalExams = {};
+
+    // Use Object.keys to iterate over object properties
+    Object.keys(examsByDate).forEach((fecha) => {
+      const exams = examsByDate[fecha];
+
+      // Sort exams by hour
+      exams.sort(
+        (examA, examB) =>
+          parseInt(examA.HORA.replace(":", ""), 10) -
+          parseInt(examB.HORA.replace(":", ""), 10)
+      );
+      sortedExamsObj[fecha] = exams;
     });
-
-    // Convert the sorted array back into a JSON object
-    const sortedExamsObj = Object.fromEntries(
-      examsArray.map(({ fecha, exams }) => [fecha, exams])
-    );
 
     return sortedExamsObj;
   }
+}
 
-  // Public method to get exams grouped by date and sorted by time
-  async getGroupExamByDate(): Promise<ObjectFinalExams | null> {
+// Class for managing final exams
+export class FinalExamService {
+  private repository: MyRepository;
+
+  private finalExamResponse: FinalExamResponse | null = null;
+
+  /**
+   * Constructor for the service.
+   * Initializes the repository.
+   */
+  constructor() {
+    this.repository = new MyRepository();
+  }
+
+  /**
+   * Initializes finalExamResponse by fetching data from the repository.
+   */
+  private async initializeFinalExamResponse() {
     try {
-      const allExams: FinalExam[] | null = await this.getExamsDateSort();
-
-      if (allExams === null) {
-        return null;
-      }
-      const ExamsByDate: ObjectFinalExams = {};
-
-      allExams.forEach((item: FinalExam) => {
-        const date: string = item.FECHA;
-        if (!ExamsByDate[date]) {
-          ExamsByDate[date] = [];
-        }
-        ExamsByDate[date].push(item);
-      });
-
-      // Sort exams within each date by time
-      return this.examsSortByHour(ExamsByDate);
+      this.finalExamResponse = await this.repository.getAllFinalExams();
     } catch (error) {
-      // Handle errors appropriately
-      console.error("Error fetching exams:", error);
-      return null;
+      console.error("Error initializing finalExamResponse:", error);
     }
   }
 
-  // Public method to get the closest exam to the current date
-  async getClosestExamToCurrentDate(): Promise<FinalExam | null> {
+  /**
+   * Get exams grouped by date and sorted by time.
+   * @returns An object with exams grouped by date and sorted by time or null if there is no data.
+   */
+  async getGroupExamByDate(): Promise<ObjectFinalExams | null> {
+    if (!this.finalExamResponse) {
+      await this.initializeFinalExamResponse();
+    }
     try {
-      const currentDate = this.getCurrentDate();
-      const { resultado: allExams } = await this.repository.getAllFinalExams();
+      if (!this.finalExamResponse) {
+        return null;
+      }
+
+      const allExams = this.finalExamResponse.resultado;
 
       if (allExams.length === 0) {
         return null;
       }
 
-      let closestDate: FinalExam | null = null;
+      // Sort exams by date
+      const sortedExams = ExamSortingService.sortExamsByDate(allExams);
 
-      // Iterate through exams to find the closest one to the current date
-      allExams.forEach((exam) => {
-        const examDate = exam.FECHA;
-        if (this.dateCompare(examDate, currentDate) > 0) {
-          if (!closestDate || this.dateCompare(examDate, closestDate.FECHA) < 0) {
-            closestDate = exam;
-          }
+      const examsByDate: ObjectFinalExams = {};
+
+      // Group exams by date
+      sortedExams.forEach((item: FinalExam) => {
+        const date: string = item.FECHA;
+        if (!examsByDate[date]) {
+          examsByDate[date] = [];
         }
+        examsByDate[date].push(item);
       });
 
-      return closestDate;
+      // Sort exams by hour within each date
+      return ExamSortingService.sortExamsByHour(examsByDate);
     } catch (error) {
-      // Handle errors appropriately
       console.error("Error fetching exams:", error);
       return null;
     }

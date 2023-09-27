@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { usePageControl } from "@ellucian/experience-extension-utils";
 import { withIntl } from "../i18n/ReactIntlProviderWrapper";
-import { MyRepository } from "../core/repositories/repo-rest";
 import { FinalExamService } from "../core/domain-logic/final-exam-domain";
 import HeaderComponent from "./components/headerCoponent/HeaderComponent";
 import CardComponent from "./components/cardComponent/CardComponent";
@@ -17,8 +16,7 @@ const styles = () => ({
 
 const Home = ({ classes }) => {
   const { setPageTitle } = usePageControl();
-  const myRepository = new MyRepository();
-  const finalExamService = new FinalExamService(myRepository);
+  const finalExamService = new FinalExamService();
 
   setPageTitle("Horario examenes finales");
 
@@ -29,11 +27,7 @@ const Home = ({ classes }) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        await myRepository.fetchFinalExams();
-        const finalExamResponse = await myRepository.getAllFinalExams();
-        const groupedExams = await finalExamService.getGroupExamByDate(
-          finalExamResponse
-        );
+        const groupedExams = await finalExamService.getGroupExamByDate();
         setDato(groupedExams);
         setLoading(false);
       } catch (errorApi) {

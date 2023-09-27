@@ -1,76 +1,7 @@
 import { MyRepository } from "../repositories/repo-rest";
 import { FinalExam, ObjectFinalExams, FinalExamResponse } from "../entities/final-exam";
-
-// Class for handling dates and times
-export class DateTimeService {
-  /**
-   * Get the current date in "dd/mm/yyyy" format.
-   * @returns The current date as a formatted string.
-   */
-  static getCurrentDate(): string {
-    const currentDate = new Date();
-    const day = currentDate.getDate().toString().padStart(2, "0");
-    const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
-    const year = currentDate.getFullYear();
-    return `${day}/${month}/${year}`;
-  }
-
-  /**
-   * Compare two dates in "dd/mm/yyyy" format.
-   * @param dateOne First date to compare.
-   * @param dateTwo Second date to compare.
-   * @returns A number indicating the comparison between the dates.
-   */
-  static dateCompare(dateOne: string, dateTwo: string): number {
-    const [dayOne, monthOne, yearOne] = dateOne.split("/").map(Number);
-    const [dayTwo, monthTwo, yearTwo] = dateTwo.split("/").map(Number);
-
-    if (yearOne !== yearTwo) {
-      return yearOne - yearTwo;
-    }
-    if (monthOne !== monthTwo) {
-      return monthOne - monthTwo;
-    }
-    return dayOne - dayTwo;
-  }
-}
-
-// Class for sorting exams
-export class ExamSortingService {
-  /**
-   * Sort exams by date.
-   * @param exams Array of exams to be sorted.
-   * @returns An array of exams sorted by date.
-   */
-  static sortExamsByDate(exams: FinalExam[]): FinalExam[] {
-    exams.sort((examA, examB) => DateTimeService.dateCompare(examA.FECHA, examB.FECHA));
-    return exams;
-  }
-
-  /**
-   * Sort exams by hour within each date.
-   * @param examsByDate Object containing exams grouped by date.
-   * @returns An object with exams sorted by date and time.
-   */
-  static sortExamsByHour(examsByDate: ObjectFinalExams): ObjectFinalExams {
-    const sortedExamsObj: ObjectFinalExams = {};
-
-    // Use Object.keys to iterate over object properties
-    Object.keys(examsByDate).forEach((fecha) => {
-      const exams = examsByDate[fecha];
-
-      // Sort exams by hour
-      exams.sort(
-        (examA, examB) =>
-          parseInt(examA.HORA.replace(":", ""), 10) -
-          parseInt(examB.HORA.replace(":", ""), 10)
-      );
-      sortedExamsObj[fecha] = exams;
-    });
-
-    return sortedExamsObj;
-  }
-}
+import { DateTimeService } from "./date-services";
+import { ExamSortingService } from "./sort-services";
 
 // Class for managing final exams
 export class FinalExamService {
@@ -95,7 +26,7 @@ export class FinalExamService {
     try {
       if (!this.examsLoaded) {
         this.finalExamResponse = await this.repository.getAllFinalExams();
-        this.examsLoaded = true; // Marcar los exámenes como cargados
+        this.examsLoaded = true; // Mark exams as loaded
       }
     } catch (error) {
       console.error("Error initializing finalExamResponse:", error);
@@ -103,7 +34,7 @@ export class FinalExamService {
   }
 
   /**
-   * verify if finalExamResponse is initialized.
+   * Ensure that final exams are loaded, fetching them from the repository if necessary.
    */
   private async ensureFinalExamsLoaded(): Promise<void> {
     if (!this.examsLoaded) {
@@ -149,5 +80,44 @@ export class FinalExamService {
       console.error("Error fetching exams:", error);
       return null;
     }
+  }
+
+  /**
+   * Get the next upcoming exam.
+   * @returns The closest upcoming exam or null if there are no upcoming exams.
+   */
+  async getNextExam(): Promise<FinalExam | null> {
+    await this.ensureFinalExamsLoaded(); // Ensure exams are loaded before proceeding
+    const groupedExams = await this.getGroupExamByDate();
+    if (!groupedExams) {
+      return null;
+    }
+
+    const currentDate = DateTimeService.getCurrentDate();
+    const currentTime = DateTimeService.getCurrentTime();
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const date in groupedExams) {
+      if (Object.prototype.hasOwnProperty.call(groupedExams, date)) {
+        const exams = groupedExams[date];
+        // Iterate through exams for the current date
+        // eslint-disable-next-line no-restricted-syntax
+        for (const exam of exams) {
+          if (DateTimeService.dateCompare(exam.FECHA, currentDate) === 0) {
+            // This exam is on the same date
+            if (DateTimeService.compareTimes(exam.HORA, currentTime) > 0) {
+              // This exam is in the future
+              return exam;
+            }
+          } else if (DateTimeService.dateCompare(exam.FECHA, currentDate) > 0) {
+            // This exam is in the future
+            return exam;
+          }
+        }
+      }
+    }
+
+    // No upcoming exams found
+    return null;
   }
 }

@@ -1,10 +1,19 @@
+import { withStyles } from "@ellucian/react-design-system/core/styles";
+import { spacing20 } from "@ellucian/react-design-system/core/styles/tokens";
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { usePageControl } from "@ellucian/experience-extension-utils";
+import { withIntl } from "../i18n/ReactIntlProviderWrapper";
 import { MyRepository } from "../core/repositories/repo-rest";
 import { FinalExamService } from "../core/domain-logic/final-exam-domain";
 import HeaderComponent from "./components/headerCoponent/HeaderComponent";
 import CardComponent from "./components/cardComponent/CardComponent";
+
+const styles = () => ({
+  card: {
+    margin: `0 ${spacing20}`,
+  },
+});
 
 const Home = ({ classes }) => {
   const { setPageTitle } = usePageControl();
@@ -76,4 +85,6 @@ Home.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default Home;
+const HomeWithStyles = withStyles(styles)(Home);
+
+export default withIntl(HomeWithStyles);

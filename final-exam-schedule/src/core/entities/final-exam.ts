@@ -22,7 +22,6 @@ export interface FinalExam {
 }
 
 export interface FinalExamResponse {
-  sort(arg0: (examA: any, examB: any) => number): unknown;
   codigo: string;
   descripcion: string;
   resultado: FinalExam[];

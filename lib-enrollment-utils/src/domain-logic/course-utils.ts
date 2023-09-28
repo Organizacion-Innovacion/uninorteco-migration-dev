@@ -1,7 +1,7 @@
 import { Course, CourseCharacteristic } from "../entities/course";
 
 export function wasCourseEvaluated(course: Course): boolean {
-  return course.components.every((component) => component.grade > 0);
+  return course.components.every((component) => component.wasEvaluated);
 }
 
 export function getCourseCharacteristics(course: Course): Set<CourseCharacteristic> {

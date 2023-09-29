@@ -1,12 +1,12 @@
-import { ErrorCode, RepositoryError } from "../common/errors";
-import { AppLogger } from "../config/logger";
+import { ErrorCode, RepositoryError } from "../../common/errors";
+import { AppLogger } from "../../config/logger";
 import { AcademicEnrollmentResponse } from "./entities/academic-enrollment";
 import { PartialGradeRequest, PartialGradeResponse } from "./entities/partial-grades";
 import { AxiosInstance } from "axios";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("enrollment-api");
 
-export class EnrollmentAPI {
+export class EnrollmentRepository {
   private username?: string;
 
   private academicEnrollment: {

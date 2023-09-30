@@ -78,7 +78,7 @@ export function computeWeightedAverageGivenTotalWeight(
   return weightedSum / totalWeight;
 }
 
-export type NeededGradeOptions = {
+type NeededGradeOptions = {
   maxGrade?: number;
   minGrade?: number;
 };

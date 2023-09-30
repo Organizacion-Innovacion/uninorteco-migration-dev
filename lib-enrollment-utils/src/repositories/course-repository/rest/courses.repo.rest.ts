@@ -2,7 +2,7 @@
 /* eslint-disable no-await-in-loop */
 
 import { ErrorCode, RepositoryError } from "../../../common/errors";
-import { AppLogger } from "../../../config/logger";
+import { AppLogger } from "../../logger";
 import { computeFinalGradeOfCourse } from "../../../domain-logic/course-algorithms";
 import {
   getCourseCharacteristics,

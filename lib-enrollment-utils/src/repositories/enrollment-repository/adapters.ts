@@ -1,4 +1,4 @@
-import { AppLogger } from "../../config/logger";
+import { AppLogger } from "../logger";
 import { Course } from "../../entities/course";
 import { PartialComponent } from "../../entities/partial-component";
 import { AECourse, AcademicEnrollmentResponse } from "./entities/academic-enrollment";

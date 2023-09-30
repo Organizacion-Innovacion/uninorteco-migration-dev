@@ -1,5 +1,5 @@
 import { ErrorCode, RepositoryError } from "../../common/errors";
-import { AppLogger } from "../../config/logger";
+import { AppLogger } from "../logger";
 import { AcademicEnrollmentResponse } from "./entities/academic-enrollment";
 import { PartialGradeRequest, PartialGradeResponse } from "./entities/partial-grades";
 import { AxiosInstance } from "axios";

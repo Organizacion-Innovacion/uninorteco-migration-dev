@@ -1,7 +1,7 @@
 import axios from "axios";
+import { AppLogger } from "../config/logger";
 import { JwtStore } from "./jwtStore";
-import { AppLogger } from "../../config/logger";
-import { APP_ENV_VARS } from "../../config/app-env-vars";
+import { APP_ENV_VARS } from "../config/app-env-vars";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("axios-client");
 

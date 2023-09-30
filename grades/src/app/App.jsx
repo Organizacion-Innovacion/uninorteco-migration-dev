@@ -4,7 +4,7 @@ import { setupLogger } from "../util/setup-logger";
 import { AppRouter } from "./Routes";
 import { withIntl } from "../i18n/ReactIntlProviderWrapper";
 import { setupRepository } from "../util/setup-repository";
-import { JwtStore } from "../core/repositories/rest/jwtStore";
+import { JwtStore } from "../core/insfractructure/jwtStore";
 
 // setup logger for all pages
 setupLogger("grades");

@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import { AppLogger } from "../../../core/config/logger";
-import { RepositoryError } from "../../../core/common/errors";
+import { RepositoryError } from "@uninorte/enrollment-utils/common";
 import { usePageFatalError } from "../../../hooks/usePageFatalError";
 import { AcademicSemester } from "../../../core/entities/courses";
 import { gradesRepository } from "../../../core/repositories/repository-factory";
+import { AppLogger } from "../../../core/config/logger";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("academic-semester-hook");
 

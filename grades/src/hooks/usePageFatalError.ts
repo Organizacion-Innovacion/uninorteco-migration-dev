@@ -1,5 +1,5 @@
 import { usePageControl } from "@ellucian/experience-extension-utils";
-import { BaseError } from "../core/common/errors";
+import { BaseError } from "@uninorte/enrollment-utils/common";
 import { AppLogger } from "../core/config/logger";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("fatal-error-hook");

@@ -1,8 +1,8 @@
 import React from "react";
 import { TabLayout } from "../../components/TabLayout";
 import { TabContent, useTabLayout } from "../../components/TabLayout/useTabLayout";
-import { getSemesterName } from "../../core/common/utils";
 import { CoursesSection } from "./CoursesSection";
+import { getSemesterName } from "../../core/helpers";
 
 export interface CoursesPageContentProps {
   periods: string[];

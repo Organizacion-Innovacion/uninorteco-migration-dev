@@ -3,8 +3,6 @@ import React from "react";
 import { usePageControl } from "@ellucian/experience-extension-utils";
 import { CoursesPageContent } from "./CoursesPageContent";
 
-// set up a context to help to identify the log messages
-
 const styles = () => ({
   page: {
     display: "flex",

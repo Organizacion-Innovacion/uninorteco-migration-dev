@@ -100,6 +100,8 @@
     "camelcase": 0,
     "max-classes-per-file": "off",
     "react/require-default-props": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/no-unresolved": "off",
     "no-use-before-define": [
       "error",
       {

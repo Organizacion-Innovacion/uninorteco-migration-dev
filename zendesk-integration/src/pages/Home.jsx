@@ -1,5 +1,7 @@
 import { withStyles } from "@ellucian/react-design-system/core/styles";
 import { spacing20 } from "@ellucian/react-design-system/core/styles/tokens";
+import debounce from "lodash.debounce";
+
 import {
   Typography,
   TextField,
@@ -34,12 +36,12 @@ const styles = () => ({
     display: "inline-flex",
     justifyContent: "center",
     alignItems: "center",
-    padding: "10px 20px", // Ajusta el padding según tus necesidades
-    borderRadius: "50%", // Esto hará que los bordes sean 100% redondeados
-    backgroundColor: "#f0f0f0", // Ajusta el color de fondo según tus necesidades
-    color: "#000", // Ajusta el color del texto según tus necesidades
-    fontSize: "14px", // Ajusta el tamaño de la fuente según tus necesidades
-    fontWeight: "bold", // Ajusta el grosor de la fuente según tus necesidades
+    padding: "10px 20px",
+    borderRadius: "50%",
+    backgroundColor: "#f0f0f0",
+    color: "#000",
+    fontSize: "14px",
+    fontWeight: "bold",
   },
 });
 
@@ -49,8 +51,8 @@ const HomePage = (props) => {
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(() => {
-    if (searchQuery.trim() === "") {
+  const debouncedSearch = debounce((query) => {
+    if (query.trim() === "") {
       setResults([]);
       return;
     }
@@ -59,23 +61,25 @@ const HomePage = (props) => {
     setError(null);
 
     axios
-      .get(`http://localhost:3000/api/proxy?query=${encodeURIComponent(searchQuery)}`)
+      .get(
+        `https://zendeks-server-bc3f690fa2db.herokuapp.com/api/proxy?query=${encodeURIComponent(
+          searchQuery
+        )}`
+      )
+
       .then((response) => {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        setResults(response.data);
-        console.log("results: ", response.data);
-
         const flatResults = response.data.map((result) => result.results).flat();
-
-        console.log("flatResults: ", flatResults);
         setLoading(false);
         setResults(flatResults);
       })
       .catch((err) => {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         setError(err);
         setLoading(false);
       });
+  }, 300);
+
+  useEffect(() => {
+    debouncedSearch(searchQuery);
   }, [searchQuery]);
   const { classes } = props;
   const { setPageTitle } = usePageControl();
@@ -100,6 +104,10 @@ const HomePage = (props) => {
       {error && (
         <div className="error">Error: there was an error loading the content</div>
       )}
+      {!loading && !error && results.length === 0 && (
+        <div>No se encontraron resultados para su búsqueda.</div>
+      )}
+
       {!results && (
         <CardMessage
           title="¿Tienes preguntas?"
@@ -133,28 +141,6 @@ const HomePage = (props) => {
                 </CardContent>
               </Card>
             </div>
-
-            // <div
-            //   key={result.id}
-            //   style={{
-            //     backgroundColor: "#f2f2f2",
-            //     borderRadius: "5px",
-            //     padding: "10px",
-            //     margin: " 10px",
-            //     width: "300px",
-            //   }}
-            // >
-            //   <p>
-            //     <strong>Título: </strong>
-            //     {result.title}
-            //   </p>
-            //   <p>
-            //     <strong>contenido: </strong>
-            //     {React.createElement("div", {
-            //       dangerouslySetInnerHTML: { __html: result.body },
-            //     })}
-            //   </p>
-            // </div>
           ))}
         </div>
       )}

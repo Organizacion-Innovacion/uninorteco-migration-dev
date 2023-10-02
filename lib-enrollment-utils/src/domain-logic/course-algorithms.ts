@@ -8,7 +8,17 @@ import {
   computeMaximumGrade,
 } from "./generic";
 
+/**
+ * computes the final grade of a course
+ *
+ * if the final grade could not be computed, it will return -1
+ * if the course has no components, it will return 0
+ */
 export function computeFinalGradeOfCourse(course: Course) {
+  if (course.characteristics.has("contain-invalid-grade")) {
+    return -1;
+  }
+
   const grades = course.components.map((component) => component.grade);
   const weights = course.components.map((component) => component.weight);
 

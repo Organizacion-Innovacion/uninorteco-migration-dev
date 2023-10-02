@@ -11,7 +11,9 @@ export interface Course {
   id: string;
   /** the name of the course */
   name: string;
-  /** the current grade of course. The grade you have accumulated up to now */
+  /**
+   * the current grade of the course. The grade you have accumulated up to now. if grade is equal to -1 it means that the grade could not be computed
+   * */
   grade: number;
   /** course credits */
   credits: number;

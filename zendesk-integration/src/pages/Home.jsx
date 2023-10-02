@@ -78,9 +78,36 @@ const HomePage = (props) => {
       });
   }, 300);
 
+  const mapUrlToTitle = (url) => {
+    const FAQ_SOCIALS = "https://uninorteco.zendesk.com/";
+    const FAQ_OFE = "https://ofeuninorteco.zendesk.com/";
+    const FAQ_ADMISIONS = "https://admisionesuninorteco.zendesk.com/";
+    const FAQ_ENGINEERS = "https://ingenieriauninorte.zendesk.com/";
+    const MOQ = "https://moquninorteco.zendesk.com/";
+
+    // the url has some other data, need to match only the first part
+    if (url.includes(FAQ_SOCIALS)) {
+      return "Derecho y ciencias políticas";
+    }
+    if (url.includes(FAQ_OFE)) {
+      return "OFE";
+    }
+    if (url.includes(FAQ_ADMISIONS)) {
+      return "Admisiones";
+    }
+    if (url.includes(FAQ_ENGINEERS)) {
+      return "Ingenierías";
+    }
+    if (url.includes(MOQ)) {
+      return "MOQ";
+    }
+    return "General";
+  };
+
   useEffect(() => {
     debouncedSearch(searchQuery);
   }, [searchQuery]);
+
   const { classes } = props;
   const { setPageTitle } = usePageControl();
   const intl = useIntl();
@@ -130,7 +157,7 @@ const HomePage = (props) => {
                       <Typography variant="h4" id={`${customId}_Typography0`}>
                         {result.title}
                       </Typography>
-                      {/* <p className={classes.chip}>{result.url}</p> */}
+                      <p className={classes.chip}>{mapUrlToTitle(result.url)}</p>
                     </>
                   }
                 />

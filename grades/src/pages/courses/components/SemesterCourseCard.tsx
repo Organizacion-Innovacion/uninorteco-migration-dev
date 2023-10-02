@@ -22,7 +22,13 @@ export function getGradeRepresentationOfComponent(component: PartialComponent) {
   return component.gradeAsString;
 }
 
+const bgCardColor = "#1d1d1b";
+const fgCardColor = "#fcfcfc";
+
 export function SemesterCourseCard({ semesterCourse }: SemesterCourseCardProps) {
+  const { wasEvaluated, grade: finalGrade } = semesterCourse;
+  const showFinalGrade = wasEvaluated && finalGrade !== -1;
+
   return (
     <BaseCard
       sx={{
@@ -34,16 +40,20 @@ export function SemesterCourseCard({ semesterCourse }: SemesterCourseCardProps) 
         gap: 0,
       }}
     >
-      <Stack sx={{ flexDirection: "row", width: "100%", p: 4 }}>
+      <Stack
+        sx={{ flexDirection: "row", width: "100%", p: 4, backgroundColor: bgCardColor }}
+      >
         <Stack sx={{ flexGrow: 1 }}>
-          <Typography variant="h4">{semesterCourse.name}</Typography>
-          <Typography variant="body2" color="textSecondary">
+          <Typography variant="h4" sx={{ color: fgCardColor }}>
+            {semesterCourse.name}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" sx={{ color: fgCardColor }}>
             Créditos: {semesterCourse.credits}
           </Typography>
         </Stack>
         <Stack sx={{ flexDirection: "row", alignItems: "center" }}>
-          <Typography variant="body1" sx={{ mr: 2 }}>
-            N/A
+          <Typography variant="body1" sx={{ mr: 2, color: fgCardColor }}>
+            {showFinalGrade ? `${finalGrade.toFixed(1)}` : "N/A"}
           </Typography>
         </Stack>
       </Stack>

@@ -9,6 +9,8 @@ import {
   Card,
   CardContent,
   CardHeader,
+  DropdownItem,
+  Dropdown,
 } from "@ellucian/react-design-system/core";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
@@ -37,11 +39,15 @@ const styles = () => ({
     justifyContent: "center",
     alignItems: "center",
     padding: "10px 20px",
-    borderRadius: "50%",
+    // borderRadius: "0",
     backgroundColor: "#f0f0f0",
-    color: "#000",
+    color: "gray",
     fontSize: "14px",
     fontWeight: "bold",
+  },
+  inputs: {
+    display: "flex",
+    gap: spacing20,
   },
 });
 
@@ -118,15 +124,44 @@ const HomePage = (props) => {
   // this will print "home.jsx: the distance is <number>"
   myLogger.debug(`the distance is ${distance}`);
   const customId = "VisuallyAccentedCard";
+
+  // Estado para rastrear la categoría seleccionada
+  const [selectedCategory, setSelectedCategory] = useState("General");
+
+  // Extraer categorías únicas de los resultados
+  const uniqueCategories = [
+    ...new Set(results.map((result) => mapUrlToTitle(result.url))),
+  ];
+
+  const handleCategoryChange = (event) => {
+    setSelectedCategory(event.target.value);
+  };
+
+  const filteredResults = results.filter(
+    (result) =>
+      mapUrlToTitle(result.url) === selectedCategory || selectedCategory === "General"
+  );
+
   return (
     <div className={classes.card}>
-      <TextField
-        label="Buscar"
-        variant="outlined"
-        style={{ marginBottom: "2rem" }}
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-      />
+      <div className={classes.inputs}>
+        <TextField
+          label="Buscar"
+          variant="outlined"
+          style={{ marginBottom: "2rem" }}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <Dropdown value={selectedCategory} onChange={handleCategoryChange}>
+          <DropdownItem value="General">General</DropdownItem>
+          {uniqueCategories.map((category) => (
+            <DropdownItem key={category} value={category}>
+              {category}
+            </DropdownItem>
+          ))}
+        </Dropdown>
+      </div>
+
       {loading && <CircularProgress aria-valuetext="Retreiving data" />}
       {error && (
         <div className="error">Error: there was an error loading the content</div>
@@ -144,7 +179,7 @@ const HomePage = (props) => {
       )}
       {results && (
         <div className="results">
-          {results?.map((result) => (
+          {filteredResults?.map((result) => (
             <div className={classes.container} id={`${customId}_GridContainer`}>
               <Card
                 className={classes.card}

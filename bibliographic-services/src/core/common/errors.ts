@@ -32,7 +32,7 @@ export class BaseError extends Error {
   }
 }
 
-export class RepositoryError extends BaseError {
+export class APIError extends BaseError {
   constructor(
     message: string,
     errorCode: ErrorCode,

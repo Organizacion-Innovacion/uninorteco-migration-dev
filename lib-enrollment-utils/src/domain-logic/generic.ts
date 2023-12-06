@@ -1,5 +1,12 @@
 import { DomainError, ErrorCode, InvalidInputError } from "../common/errors";
 
+/**
+ * Validates a grade to ensure it is within the range of 0 to 5.
+ * Throws a DomainError if the grade is outside the valid range.
+ *
+ * @param grade - The grade to validate.
+ * @throws {@link DomainError} If the grade is not within the range of 0 to 5.
+ */
 export function validateGrade(grade: number): void {
   if (grade < 0 || grade > 5) {
     throw new DomainError(
@@ -9,6 +16,14 @@ export function validateGrade(grade: number): void {
   }
 }
 
+/**
+ * Checks if the grades and weights arrays have values greater than 0.
+ * Throws a DomainError if either of the arrays is empty.
+ *
+ * @param grades - The array of grades.
+ * @param weights - The array of weights.
+ * @throws {@link DomainError} - If either the grades or weights array is empty.
+ */
 function checkGradesAndWeightsGt0(grades: number[], weights: number[]): void {
   if (grades.length === 0 || weights.length === 0) {
     throw new DomainError(
@@ -18,6 +33,14 @@ function checkGradesAndWeightsGt0(grades: number[], weights: number[]): void {
   }
 }
 
+/**
+ * Checks if the lengths of the grades and weights arrays are equal.
+ * Throws a DomainError if the lengths are not equal.
+ *
+ * @param grades - The array of grades.
+ * @param weights - The array of weights.
+ * @throws {@link DomainError} - If the lengths of grades and weights are not equal.
+ */
 function checkGradesAndWeightsLenght(grades: number[], weights: number[]): void {
   if (grades.length !== weights.length) {
     throw new DomainError(
@@ -30,8 +53,8 @@ function checkGradesAndWeightsLenght(grades: number[], weights: number[]): void 
 /**
  * Given a list of grades and a list of weights, compute the weighted average.
  *
- * @param grades the list of grades. grades are between 0 and 5
- * @param weights the list of weights. weigths can be any number, but they must be positive
+ * @param grades - the list of grades. grades are between 0 and 5
+ * @param weights - the list of weights. weigths can be any number, but they must be positive
  * @returns the weighted average
  */
 export function computeWeightedAverage(grades: number[], weights: number[]): number {
@@ -54,9 +77,9 @@ export function computeWeightedAverage(grades: number[], weights: number[]): num
  *
  * Both grades and weights can be empty.
  *
- * @param grades the list of grades. grades are between 0 and 5.
- * @param weights the list of weights. weigths can be any number, but they must be positive
- * @param totalWeight the total weight of the components
+ * @param grades - the list of grades. grades are between 0 and 5.
+ * @param weights - the list of weights. weigths can be any number, but they must be positive
+ * @param totalWeight - the total weight of the components
  * @returns the weighted average
  */
 export function computeWeightedAverageGivenTotalWeight(
@@ -78,19 +101,21 @@ export function computeWeightedAverageGivenTotalWeight(
   return weightedSum / totalWeight;
 }
 
-type NeededGradeOptions = {
+export type NeededGradeOptions = {
   maxGrade?: number;
   minGrade?: number;
 };
 
 /**
- * Given my current grade, a desired final grade and the remaining percentage of the course/semester to be evaluated, what is the grade I need to obtain in the remaining components to obtain the necessary points to raise my current grade to the desired final grade?
+ * Compute the needed grade to obtain a desired final grade. The needed grade can be explained as follows:
  *
- * @param desiredGrade the desired final grade.
- * @param currentGrade the current grade.
- * @param remainingWeight the remaining weight of the course/semester to be evaluated. Weight is a number between 0 and 1.
- * @param offset a small number to avoid throwing an error of imposible to reach the desired grade, but the grade is actually possible to reach. this happen when you are to near to the maximum grade posible of a component.
- * @returns the grade I need to obtain in the remaining components to obtain the necessary points to raise my current grade to the desired final grade
+ * Given my current grade, a desired final grade and the remaining percentage of the course/semester to be evaluated, what is the grade I need in the remaining components to obtain the necessary points to raise my current grade to the desired final grade?
+ *
+ * @param desiredGrade - the desired final grade.
+ * @param currentGrade - the current grade.
+ * @param remainingWeight - the remaining weight of the course/semester to be evaluated. Weight is a number between 0 and 1.
+ * @param offset - a small number to avoid throwing an error of imposible to reach the desired grade, but the grade is actually possible to reach. This happen when you are too near to the maximum grade posible of a component.
+ * @returns the grade I need to in the remaining components to obtain the necessary points to raise my current grade to the desired final grade
  */
 export function computeNeededGrade(
   desiredGrade: number,
@@ -101,7 +126,7 @@ export function computeNeededGrade(
 ): number {
   if (remainingWeight === 0) {
     // if remaining weight is 0 is because we did not perform validations
-    // on above layers. Posible errors can be a unlocked component with zero weight
+    // on above layers. Posible errors can be an unlocked component with zero weight
     // which should not be possible
     throw new DomainError("El peso restante no puede ser 0", ErrorCode.INVALID_LOGIC);
   }
@@ -140,7 +165,13 @@ export function computeNeededGrade(
 }
 
 /**
- * Lost points are the points you lose when you do not obtain the maximum grade in a specific component.
+ * Lost points are the points you lose when you do not obtain the maximum grade in a specific component. Example:
+ *
+ * If you have a component with a weight of 0.2 and you obtain a grade of 4.5, you lose 0.1 points.
+ *
+ * @param grades - the list of grades. grades are between 0 and 5.
+ * @param weights - the list of weights. weigths can be any number, but they must be positive
+ * @returns the lost points
  * */
 export function computeLostPoints(grades: number[], weights: number[]): number {
   checkGradesAndWeightsLenght(grades, weights);
@@ -154,7 +185,11 @@ export function computeLostPoints(grades: number[], weights: number[]): number {
 }
 
 /**
- * Given a list of grades and a list of weights, compute the maximum grade.
+ * Compute the maximum grade in a course/semester. This is maximum grade you can archive at specific point in the course/semester if in all the remaining components you obtain the maximum grade (5)
+ *
+ * @param grades - the list of grades. grades are between 0 and 5.
+ * @param lockedWeights - the list of weights of the components that are locked. weigths can be any number, but they must be positive
+ * @param unlockedWeights - the list of weights of the components that are unlocked. weigths can be any number, but they must be positive
  */
 export function computeMaximumGrade(
   lockedGrades: number[],

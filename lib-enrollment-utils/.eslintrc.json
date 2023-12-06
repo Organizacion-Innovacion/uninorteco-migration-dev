@@ -15,7 +15,12 @@
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended"
       ],
+      "plugins": [
+        "@typescript-eslint/eslint-plugin",
+        "eslint-plugin-tsdoc"
+      ],
       "rules": {
+        "tsdoc/syntax": "warn",
         "@typescript-eslint/explicit-module-boundary-types": 0,
         "@typescript-eslint/no-explicit-any": 0,
         "no-useless-constructor": 0

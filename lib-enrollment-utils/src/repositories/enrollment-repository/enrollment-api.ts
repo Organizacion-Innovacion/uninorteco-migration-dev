@@ -1,8 +1,8 @@
+import { AxiosInstance } from "axios";
 import { ErrorCode, RepositoryError } from "../../common/errors";
 import { AppLogger } from "../logger";
 import { AcademicEnrollmentResponse } from "./entities/academic-enrollment";
 import { PartialGradeRequest, PartialGradeResponse } from "./entities/partial-grades";
-import { AxiosInstance } from "axios";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("enrollment-api");
 

@@ -1,0 +1,83 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/recommended",
+    "airbnb",
+    "prettier"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parser": "@typescript-eslint/parser",
+      "extends": [
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
+      ],
+      "rules": {
+        "@typescript-eslint/explicit-module-boundary-types": 0,
+        "@typescript-eslint/no-explicit-any": 0,
+        "no-useless-constructor": 0
+      },
+      "parserOptions": {
+        "project": [
+          "./tsconfig.json"
+        ] // Specify it only for TypeScript files
+      }
+    }
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    },
+    "requireConfigFile": false,
+    "sourceType": "module"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".ts"
+        ]
+      }
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "rules": {
+    "no-unused-vars": "warn",
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": "error",
+    "import/prefer-default-export": 0,
+    "no-console": "off",
+    "func-names": "off",
+    "no-process-exit": "off",
+    "object-shorthand": "off",
+    "class-methods-use-this": "off",
+    "object-curly-newline": "off",
+    "camelcase": 0,
+    "max-classes-per-file": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/no-unresolved": "off",
+    "no-use-before-define": [
+      "error",
+      {
+        "functions": false,
+        "classes": false
+      }
+    ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "ts": "never"
+      }
+    ]
+  }
+}

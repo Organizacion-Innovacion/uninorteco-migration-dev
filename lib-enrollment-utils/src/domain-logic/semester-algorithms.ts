@@ -8,6 +8,13 @@ import {
   computeMaximumGrade,
 } from "./generic";
 
+/**
+ * Computes the final grade of a semester based on the grades and credits of the
+ * courses. Courses with invalid grades are ignored. If there are no courses, 0 is returned.
+ *
+ * @param courses - An array of Course objects representing the courses taken in the semester.
+ * @returns The final grade of the semester.
+ */
 export function computeFinalGradeOfSemester(courses: Course[]) {
   const normalCourses = courses.filter(containOnlyValidGrades);
 
@@ -24,6 +31,15 @@ export function computeFinalGradeOfSemester(courses: Course[]) {
   return financeSemesterGrade;
 }
 
+/**
+ * Computes the needed grade for a semester. Explanation about the needed grade can
+ * be found in the {@link computeNeededGrade} generic function.
+ *
+ * @param courses - An array of Course objects representing the courses taken in the semester.
+ * @param desiredGrade - The desired grade for the semester.
+ * @returns The needed grade to achieve the desired grade in the semester.
+ * @throws {@link InvalidInputError} If all courses are locked.
+ */
 export function computeNeededGradeForSemester(
   courses: Course[],
   desiredGrade: number
@@ -78,11 +94,19 @@ export function computeNeededGradeForSemester(
     { maxGrade: roundedMaxPossibleGrade, minGrade: currentGradeRounded }
   );
 
-  // remember, we are computing the grade for a course, which has a precision of 1 decimal place
+  // remember, we are computing the needed grade for a course, which has a precision of 1 decimal place
   const roundedNeededGrade = Math.ceil(neededGrade * 10) / 10;
   return roundedNeededGrade;
 }
 
+/**
+ * Replaces the grade of unlocked courses with the given grade.
+ *
+ * @param courses - An array of Course objects representing the courses taken in the semester.
+ * @param grade - The grade to replace the unlocked courses with.
+ * @returns A new array of Course objects with the grade of unlocked courses replaced with the given grade.
+ *
+ */
 export function replaceGradeOfUnLockedCourses(courses: Course[], grade: number) {
   const newCourses = courses.map((course) => {
     if (!course.isLocked) {

@@ -2,7 +2,6 @@ import { DomainError, ErrorCode, InvalidInputError } from "../common/errors";
 
 /**
  * Validates a grade to ensure it is within the range of 0 to 5.
- * Throws a DomainError if the grade is outside the valid range.
  *
  * @param grade - The grade to validate.
  * @throws {@link DomainError} If the grade is not within the range of 0 to 5.
@@ -18,7 +17,6 @@ export function validateGrade(grade: number): void {
 
 /**
  * Checks if the grades and weights arrays have values greater than 0.
- * Throws a DomainError if either of the arrays is empty.
  *
  * @param grades - The array of grades.
  * @param weights - The array of weights.
@@ -35,7 +33,6 @@ function checkGradesAndWeightsGt0(grades: number[], weights: number[]): void {
 
 /**
  * Checks if the lengths of the grades and weights arrays are equal.
- * Throws a DomainError if the lengths are not equal.
  *
  * @param grades - The array of grades.
  * @param weights - The array of weights.
@@ -53,8 +50,8 @@ function checkGradesAndWeightsLenght(grades: number[], weights: number[]): void 
 /**
  * Given a list of grades and a list of weights, compute the weighted average.
  *
- * @param grades - the list of grades. grades are between 0 and 5
- * @param weights - the list of weights. weigths can be any number, but they must be positive
+ * @param grades - The list of grades. grades are between 0 and 5
+ * @param weights - The list of weights. weigths can be any number, but they must be positive
  * @returns the weighted average
  */
 export function computeWeightedAverage(grades: number[], weights: number[]): number {
@@ -73,14 +70,14 @@ export function computeWeightedAverage(grades: number[], weights: number[]): num
 
 /**
  * Given a list of grades and a list of weights, compute the weighted average.
- * This function is different from computeWeightedAverage because it takes the total weight as a parameter. This is useful when you want to compute the weighted average of a subset of components.
+ * This function is different from {@link computeWeightedAverage} because it takes the total weight as a parameter. This is useful when you want to compute the weighted average of a subset of components.
  *
  * Both grades and weights can be empty.
  *
- * @param grades - the list of grades. grades are between 0 and 5.
- * @param weights - the list of weights. weigths can be any number, but they must be positive
- * @param totalWeight - the total weight of the components
- * @returns the weighted average
+ * @param grades - The list of grades. grades are between 0 and 5.
+ * @param weights - The list of weights. weigths can be any number, but they must be positive
+ * @param totalWeight - The total weight of the components
+ * @returns The weighted average
  */
 export function computeWeightedAverageGivenTotalWeight(
   grades: number[],
@@ -111,11 +108,13 @@ export type NeededGradeOptions = {
  *
  * Given my current grade, a desired final grade and the remaining percentage of the course/semester to be evaluated, what is the grade I need in the remaining components to obtain the necessary points to raise my current grade to the desired final grade?
  *
- * @param desiredGrade - the desired final grade.
- * @param currentGrade - the current grade.
- * @param remainingWeight - the remaining weight of the course/semester to be evaluated. Weight is a number between 0 and 1.
- * @param offset - a small number to avoid throwing an error of imposible to reach the desired grade, but the grade is actually possible to reach. This happen when you are too near to the maximum grade posible of a component.
- * @returns the grade I need to in the remaining components to obtain the necessary points to raise my current grade to the desired final grade
+ * @param desiredGrade - The desired final grade of the course/semester
+ * @param currentGrade - The current grade of the course/semester
+ * @param remainingWeight - The remaining weight of the course/semester to be evaluated. Weight is a number between 0 and 1.
+ * @param offset - A small number to avoid throwing an error of imposible to reach the desired grade, but the grade is actually possible to reach. This happen when you are too near to the maximum grade posible of a component.
+ * @returns The grade I need in the remaining components to obtain the necessary points to raise my current grade to the desired final grade
+ * @throws {@link InvalidInputError} - If the desired grade is less than the current grade
+ * @throws {@link InvalidInputError} - If the desired grade is greater than the maximum grade posible
  */
 export function computeNeededGrade(
   desiredGrade: number,
@@ -165,13 +164,13 @@ export function computeNeededGrade(
 }
 
 /**
- * Lost points are the points you lose when you do not obtain the maximum grade in a specific component. Example:
+ * Compute the lost points using the grades and weights of a course/semester. Lost points can be explained as follows:
  *
- * If you have a component with a weight of 0.2 and you obtain a grade of 4.5, you lose 0.1 points.
+ * Lost points are the points you lose when you do not obtain the maximum grade in a specific component. Example: If you have a component with a weight of 0.2 and you obtain a grade of 4.5, you lose 0.1 points of the final grade in the course/semester.
  *
- * @param grades - the list of grades. grades are between 0 and 5.
- * @param weights - the list of weights. weigths can be any number, but they must be positive
- * @returns the lost points
+ * @param grades - The list of grades. grades are between 0 and 5.
+ * @param weights - The list of weights. weigths can be any number, but they must be positive
+ * @returns The lost points
  * */
 export function computeLostPoints(grades: number[], weights: number[]): number {
   checkGradesAndWeightsLenght(grades, weights);
@@ -185,11 +184,14 @@ export function computeLostPoints(grades: number[], weights: number[]): number {
 }
 
 /**
- * Compute the maximum grade in a course/semester. This is maximum grade you can archive at specific point in the course/semester if in all the remaining components you obtain the maximum grade (5)
+ * Compute the maximum grade in a course/semester. The maximum grade is the highest grade you can archive at specific point in the semester if in all the remaining components you obtain the maximum grade posible (5)
  *
- * @param grades - the list of grades. grades are between 0 and 5.
- * @param lockedWeights - the list of weights of the components that are locked. weigths can be any number, but they must be positive
- * @param unlockedWeights - the list of weights of the components that are unlocked. weigths can be any number, but they must be positive
+ * @param lockedGrades - The list of grades of the components that are locked.
+ * grades are between 0 and 5
+ * @param lockedWeights - The list of weights of the components that are locked.
+ * weigths can be any number, but they must be positive
+ * @param unlockedWeights - The list of weights of the components that are unlocked. weigths can be any number, but they must be positive
+ * @returns The maximum grade
  */
 export function computeMaximumGrade(
   lockedGrades: number[],

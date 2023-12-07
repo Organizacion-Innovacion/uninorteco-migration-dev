@@ -9,10 +9,13 @@ import {
 } from "./generic";
 
 /**
- * computes the final grade of a course
+ * Computes the final grade of a course based on its components' grades and weights.
+ * If the course contains an invalid grade, -1 is returned.
+ * If the course has no components, 0 is returned.
+ * The final grade is rounded to 1 decimal place.
  *
- * if the final grade could not be computed, it will return -1
- * if the course has no components, it will return 0
+ * @param course - The course object containing components' grades and weights.
+ * @returns The final grade of the course.
  */
 export function computeFinalGradeOfCourse(course: Course) {
   if (course.characteristics.has("contain-invalid-grade")) {
@@ -32,6 +35,15 @@ export function computeFinalGradeOfCourse(course: Course) {
   return finalGrade;
 }
 
+/**
+ * Computes the needed grade for a course. Explanation about the needed grade can
+ * be found in the {@link computeNeededGrade} generic function.
+ *
+ * @param course - The course object containing the components and their grades.
+ * @param desiredGrade - The desired grade for the course.
+ * @returns The needed grade to achieve the desired grade in the course.
+ * @throws {@link InvalidInputError} If all components of the course are locked.
+ */
 export function computeNeededGradeForCourse(
   course: Course,
   desiredGrade: number
@@ -90,6 +102,14 @@ export function computeNeededGradeForCourse(
   return roundedNeededGrade;
 }
 
+/**
+ * Replaces the grade of unlocked components in an array of partial components.
+ *
+ * @param components - The array of partial components.
+ * @param grade - The new grade to replace with.
+ * @returns A new array of partial components with the grade replaced for
+ * unlocked components.
+ */
 export function replaceGradeOfUnLockedComponents(
   components: PartialComponent[],
   grade: number

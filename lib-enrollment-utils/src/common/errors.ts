@@ -1,4 +1,4 @@
-type ErrorLevel = "domain" | "repository" | "presentation";
+export type ErrorLevel = "domain" | "repository" | "presentation";
 
 export enum ErrorCode {
   INVALID_INPUT = "invalid-input",

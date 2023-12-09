@@ -17,3 +17,7 @@ npm run docs
 ```
 
 The documentation will be generated in the `docs` folder. To see the documentation, open the `index.html` file in the `docs` folder. It's recommended to use live server VS Code extension to see the documentation.
+
+## Library Usage
+
+It is recommended to use the unit tests as a guide to use the library. The unit tests are located in the `tests` folder.

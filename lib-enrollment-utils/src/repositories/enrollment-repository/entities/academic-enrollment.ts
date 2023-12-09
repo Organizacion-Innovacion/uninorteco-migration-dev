@@ -6,7 +6,6 @@
  *
  * Math.floor((PUNTOS / CREDITOS) * 100) / 100
  */
-
 export interface AECourse {
   /** course's nrc  */
   SFRSTCR_CRN: string;

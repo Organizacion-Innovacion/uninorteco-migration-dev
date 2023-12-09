@@ -34,9 +34,19 @@ export function addGradeRelatedInfoToCourse(course: Course): Course {
   };
 }
 
+/**
+ * Repository that retrieves courses from the enrollment API.
+ */
 export class RestCourseRepository implements ICourseRepository {
   constructor(private readonly enrollmentAPI: EnrollmentRepository) {}
 
+  /**
+   * Retrieves the partial components of all NRCs for a given period.
+   *
+   * @param nrc - An array of NRCs
+   * @param period - The period for which to retrieve the partial components.
+   * @returns A promise that resolves to a 2D array of partial components for each NRC.
+   */
   private async getPartialComponentsOfAllNrc(
     nrc: string[],
     period: string
@@ -61,6 +71,14 @@ export class RestCourseRepository implements ICourseRepository {
     return listOfPartialComponents;
   }
 
+  /**
+   * Retrieves the courses for a given period, including their partial components
+   * and grade information.
+   *
+   * @param period - The period for which to retrieve the courses.
+   * @returns A promise that resolves to an array of courses with their partial
+   * components and grade information.
+   */
   async getCourses(period: string): Promise<Course[]> {
     const academicEnrollment = await this.enrollmentAPI.getAcademicEnrollment(period);
     const courses = AEResponseToCourses(academicEnrollment);
@@ -82,6 +100,16 @@ export class RestCourseRepository implements ICourseRepository {
     return coursesWithGradeInfo;
   }
 
+  /**
+   * Retrieves a specific course for a given period, including its
+   * partial components and grade information.
+   *
+   * @param courseIdentifier - The identifier of the course to retrieve.
+   * @param period - The period for which to retrieve the course.
+   * @returns A promise that resolves to the course with its partial components
+   * and grade information.
+   * @throws {@link RepositoryError} if the course is not found or if no partial components are found for the course.
+   */
   async getCourse(courseIdentifier: string, period: string): Promise<Course> {
     const academicEnrollment = await this.enrollmentAPI.getAcademicEnrollment(period);
     const courses = AEResponseToCourses(academicEnrollment);

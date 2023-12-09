@@ -2,10 +2,11 @@
  * data definitions for following api endpoint
  * /api/v1/notas-parciales
  *
- * if NOTA is 0, that means that the component has not been evaluated yet
+ * if NOTA is 0, that means that the component probably has not been evaluated yet
+ *
  * if NOTAA is "---", that means that the component has not been evaluated yet
+ * (prefer to use this one)
  */
-
 export interface PGComponent {
   /** course's nrc  */
   SHRMRKS_CRN: string;

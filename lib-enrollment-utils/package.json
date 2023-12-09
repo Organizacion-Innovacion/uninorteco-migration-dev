@@ -39,7 +39,7 @@
     "build": "tsup",
     "test": "jest -c ./jest.unit.json --verbose --runInBand",
     "lint": "eslint --ext .ts,.js ./src",
-    "docs": "typedoc --out ./docs ./src/index.ts"
+    "docs": "typedoc --out ./docs ./src/common/index.ts ./src/entities/index.ts ./src/domain-logic/index.ts ./src/repositories/index.ts"
   },
   "keywords": [],
   "author": "uninorte",

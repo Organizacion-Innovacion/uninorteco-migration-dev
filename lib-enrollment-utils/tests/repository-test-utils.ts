@@ -32,7 +32,7 @@ const axiosClient = axios.create({
 });
 
 const testEnrollmentRawDataClient: EnrollmentRawDataClient = {
-  async getCourses(period) {
+  async getAcademicEnrollmentResponse(period) {
     const username = "dpuchej";
     const url = `/matricula/user/${username}/periodo/${period}`;
     const { data } = await axiosClient.get<AcademicEnrollmentResponse>(url);

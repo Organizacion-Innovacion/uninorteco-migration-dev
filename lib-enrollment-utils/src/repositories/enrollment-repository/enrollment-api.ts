@@ -1,14 +1,12 @@
-import { AxiosInstance } from "axios";
 import { ErrorCode, RepositoryError } from "../../common/errors";
 import { AppLogger } from "../logger";
 import { AcademicEnrollmentResponse } from "./entities/academic-enrollment";
-import { PartialGradeRequest, PartialGradeResponse } from "./entities/partial-grades";
+import { PartialGradeResponse } from "./entities/partial-grades";
+import { EnrollmentRawDataClient } from "./enrollment-api.definition";
 
 const myLogger = AppLogger.getAppLogger().createContextLogger("enrollment-api");
 
 export class EnrollmentRepository {
-  private username?: string;
-
   private academicEnrollment: {
     [period: string]: AcademicEnrollmentResponse | undefined;
   } = {};
@@ -21,12 +19,11 @@ export class EnrollmentRepository {
       | undefined;
   } = {};
 
-  constructor(private axiosClient: AxiosInstance) {}
+  constructor(private rawDataClient: EnrollmentRawDataClient) {}
 
   private async fetchAcademicEnrollement(period: string): Promise<void> {
-    const url = this.getCoursesUrl(period);
     try {
-      const { data } = await this.axiosClient.get<AcademicEnrollmentResponse>(url);
+      const data = await this.rawDataClient.getCourses(period);
       this.academicEnrollment[period] = data;
     } catch (error) {
       // posible 500 error or no internet connection
@@ -41,10 +38,8 @@ export class EnrollmentRepository {
   }
 
   private async fetchPartialGrades(nrc: string, period: string): Promise<void> {
-    const url = "/notas-parciales";
-    const body = this.getPartiaGradeBody(nrc, period);
     try {
-      const { data } = await this.axiosClient.post<PartialGradeResponse>(url, body);
+      const data = await this.rawDataClient.getPartialGrades(nrc, period);
       this.nrcToPartialGradeResponse[period] = {
         ...this.nrcToPartialGradeResponse[period],
         [nrc]: data,
@@ -63,31 +58,6 @@ export class EnrollmentRepository {
         { nrc: nrc }
       );
     }
-  }
-
-  private getCoursesUrl(period: string): string {
-    if (this.username) {
-      return `/matricula/user/${this.username}/periodo/${period}`;
-    }
-
-    throw new RepositoryError(
-      "username must be set",
-      ErrorCode.APPLICATION_INTEGRITY_ERROR
-    );
-  }
-
-  private getPartiaGradeBody(nrc: string, period: string): PartialGradeRequest {
-    if (this.username) {
-      return {
-        user: this.username,
-        periodo: period,
-        nrc,
-      };
-    }
-    throw new RepositoryError(
-      "username must be set",
-      ErrorCode.APPLICATION_INTEGRITY_ERROR
-    );
   }
 
   async getAcademicEnrollment(period: string): Promise<AcademicEnrollmentResponse> {
@@ -116,9 +86,5 @@ export class EnrollmentRepository {
     // the nrcToPartialGradeResponse property or throw an error
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return this.nrcToPartialGradeResponse[period]![nrc]!;
-  }
-
-  setUserName(username: string): void {
-    this.username = username;
   }
 }

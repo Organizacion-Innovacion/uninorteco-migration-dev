@@ -121,8 +121,4 @@ export class RestCourseRepository implements ICourseRepository {
 
     return courseWithGradeInfo;
   }
-
-  setUserName(username: string): void {
-    this.enrollmentAPI.setUserName(username);
-  }
 }

@@ -28,9 +28,3 @@ export interface PartialGradeResponse {
   descripcion: string;
   resultado: PGComponent[];
 }
-
-export interface PartialGradeRequest {
-  user: string;
-  nrc: string;
-  periodo: string;
-}

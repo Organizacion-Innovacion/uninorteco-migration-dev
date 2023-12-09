@@ -1,6 +1,23 @@
 import { getCourseCharacteristics } from "../src/domain-logic/course-utils";
 import { Course } from "../src/entities/course";
 import { PartialComponent } from "../src/entities/partial-component";
+import { ILogger, AppLogger } from "../src/repositories/logger";
+
+const simpleLogger: ILogger = {
+  error: (message, meta) => {
+    console.log(`ERROR: ${message}`, meta);
+  },
+  warn: (message, meta) => {
+    console.log(`WARN: ${message}`, meta);
+  },
+  info: (message, meta) => {
+    console.log(`INFO: ${message}`, meta);
+  },
+  debug: (message, meta) => {
+    console.log(`DEBUG: ${message}`, meta);
+  },
+};
+AppLogger.getAppLogger().setLogger(simpleLogger);
 
 export type AcademicSemester = {
   name: string;

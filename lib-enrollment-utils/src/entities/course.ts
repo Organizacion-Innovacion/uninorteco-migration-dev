@@ -7,7 +7,7 @@ export type CourseCharacteristic =
   | "one-component";
 
 export interface Course {
-  /** the id of the course */
+  /** the id of the course, also known as the nrc */
   id: string;
   /** the name of the course */
   name: string;

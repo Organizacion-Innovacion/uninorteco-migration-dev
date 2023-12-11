@@ -20,6 +20,16 @@
       "require": "./dist/repositories.js",
       "import": "./dist/repositories.js",
       "types": "./dist/repositories.d.ts"
+    },
+    "./domain-logic": {
+      "require": "./dist/domain-logic.js",
+      "import": "./dist/domain-logic.js",
+      "types": "./dist/domain-logic.d.ts"
+    },
+    "./entities": {
+      "require": "./dist/entities.js",
+      "import": "./dist/entities.js",
+      "types": "./dist/entities.d.ts"
     }
   },
   "typesVersions": {
@@ -32,6 +42,12 @@
       ],
       "repositories": [
         "dist/repositories.d.ts"
+      ],
+      "domain-logic": [
+        "dist/domain-logic.d.ts"
+      ],
+      "entities": [
+        "dist/entities.d.ts"
       ]
     }
   },

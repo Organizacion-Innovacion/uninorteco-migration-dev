@@ -1,5 +1,13 @@
 import { PartialComponent } from "./partial-component";
 
+/**
+ * Course characteristics allows to classify courses and perform differents
+ * actions based on them.
+ * no-components: the course has no components, exmaple: error fetching partial components
+ * zero-credits: the course has zero credits, example: mandatory english courses, extra-academic courses
+ * contain-invalid-grade: the course has a component with an invalid grade, example: seminario de vida, which contains PA, NA, etc
+ * one-component: the course has only one component, example: seminario de vida, practica profesional
+ */
 export type CourseCharacteristic =
   | "no-components"
   | "zero-credits"
